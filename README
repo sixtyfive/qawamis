@@ -1,4 +1,68 @@
-RECIPES
-["core", "deployment", "devise", "email", "extras", "frontend", "gems", "git", "init", "learn_rails", "locale", "omniauth", "pages", "rails_bootstrap", "rails_devise", "rails_devise_pundit", "rails_foundation", "rails_mailinglist_signup", "rails_omniauth", "rails_signup_download", "railsapps", "readme", "roles", "setup", "tests"]
-PREFERENCES
-{:git=>true, :apps4=>"rails-devise", :authentication=>"devise", :authorization=>false, :better_errors=>true, :deployment=>"none", :local_env_file=>false, :pry=>false, :quiet_assets=>true, :pages=>"users", :locale=>"none", :dev_webserver=>"thin", :prod_webserver=>"thin", :database=>"sqlite", :templates=>"haml", :tests=>"none", :frontend=>"bootstrap3", :email=>"none", :devise_modules=>"default", :form_builder=>"simple_form"}
+Rootsearch
+========================
+
+This application was generated with the rails_apps_composer gem:
+https://github.com/RailsApps/rails_apps_composer
+provided by the RailsApps Project:
+http://railsapps.github.io/
+
+________________________
+
+Recipes:
+
+* core
+* deployment
+* devise
+* email
+* extras
+* frontend
+* gems
+* git
+* init
+* learn_rails
+* locale
+* omniauth
+* pages
+* rails_bootstrap
+* rails_devise
+* rails_devise_pundit
+* rails_foundation
+* rails_mailinglist_signup
+* rails_omniauth
+* rails_signup_download
+* railsapps
+* readme
+* roles
+* setup
+* tests
+
+Preferences:
+
+* git: true
+* apps4: rails-devise
+* authentication: devise
+* authorization: false
+* better_errors: true
+* deployment: none
+* local_env_file: false
+* pry: false
+* quiet_assets: true
+* pages: users
+* locale: none
+* dev_webserver: thin
+* prod_webserver: thin
+* database: sqlite
+* templates: haml
+* tests: none
+* frontend: bootstrap3
+* email: none
+* devise_modules: default
+* form_builder: simple_form
+* rvmrc: false
+* ban_spiders: true
+* jsruntime: true
+* github: true
+
+________________________
+
+License
