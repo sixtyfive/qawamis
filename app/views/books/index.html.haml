@@ -1,0 +1,4 @@
+#books
+  - @books.each do |book|
+    .book
+      = image_tag(Page.first_with_content(book).image_file)
