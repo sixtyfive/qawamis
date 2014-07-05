@@ -1,0 +1,2 @@
+module ArabicRootsHelper
+end

@@ -7,7 +7,14 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to 'Home', root_path, class: 'navbar-brand'
+      = link_to 'Erste Seite', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
-        = render 'layouts/navigation_links'
+        %ul#search_history
+          #root_search
+            = simple_form_for books_path, :method => :get do |f|
+              = f.input(:search, input_html: {tabindex: 1})
+              = button_tag(type: 'submit', class: 'btn btn-primary') do
+                - content_tag(:i, class: 'icon-ok icon-white')
+                - 'Search'
+

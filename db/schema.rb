@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140705132757) do
+ActiveRecord::Schema.define(version: 20140705154737) do
+
+  create_table "arabic_roots", force: true do |t|
+    t.string   "name"
+    t.integer  "book_id"
+    t.integer  "start_page"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "arabic_roots", ["book_id"], name: "index_arabic_roots_on_book_id"
+
+  create_table "books", force: true do |t|
+    t.string   "name"
+    t.integer  "number_of_pages"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "first_content_page"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

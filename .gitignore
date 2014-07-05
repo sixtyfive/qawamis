@@ -10,6 +10,9 @@
 # http://github.com/RailsApps/rails-composer/issues
 #----------------------------------------------------------------------------
 
+# the actual books
+app/assets/images/books/*
+
 # bundler state
 /.bundle
 /vendor/bundle/
