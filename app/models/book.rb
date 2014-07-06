@@ -1,8 +1,7 @@
 class Book < ActiveRecord::Base
   has_many :arabic_roots
 
-  # has_many :pages
-
+  # Poor man's "has_many :pages"
   def pages
     pages_ary = []
     (0...self.number_of_pages).each do |p|

@@ -12,9 +12,8 @@
       %ul.nav.navbar-nav
         %ul#search_history
           #root_search
-            = simple_form_for books_path, :method => :get do |f|
-              = f.input(:search, input_html: {tabindex: 1})
+            = simple_form_for(@page, :method => :get) do |f|
+              = f.input(:search_string, input_html: {tabindex: 1})
               = button_tag(type: 'submit', class: 'btn btn-primary') do
                 - content_tag(:i, class: 'icon-ok icon-white')
-                - 'Search'
-
+                - 'Suchen'

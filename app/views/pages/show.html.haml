@@ -1,0 +1,5 @@
+#book
+  = link_to(image_tag('arrow_left.svg'), "/#{@book.name}/#{@page.previous.number}", {class: 'arrow page'})
+  #current_page.page
+    = image_tag(@page.image_file)
+  = link_to(image_tag('arrow_right.svg'), "/#{@book.name}/#{@page.next.number}", {class: 'arrow page'})

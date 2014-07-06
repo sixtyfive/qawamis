@@ -1,6 +1,6 @@
 class Page
   include ActiveModel::Model
-  attr_accessor :book_id, :number
+  attr_accessor :book_id, :number, :search_string
 
   # belongs_to :book
 
@@ -21,6 +21,14 @@ class Page
   end
 
   # activerecord methods
+  
+  def previous
+    number == 0 ? self : Page.new(book_id: book.id, number: number-1)
+  end
+  
+  def next
+    number == book.number_of_pages-1 ? self : Page.new(book_id: book.id, number: number+1)
+  end
 
   def self.first(book)
     Page.new(book_id: book.id, number: 0)
@@ -31,6 +39,7 @@ class Page
   end
 
   def self.find(book, id)
+    id = id.to_i
     if (id > book.number_of_pages || id < 0)
       raise "Couldn't find Page with 'id'=#{id}"
     else
@@ -38,31 +47,12 @@ class Page
     end
   end
 
-  def self.find_by_arabic_root(book, search_string)
-    # First, remove anything that might get in the way.
-    search_string = remove_vocalisation_from_arabic_string(search_string)
-    if r = ArabicRoot.find_by_name(search_string)
-      # The easiest case: the search string matches an existing entry point precisely.
-      # No further processing needs to be done.
-      return Page.find(book, r.start_page)
+  def self.find_by_search_string(book, string)
+    page = Page.new(book_id: book.id, search_string: string)
+    if page.number = number_for_arabic_root(string)
+      return page
     else
-      # No entry point has been found with the search string as-is. 
-      # The remaining possibilities:
-      # - user has entered three radicals
-      # - user has entered four radicals
-      # - user has entered a word
-      # - user has entered something nonsensical
-      if r = ArabicRoot.find_by_name(simplify_hamzas_in_arabic_string(search_string))
-        # The latter case is the easiest, as only extraneous hamzas need to be stripped
-        # from the first letter and inner-word hamzas as well as hamzas on the last letter
-        # need to be reduced to free-standing ones.
-        return Page.find(book, r.start_page)
-      elsif r = ArabicRoot.find_by_name(extract_root_from_arabic_string(search_string))
-        # The only thing left to try is to make an attempt at extracting the root ourselves.
-        return Page.find(book, r.start_page)
-      else
-        raise "Couldn't find Page with 'arabic_root'=#{search_string}"
-      end
+      raise "Couldn't find Page with 'arabic_root'=#{string}"
     end
   end
 
@@ -71,19 +61,10 @@ class Page
   end
 
   private
-
-  def remove_vocalisation_from_arabic_string(string)
-    # TODO: Implement me!
-    string
-  end
-
-  def simplify_hamzas_in_arabic_string(string)
-    # TODO: Implement me!
-    string
-  end
-
-  def extract_root_from_arabic_string(string)
-    # TODO: Implement me!
-    string
+  
+  def self.number_for_arabic_root(string)
+    if r = ArabicRoot.find_by_search_string(string)
+      return r.start_page
+    end
   end
 end
