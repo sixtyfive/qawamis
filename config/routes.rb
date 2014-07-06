@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
-  resources :arabic_roots
-
-  resources :books
-
-  root to: 'books#index'
-  devise_for :users
-  resources :users
+  root 'pages#show'
+  resources :pages
+  get '/:name/:number', to: 'pages#show'
+  get '/:search_string', to: 'pages#find'
 end
