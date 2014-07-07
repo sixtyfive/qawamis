@@ -1,5 +1,4 @@
-#book
-  = link_to(image_tag('arrow_left.svg'), "/#{@book.name}/#{@page.previous.number}", {class: 'arrow page'})
-  #current_page.page
-    = image_tag(@page.image_file)
-  = link_to(image_tag('arrow_right.svg'), "/#{@book.name}/#{@page.next.number}", {class: 'arrow page'})
+#book{data: {id: @book.id, number_of_pages: @book.number_of_pages, first_numbered_page: @book.first_numbered_page}}
+  = link_to(image_tag('arrow_left.svg'), "/#{@book.name}/#{@page.previous.id}", {class: 'arrow page left'})
+  = image_tag(@page.image_file, {class: 'page'})
+  = link_to(image_tag('arrow_right.svg'), "/#{@book.name}/#{@page.next.id}", {class: 'arrow page right'})
