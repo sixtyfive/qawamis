@@ -4,7 +4,7 @@ class Page
 
   # associations
 
-  def book; @book || @book = Book.find(book_id); end      # belongs_to :book
+  def book; @book ||= Book.find(book_id); end             # belongs_to :book
   def arabic_roots; ArabicRoot.where(start_page: id); end # has_many :arabic_roots
 
   # attributes
@@ -14,6 +14,10 @@ class Page
   end
 
   # activerecord methods
+
+  def attributes
+    {page_number: id}
+  end
   
   def previous
     id <= first_real ? self : Page.new(book_id: book.id, id: id-1)
@@ -60,7 +64,9 @@ class Page
   private
   
   def self.number_for_arabic_root(string)
-    r.start_page if r = ArabicRoot.find_by_search_string(string)
+    if r = ArabicRoot.find_by_search_string(string)
+      r.start_page
+    end
   end
   
   def first_real

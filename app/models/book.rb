@@ -4,17 +4,21 @@ class Book < ActiveRecord::Base
   # Poor man's "has_many :pages"
   def pages
     pages_ary = []
-    (first_page...last_page).each do |p|
+    (cover_page.id...last_page.id).each do |p|
       pages_ary << Page.new(book_id: id, id: p)
     end
     return pages_ary
   end
 
+  def cover_page
+    Page.new(book_id: id, id: 1 - first_numbered_page)
+  end
+
   def first_page
-    0 - first_numbered_page
+    Page.new(book_id: id, id: 1)
   end
 
   def last_page
-    number_of_pages - first_numbered_page
+    Page.new(book_id: id, id: number_of_pages - first_numbered_page)
   end
 end
