@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   before_filter :set_book
 
   def show
-    @page = params[:number] ? Page.find(@book, params[:number]) : Page.first_with_content(@book)
+    @page = params[:page_id] ? Page.find(@book, params[:page_id]) : Page.first_with_content(@book)
   end
   
   def find
@@ -19,6 +19,6 @@ class PagesController < ApplicationController
   private
   
   def set_book
-    @book = Book.find_by_name(params[:name] || Book.first.name)
+    @book = Book.find_by_name(params[:book_name] || Book.first.name)
   end
 end

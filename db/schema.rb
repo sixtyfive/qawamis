@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140705154737) do
+ActiveRecord::Schema.define(version: 20140707153650) do
 
   create_table "arabic_roots", force: true do |t|
     t.string   "name"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140705154737) do
     t.integer  "number_of_pages"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "first_content_page"
+    t.integer  "first_numbered_page"
   end
 
   create_table "users", force: true do |t|
