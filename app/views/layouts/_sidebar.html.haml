@@ -1,0 +1,7 @@
+#sidebar{class: "{title:'#{t(:dictionaries)}'}"}
+  = form_tag('/pages') do
+    %ul
+      - @books.each do |book|
+        %li
+          = radio_button_tag 'book', book.id
+          = label_tag "book_#{book.id}", book.human_name

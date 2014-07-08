@@ -1,0 +1,17 @@
+%nav.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      #quicknav
+        = link_to t(:cover_page), @book.cover_page.path, class: 'navbar-brand'
+        = link_to [t(:page), @book.first_page.number].join(' '), @book.first_page.path, class: 'navbar-brand'
+        = link_to [t(:page), @book.last_page.number].join(' '), @book.last_page.path, class: 'navbar-brand'
+      #search_history
+        - @search_history.reverse.each do |search|
+          = link_to search, "/#{search}", class: 'navbar-brand'
+    .navbar-search-form
+      = form_tag('/pages', method: :post) do
+        .control-group.string
+          .controls= text_field_tag :search, params[:search], tabindex: 1
+        = button_tag(type: 'submit', class: 'btn btn-primary', tabindex: 2) do
+          - content_tag(:i, class: 'icon-ok icon-white')
+          - t(:search)
