@@ -1,4 +1,4 @@
 #book{data: @book.attributes.merge(@page.attributes)}
-  = link_to(image_tag('arrow_left.svg'), "/#{@book.name}/#{@page.previous.id}", {class: 'arrow page left'})
-  = image_tag(@page.image_file, {class: 'page'})
-  = link_to(image_tag('arrow_right.svg'), "/#{@book.name}/#{@page.next.id}", {class: 'arrow page right'})
+  = link_to(image_tag('arrow_left.svg'), @page.previous.path, {class: 'arrow page left'})
+  = image_tag(@page.image_file, {class: 'page', alt: "Seite #{@page.number}"})
+  = link_to(image_tag('arrow_right.svg'), @page.next.path, {class: 'arrow page right'})

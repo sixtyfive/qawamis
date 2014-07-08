@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= "Qawāmīs - #{@book.name.titlecase}, Seite #{@page.id}"
+    %title= "Qawāmīs - #{@book.name.titlecase}, Seite #{@page.number}"
     %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Root Search'}"}
     = favicon_link_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
