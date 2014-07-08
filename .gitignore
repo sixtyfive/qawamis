@@ -11,7 +11,7 @@
 #----------------------------------------------------------------------------
 
 # the actual books
-app/assets/images/books/*
+app/assets/images/books/*/*.png
 
 # bundler state
 /.bundle
