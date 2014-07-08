@@ -2,15 +2,15 @@
 %html
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= "Qawāmīs - #{@book.name.titlecase}, Seite #{@page.number}"
-    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Root Search'}"}
+    %title= "Qawāmīs - #{@book.human_name} (Seite #{@page.number})"
     = favicon_link_tag
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'application', media: 'all' #, 'data-turbolinks-track' => true
+    = javascript_include_tag 'application' #, 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
     %header
       = render 'layouts/navigation'
-    %main{:role => "main"}
+    %main
+      = render 'layouts/sidebar'
       = render 'layouts/messages'
-      #books= yield
+      #book= yield
