@@ -1,1 +1,0 @@
-mr-mr-indexes.js
