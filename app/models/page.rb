@@ -37,6 +37,7 @@ class Page < ActiveRecord::Base
       first_page: 1-book.first_numbered_page,
       last_page: book.pages.count-book.first_numbered_page,
       nosearchresults_message: I18n.t(:nosearchresults),
+      page: I18n.t(:page),
       book: book.full_name
     }
   end

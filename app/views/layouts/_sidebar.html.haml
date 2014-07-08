@@ -1,4 +1,4 @@
-#sidebar{class: "{title:'Wörterbuchauswahl'}"}
+#sidebar{class: "{title:'#{t(:dictionaries)}'}"}
   = form_tag('/pages') do
     %ul
       - @books.each do |book|

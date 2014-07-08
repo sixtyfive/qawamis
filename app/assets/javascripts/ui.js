@@ -10,29 +10,21 @@ function main() {
 
 function handleSidebar() {
   $('#sidebar').buildMbExtruder({
-    positionFixed:true,
-    width:250,
-    sensibility:800,
-    position:"left",
-    extruderOpacity:1,
-    flapDim:100,
-    textOrientation:"bt",
-    onExtOpen:function(){},
-    onExtContentLoad:function(){},
-    onExtClose:function(){},
-    hidePanelsOnClose:true,
-    autoCloseTime:0,
-    slideTimer:300
+    width: 250,
+    position: 'left',
+    slideTimer: 0,
+    closeOnClick: false,
+    closeOnExternalClick: false
   });
+  // needs to be done separately!
   $('.flap').click(function() {
     if ($.cookie('sidebar_enabled')) {
       $.removeCookie('sidebar_enabled');
     } else {
-      $.cookie('sidebar_enabled', 'true');
+      $.cookie('sidebar_enabled', true);
     }
-  });
-  if ($.cookie('sidebar_enabled')) {
-    setTimeout(function(){ $('#sidebar').openMbExtruder(true);}, 250);
+  }); if ($.cookie('sidebar_enabled')) {
+    $('#sidebar').openMbExtruder(true);
   }
 }
 
@@ -75,10 +67,21 @@ function displayResults(page_object) {
   var book = page_object['book'];
   var page = page_object['id'];
   history.replaceState(null, null, getData('path'));
-  $('#page img.page').attr('src', getData('image-file'));
-  $('#page a.left').attr('href', '/'+book+'/'+(page-1));
-  $('#page a.right').attr('href', '/'+book+'/'+(page+1));
   $('div.alert.alert-danger').remove();
+  /* image */
+  var title = getData('page')+' '+page;
+  $('#page img.page').attr('src', getData('image-file'));
+  $('#page img.page').attr('title', title);
+  /* arrow left */
+  var prev_page = page-1;
+  title = getData('page')+' '+prev_page;
+  $('#page a.left').attr('href', '/'+book+'/'+prev_page);
+  $('#page a.left').attr('title', title);
+  /* arrow right */
+  var next_page = page+1;
+  title = getData('page')+' '+next_page;
+  $('#page a.right').attr('href', '/'+book+'/'+next_page);
+  $('#page a.right').attr('title', title);
 }
 
 function updatePreviousSearches(search_history) {
@@ -91,7 +94,7 @@ function updatePreviousSearches(search_history) {
 }
 
 function handlePageChanges() {
-  var href, book, page, classes;
+  var href, book, page, classes, title;
   $('#page a.page').click(function(e) {
     href = $(this).attr('href');
     book = getData('book');
@@ -99,25 +102,32 @@ function handlePageChanges() {
     classes = $(this).attr('class');
     // location und bild werden immer auf das im link angegebene ziel gesetzt
     history.replaceState(null, null, href);
+    title = getData('page')+' '+page;
     $('#page img.page').attr('src', imagePath(page));
+    $('#page img.page').attr('title', title);
+    title = getData('page')+' ';
     if (/left/i.test(classes)) {
       // linker knopf gedrückt, also -1, aber: rechter knopf nun = linker knopf + 1!
       if (page <= getData('first-page') || page >= getData('last-page')) {
-        $('#page a.left').attr('href', '/'+book+'/'+(page));
-        $('#page a.right').attr('href', '/'+book+'/'+(page + 1));
+        $('#page a.left').attr('href', '/'+book+'/'+page);
+        $('#page a.left').attr('title', title+page);
       } else {
-        $('#page a.left').attr('href', '/'+book+'/'+(page - 1));
-        $('#page a.right').attr('href', '/'+book+'/'+(page + 1));
+        $('#page a.left').attr('href', '/'+book+'/'+(page-1));
+        $('#page a.left').attr('title', title+(page-1));
       }
+      $('#page a.right').attr('href', '/'+book+'/'+(page+1));
+      $('#page a.right').attr('title', title+(page+1));
     } else if (/right/i.test(classes)) {
       // rechter knopf gedrückt, also +1, aber: linker knopf nun = rechter knopf - 1!
       if (page <= getData('first-page') || page >= getData('last-page')) {
-        $('#page a.left').attr('href', '/'+book+'/'+(page - 1));
-        $('#page a.right').attr('href', '/'+book+'/'+(page));
+        $('#page a.right').attr('href', '/'+book+'/'+page);
+        $('#page a.right').attr('title', title+page);
       } else {
-        $('#page a.left').attr('href', '/'+book+'/'+(page - 1));
-        $('#page a.right').attr('href', '/'+book+'/'+(page + 1));
+        $('#page a.right').attr('href', '/'+book+'/'+(page+1));
+        $('#page a.right').attr('title', title+(page+1));
       }
+      $('#page a.left').attr('href', '/'+book+'/'+(page-1));
+      $('#page a.left').attr('title', title+(page-1));
     }
     e.preventDefault();
   });
