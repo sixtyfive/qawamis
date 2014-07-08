@@ -14,4 +14,12 @@ class Book < ActiveRecord::Base
   def last_page
     pages.last
   end
+
+  def full_name
+    "#{name}_#{language}"
+  end
+
+  def human_name
+    I18n.t("books.#{full_name}")
+  end
 end

@@ -1,15 +1,17 @@
 %nav.navbar.navbar-default.navbar-fixed-top
   .container
     .navbar-header
-      = link_to "Buchdeckel", @book.cover_page.path, class: 'navbar-brand'
-      = link_to "Seite #{@book.first_page.number}", @book.first_page.path, class: 'navbar-brand'
-      = link_to "Seite #{@book.last_page.number}", @book.last_page.path, class: 'navbar-brand'
-      #previous_searches
-        - @previous_searches.reverse.each do |search|
+      #quicknav
+        = link_to t(:cover_page), @book.cover_page.path, class: 'navbar-brand'
+        = link_to [t(:page), @book.first_page.number].join(' '), @book.first_page.path, class: 'navbar-brand'
+        = link_to [t(:page), @book.last_page.number].join(' '), @book.last_page.path, class: 'navbar-brand'
+      #search_history
+        - @search_history.reverse.each do |search|
           = link_to search, "/#{search}", class: 'navbar-brand'
     .navbar-search-form
-      = simple_form_for('/pages') do |f|
-        = f.input(:search, input_html: {tabindex: 1})
+      = form_tag('/pages', method: :post) do
+        .control-group.string
+          .controls= text_field_tag :search, params[:search], tabindex: 1
         = button_tag(type: 'submit', class: 'btn btn-primary', tabindex: 2) do
           - content_tag(:i, class: 'icon-ok icon-white')
           - 'Suchen'

@@ -20,7 +20,7 @@ class Page < ActiveRecord::Base
   end
 
   def path
-    "/#{book.name}_#{book.language}/#{number}"
+    "/#{book.full_name}/#{number}"
   end
 
   def previous
@@ -29,5 +29,15 @@ class Page < ActiveRecord::Base
 
   def next
     Page.where('pages.number > ?', number).order('pages.number ASC').first || self
+  end
+
+  def js_attributes
+    {
+      path: path,
+      first_page: 1-book.first_numbered_page,
+      last_page: book.pages.count-book.first_numbered_page,
+      nosearchresults_message: I18n.t(:nosearchresults),
+      book: book.full_name
+    }
   end
 end
