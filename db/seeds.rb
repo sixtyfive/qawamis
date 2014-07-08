@@ -5,5 +5,16 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-user = CreateAdminService.new.call
-puts 'CREATED ADMIN USER: ' << user.email
+
+# Hans Wehr, 5. Auflage, deutsch
+
+book = Book.create(name: 'hw5', language: 'de', first_numbered_page: 26)
+
+ActiveRecord::Base.transaction do
+  (1..1478).each do |page|
+    book.pages << Page.create(
+      number: page - book.first_numbered_page,
+      last_root: 'ا'
+    )
+  end
+end

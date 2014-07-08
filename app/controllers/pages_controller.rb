@@ -1,38 +1,54 @@
 class PagesController < ApplicationController
-  before_filter :set_book, :initialize_session
+  before_action :set_book, :init_session
 
+  # GET /book.name/page.number
   def show
-    @page = Page.find(@book, params[:page_id] || 1)
-  rescue
-    @book = Book.first                     # To guard against nonexisting books.
-    @page = Page.first_with_content(@book) # To guard against nonexisting pages.
+    if params[:page]
+      @page = @book.pages.find_by_number(params[:page])
+    else
+      @page = @book.pages.first_numbered
+    end
   end
-  
+
+  # GET /search_string
+  # POST /pages
   def find
-    @search_string = params[:search_string] || params[:page][:search_string] # Dirty, I know.
+    # Deal with simple_form's inflexibility (or my own lazyness
+    # to type the form myself, without simple_form...). Yes,
+    # it's dirty. Right now I just don't care...
+    if params[:page]
+      @search = params[:page][:search]
+    else
+      @search = params[:search]
+    end
     begin
-      @page = Page.find_by_search_string(@book, @search_string)
+      @page = Page.find_by_root(@search)
       _cookies = @previous_searches
       _cookies.shift if (_cookies.length > 50)
       _cookies << @search_string
       _cookies.uniq!
       cookies[:previous_searches] = JSON.generate(_cookies)
-    rescue RuntimeError
-      flash.now[:alert] = "Keine Suchergebnisse. Versuchen Sie die Eingabe einer Wurzel anstelle eines Wortes."
+    rescue
+      flash.now[:alert] = 'Keine Suchergebnisse. Versuchen Sie die Eingabe einer Wurzel anstatt eines Wortes.'
     end
     respond_to do |format|
-      format.html { @page ||= Page.first_with_content(@book); render :show }
+      format.html { @page ||= @book.pages.first_numbered; render :show }
       format.json { render json: {page: @page, previous_searches: @previous_searches.reverse} }
     end
   end
-  
+
   private
-  
+    
   def set_book
-    @book = Book.find_by_name(params[:book_name] || Book.first.name)
+    if params[:book] 
+      book, language = params[:book].split('_')
+      @book = Book.find_by(name: book, language: language)
+    else
+      @book = Book.first
+    end
   end
 
-  def initialize_session
+  def init_session
     if cookies[:previous_searches].nil?
       @previous_searches = []
     else
