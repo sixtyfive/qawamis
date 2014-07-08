@@ -23,6 +23,7 @@ db/*.sqlite3
 /db/*.sqlite3-journal
 /log/*
 /tmp/*
+config/secrets.yml
 
 # various artifacts
 **.war
@@ -35,7 +36,6 @@ db/*.sqlite3
 /coverage.data
 /coverage/
 /db/*.javadb/
-/db/*.sqlite3
 /doc/api/
 /doc/app/
 /doc/features.html
