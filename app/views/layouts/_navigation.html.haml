@@ -14,4 +14,4 @@
           .controls= text_field_tag :search, params[:search], tabindex: 1
         = button_tag(type: 'submit', class: 'btn btn-primary', tabindex: 2) do
           - content_tag(:i, class: 'icon-ok icon-white')
-          - 'Suchen'
+          - t(:search)

@@ -12,9 +12,14 @@ book = Book.create(name: 'hw5', language: 'de', first_numbered_page: 26)
 
 ActiveRecord::Base.transaction do
   (1..1478).each do |page|
-    book.pages << Page.create(
-      number: page - book.first_numbered_page,
-      last_root: 'ا'
-    )
+    book.pages << Page.create(number: page-book.first_numbered_page, last_root: 'ا')
+  end
+end
+
+book = Book.create(name: 'hw4', language: 'en', first_numbered_page: 11)
+
+ActiveRecord::Base.transaction do
+  (1..1316).each do |page|
+    book.pages << Page.create(number: page-book.first_numbered_page, last_root: 'ا')
   end
 end
