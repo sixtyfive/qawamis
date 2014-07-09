@@ -7,11 +7,12 @@
         = link_to [t(:page), @book.last_page.number].join(' '), @book.last_page.path, class: 'navbar-brand'
       #search_history
         - @search_history.reverse.each do |search|
-          = link_to search, "/#{search}", class: 'navbar-brand'
+          = link_to search, "/#{search}?book=#{@book.full_name}", class: 'navbar-brand'
     .navbar-search-form
       = form_tag('/pages', method: :post) do
         .control-group.string
-          .controls= text_field_tag :search, params[:search], tabindex: 1
+          .controls= text_field_tag(:search, current_search, tabindex: 1)
+        = hidden_field_tag('book', @book.full_name, {id: 'search_book'})
         = button_tag(type: 'submit', class: 'btn btn-primary', tabindex: 2) do
           - content_tag(:i, class: 'icon-ok icon-white')
           - t(:search)

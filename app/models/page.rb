@@ -22,11 +22,11 @@ class Page < ActiveRecord::Base
   end
 
   def previous
-    Page.where('pages.number < ?', number).order('pages.number DESC').first || self
+    self.book.pages.where('pages.number < ?', number).order('pages.number DESC').first || self
   end
 
   def next
-    Page.where('pages.number > ?', number).order('pages.number ASC').first || self
+    self.book.pages.where('pages.number > ?', number).order('pages.number ASC').first || self
   end
 
   def js_attributes
@@ -36,7 +36,9 @@ class Page < ActiveRecord::Base
       last_page: book.pages.count-book.first_numbered_page,
       nosearchresults_message: I18n.t(:nosearchresults),
       page: I18n.t(:page),
-      book: book.full_name
+      book: book.full_name,
+      book_id: book.id,
+      last_root: last_root
     }
   end
 end
