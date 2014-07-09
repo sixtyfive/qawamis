@@ -1,9 +1,10 @@
 #sidebar
+  margin-top: 5.65em
+  width: 19.5em
   background-color: #F8F8F8
   position: absolute
   left: 0
   top: 0 
-  margin-top: 5.65em
   border-top: 1px solid #CCC
   border-right: 1px solid #CCC
   border-bottom: 1px solid #CCC
@@ -33,17 +34,28 @@
     padding: 1em 1.5em
     label
       cursor: pointer
+      font-weight: normal
+      font-size: 82%
     li
       list-style-type: none
+      white-space: nowrap
+      padding: .7em 0 .125em 0
+      border-bottom: 1px solid #eee
+      width: 220px
       input[type=radio]
-        margin-top: -2px
+        margin-top: -17px
         vertical-align: middle
+      label
+        text-overflow: ellipsis
+        overflow: hidden
+      &:last-child
+        border-bottom: none
   .extruder-content
-    height: 30em !important
+    height: 38.125em !important
     ul
       padding: 0
       margin: 0
-      li
-        padding: .125em 0
+      input[type=radio]
+        margin-top: -18px
     button
       display: none
