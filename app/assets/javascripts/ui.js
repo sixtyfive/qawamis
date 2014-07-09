@@ -4,8 +4,8 @@ $(document).on('page:load', main); // cached page loads and turbolinks
 function main() {
   handleSidebar();
   replaceSearchURL();
-  handleSearchRequests();
   handlePageChanges();
+  handleSearchRequests();
 }
 
 function handleSidebar() {
@@ -64,20 +64,30 @@ function showNoResultsAlert() {
 }
 
 function displayResults(page_object) {
-  var book = page_object['book'];
-  var page = page_object['id'];
-  history.replaceState(null, null, getData('path'));
+  var book, page, prev_page, next_page, title;
+  book = getData('book');
+  page = page_object['number'];
+  history.replaceState(null, null, '/'+book+'/'+page);
   $('div.alert.alert-danger').remove();
   /* image */
-  var title = getData('page')+' '+page;
-  $('#page img.page').attr('src', getData('image-file'));
+  title = getData('page')+' '+page;
+  $('#page img.page').attr('src', imagePath(page));
   $('#page img.page').attr('title', title);
   /* arrow left */
-  var prev_page = page-1;
+  if (page == getData('first-page')) {
+    prev_page = page;
+  } else {
+    prev_page = page-1;
+  }
   title = getData('page')+' '+prev_page;
   $('#page a.left').attr('href', '/'+book+'/'+prev_page);
   $('#page a.left').attr('title', title);
   /* arrow right */
+  if (page == getData('last-page')) {
+    next_page = page;
+  } else {
+    next_page = page+1;
+  }
   var next_page = page+1;
   title = getData('page')+' '+next_page;
   $('#page a.right').attr('href', '/'+book+'/'+next_page);
