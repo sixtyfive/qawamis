@@ -13,19 +13,12 @@ class PagesController < ApplicationController
   # GET /search_string
   # POST /pages
   def find
-    # Deal with simple_form's inflexibility (or my own lazyness
-    # to type the form myself, without simple_form...). Yes,
-    # it's dirty. Right now I just don't care...
-    if params[:page]
-      @search = params[:page][:search]
-    else
-      @search = params[:search]
-    end
+    @search = params[:search]
     begin
       @page = Page.find_by_root(@search)
       _cookies = @search_history
       _cookies.shift if (_cookies.length > 50)
-      _cookies << @search_string
+      _cookies << @search if @page
       _cookies.uniq!
       cookies[:search_history] = JSON.generate(_cookies)
     rescue

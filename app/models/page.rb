@@ -1,8 +1,6 @@
 class Page < ActiveRecord::Base
-  attr_accessor :search
-  
   belongs_to :book
-  validates :number, :last_root, :book_id, presence: true
+  validates :number, :book_id, presence: true
   validates :number, uniqueness: {scope: :book_id}
 
   def image_file
@@ -14,9 +12,9 @@ class Page < ActiveRecord::Base
     Page.find_by_number(1)
   end
 
-  def self.find_by_search(_search)
+  def self.find_by_root(search)
     # TODO: Implement full search algorithm.
-    Page.find_by_last_root(_search)
+    Page.find_by_last_root(search)
   end
 
   def path
