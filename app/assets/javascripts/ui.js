@@ -1,11 +1,21 @@
 $(document).ready(main);           // fresh page loads
 $(document).on('page:load', main); // cached page loads and turbolinks
 
+$(document).keydown(function(e) {
+  switch(e.which) {
+    /* JS-Version
+    case 37: $('a.page.left').trigger('click'); break;  // left arrow key
+    case 39: $('a.page.right').trigger('click'); break; // right arrow key*/
+    case 37: location.href = $('a.page.left').attr('href');
+    case 39: location.href = $('a.page.right').attr('href');
+  }
+});
+
 function main() {
-  handleSidebar();
-  replaceSearchURL();
+  /* Disabled for now. First the static version has to function properly.
   handlePageChanges();
-  handleSearchRequests();
+  handleSearchRequests();*/
+  handleSidebar();
 }
 
 function handleSidebar() {
@@ -26,10 +36,12 @@ function handleSidebar() {
   }); if ($.cookie('sidebar_enabled')) {
     $('#sidebar').openMbExtruder(true);
   }
+  $('input[type=radio]').click(function() {
+    $(this).closest('form').submit();
+  });
 }
 
-function replaceSearchURL() {
-  history.replaceState(null, null, getData('path'))
+function handleBookSwitch() {
 }
 
 function handleSearchRequests() {
@@ -40,9 +52,9 @@ function handleSearchRequests() {
       dataType: 'json',
       data: $(this).serialize(),
       success: function(results) {
-        if (results['page'] == null) {
-          showNoResultsAlert();
-        } else {
+        if (results['flash']) {
+          showAlert(results['flash'][0], results['flash'][1]);
+        }; if (results['page']) {
           displayResults(results['page']);
           updatePreviousSearches(results['search_history']);
         }
@@ -52,15 +64,17 @@ function handleSearchRequests() {
   });
 }
 
-function showNoResultsAlert() {
-  if ($('main .alert').length == 0) {
-    $('main').prepend("\
-      <div class='alert alert-danger'>\
-        <button aria-hidden='true' class='close' data-dismiss='alert' type='button'>&times;</button>\
-        <div id='flash_alert'>"+getData('nosearchresults-message')+"</div>\
-      </div>\
-    ");
-  }
+function showAlert(severity, message) {
+  $('main .alert').remove();
+  var danger_or_success = 'danger';
+  if (severity == 'notice') 
+    danger_or_success = 'success';
+  $('main').prepend("\
+    <div class='alert alert-"+danger_or_success+"'>\
+      <button aria-hidden='true' class='close' data-dismiss='alert' type='button'>&times;</button>\
+      <div id='flash_"+severity+"'>"+message+"</div>\
+    </div>\
+  ");
 }
 
 function displayResults(page_object) {
@@ -69,11 +83,11 @@ function displayResults(page_object) {
   page = page_object['number'];
   history.replaceState(null, null, '/'+book+'/'+page);
   $('div.alert.alert-danger').remove();
-  /* image */
+  // image
   title = getData('page')+' '+page;
   $('#page img.page').attr('src', imagePath(page));
   $('#page img.page').attr('title', title);
-  /* arrow left */
+  // arrow left
   if (page == getData('first-page')) {
     prev_page = page;
   } else {
@@ -82,7 +96,7 @@ function displayResults(page_object) {
   title = getData('page')+' '+prev_page;
   $('#page a.left').attr('href', '/'+book+'/'+prev_page);
   $('#page a.left').attr('title', title);
-  /* arrow right */
+  // arrow right
   if (page == getData('last-page')) {
     next_page = page;
   } else {
@@ -142,13 +156,6 @@ function handlePageChanges() {
     e.preventDefault();
   });
 }
-
-$(document).keydown(function(e) {
-  switch(e.which) {
-    case 37: $('a.arrow.left').trigger('click'); break;  // left arrow key
-    case 39: $('a.arrow.right').trigger('click'); break; // right arrow key
-  }
-});
 
 function imagePath(page) {
   return '/assets/books/'+getData('book')+'/page_'+pad(page+(-getData('first-page')))+'.png';
