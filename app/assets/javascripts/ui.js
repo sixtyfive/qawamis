@@ -3,16 +3,17 @@ $(document).on('page:load', main); // cached page loads and turbolinks
 
 $(document).keydown(function(e) {
   switch(e.which) {
-    /* JS-Version
+    /* javascript-version
     case 37: $('a.page.left').trigger('click'); break;  // left arrow key
     case 39: $('a.page.right').trigger('click'); break; // right arrow key*/
-    case 37: location.href = $('a.page.left').attr('href');
-    case 39: location.href = $('a.page.right').attr('href');
+    // static version
+    case 37: location.href = $('a.page.left').attr('href'); break;
+    case 39: location.href = $('a.page.right').attr('href'); break;
   }
 });
 
 function main() {
-  /* Disabled for now. First the static version has to function properly.
+  /* disabled for now. first the static version has to function properly.
   handlePageChanges();
   handleSearchRequests();*/
   handleSidebar();
@@ -20,9 +21,9 @@ function main() {
 
 function handleSidebar() {
   $('#sidebar').buildMbExtruder({
-    width: 250,
+    width: 270,
     position: 'left',
-    slideTimer: 0,
+    slideTimer: 150,
     closeOnClick: false,
     closeOnExternalClick: false
   });
