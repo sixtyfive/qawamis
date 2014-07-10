@@ -26,6 +26,7 @@ class PagesController < ApplicationController
       # POST /pages
       @search = params[:search]
     end
+    logger.warn "*** find: trying to look up root in currently displayed book."
     unless @page = @book.pages.find_by_root(@search)
       # No search results in current book.
       if @from_book && @book = params[:book].split('_')
@@ -34,6 +35,7 @@ class PagesController < ApplicationController
         flash[:notice] = t(:nosuchentry_in_selectedbook)
       else
         # No explicit book was requested, so try to find search in another.
+        logger.warn "*** find: trying to look up root in all available books."
         if @page = Page.find_by_root(@search)
           flash[:notice] = t(:nosearchresults_in_selectedbook, book: t("books.#{@page.book.full_name}"))
         end
