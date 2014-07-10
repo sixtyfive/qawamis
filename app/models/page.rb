@@ -28,14 +28,14 @@ class Page < ActiveRecord::Base
     #
     # Easiest and fastest: the root is already in the
     # list of roots for the current scope of book/page.
-    logger.warn("*** find_by_root: searching for [#{search}]")
+    logger.warn("*** find_by_root: searching for #{search.inspect}")
     unless page = self.find_by_last_root(search)
       #
       # No luck so far. To make things easier, substitute
       # hamzas for alifs and alif maksuras for yas (originally
       # do_search().
       search = search.gsub(/[إآٱأءﺀﺀﺁﺃﺅﺇﺉ]/, 'ا').gsub(/ﻯ/,'ﻱ')
-      logger.warn("*** find_by_root: searching for [#{search}]")
+      logger.warn("*** find_by_root: searching for #{search.inspect}")
       unless page = self.find_by_last_root(search)
         #
         # Still no luck. Time to modify the search string even
@@ -43,7 +43,7 @@ class Page < ActiveRecord::Base
         # guess at what other roots could be in the vincinity
         # of the searched-for root.
         search = most_likely_closeby_root(search)
-        logger.warn("*** find_by_root: searching for [#{search}]")
+        logger.warn("*** find_by_root: searching for #{search.inspect}")
         page = self.find_by_last_root(search)
       end
     end
@@ -92,15 +92,17 @@ class Page < ActiveRecord::Base
     stop_index  = (items.count-1)
     middle = ((stop_index+start_index)/2).floor
     retval = 0
-    # Leaving out loop_count for now; I think Ruby should
-    # saveguard against an infinite loop here.
+    # Instead of the loop_count-method for safeguarding against missing items.
+    (start_index..stop_index).each {|i| items[i] ||= ''}
+    # Should be safe to look up any value inside the items array now.
     while (items[middle] != value && start_index < stop_index) do
+      logger.warn "*** most_likely_closeby_root: items[#{middle}]=#{items[middle].inspect}"
       stop_index  = middle-1 if value < items[middle]
       start_index = middle+1 if value > items[middle]
       break if (middle != 0 && value < items[middle] && value > items[middle-1])
       middle = ((stop_index + start_index)/2).floor
     end
-    logger.warn "*** most_likely_closeby_root: recalculated middle=#{middle}"
+    logger.warn "*** most_likely_closeby_root: items[#{middle}]=#{items[middle].inspect} (corrected)"
     retval = 0 if middle == 0
     middle = items.length-1 if middle > items.length-1
     if (items[middle] == value)
@@ -119,7 +121,7 @@ class Page < ActiveRecord::Base
     end
     # No idea what is going on above, but it's pretty darn
     # cool and seems to yield very desirable results :-)
-    logger.warn "*** most_likely_closeby_root: items[#{retval}]=[#{items[retval]}] (while searching for [#{value}])"
+    logger.warn "*** most_likely_closeby_root: items[#{retval}]=#{items[retval].inspect} (while searching for #{value.inspect})"
     return items[retval]
   end
 end
