@@ -3,13 +3,21 @@ class PagesController < ApplicationController
 
   # GET /book.name/page.number
   def show
-    if params[:page] && @page = @book.pages.find_by_number(params[:page])
-      cookies[:page] = params[:page]
-    else
-      if cookies[:page]
-        redirect_to @book.pages.find_by_number(cookies[:page])
-      else
-        @page = @book.pages.first_numbered
+    @page = @book.pages.find_by_number(params[:page])
+    respond_to do |format|
+      format.html do
+        if @page
+          cookies[:page] = params[:page]
+        else
+          if cookies[:page]
+            redirect_to @book.pages.find_by_number(cookies[:page])
+          else
+            @page = @book.pages.first_numbered
+          end
+        end
+      end
+      format.json do
+        render json: {book: @page.book.serialize, page: @page.serialize} if @page
       end
     end
   end
@@ -59,7 +67,13 @@ class PagesController < ApplicationController
         redirect_to @page
       end
       format.json do
-        render json: {page: @page, flash: flash.first, search_history: @search_history.reverse}
+        flash.discard
+        render json: {
+          book: @page.book.serialize, 
+          page: @page.serialize, 
+          flash: flash.first, 
+          search_history: @search_history.reverse
+        }
       end
     end
   end

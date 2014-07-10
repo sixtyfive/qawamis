@@ -1,4 +1,4 @@
-#page{data: @page.js_attributes}
+#page{data: @page.serialize}
   = link_to(image_tag('arrow_left.svg'), @page.previous.path, arrow_left_options)
   .wrapper= image_tag(@page.image_file, page_options)
   = link_to(image_tag('arrow_right.svg'), @page.next.path, arrow_right_options)

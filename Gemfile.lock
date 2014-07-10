@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/fnando/i18n-js.git
+  revision: 4e5c525ff6e1ec4d3449852746fa5651a0577d68
+  branch: rewrite
+  specs:
+    i18n-js (3.0.0.rc5)
+      i18n
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -179,6 +187,7 @@ DEPENDENCIES
   haml-rails
   html2haml
   hub
+  i18n-js!
   jbuilder (~> 2.0)
   jquery-cookie-rails
   jquery-rails

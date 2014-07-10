@@ -3,20 +3,15 @@ $(document).on('page:load', main); // cached page loads and turbolinks
 
 $(document).keydown(function(e) {
   switch(e.which) {
-    /* javascript-version
     case 37: $('a.page.left').trigger('click'); break;  // left arrow key
-    case 39: $('a.page.right').trigger('click'); break; // right arrow key*/
-    // static version
-    case 37: location.href = $('a.page.left').attr('href'); break;
-    case 39: location.href = $('a.page.right').attr('href'); break;
+    case 39: $('a.page.right').trigger('click'); break; // right arrow key
   }
 });
 
 function main() {
-  /* disabled for now. first the static version has to function properly.
-  handlePageChanges();
-  handleSearchRequests();*/
   handleSidebar();
+  handleSearchRequests();
+  handlePageTurns();
 }
 
 function handleSidebar() {
@@ -27,7 +22,8 @@ function handleSidebar() {
     closeOnClick: false,
     closeOnExternalClick: false
   });
-  // needs to be done separately!
+  // needs to be done separately and not through
+  // the buildMbExtruder() callback options.
   $('.flap').click(function() {
     if ($.cookie('sidebar_enabled')) {
       $.removeCookie('sidebar_enabled', {path: '/'});
@@ -42,9 +38,6 @@ function handleSidebar() {
   });
 }
 
-function handleBookSwitch() {
-}
-
 function handleSearchRequests() {
   $('form').submit(function(e) {
     $.ajax({
@@ -53,20 +46,20 @@ function handleSearchRequests() {
       dataType: 'json',
       data: $(this).serialize(),
       success: function(results) {
-        if (results['flash']) {
-          showAlert(results['flash'][0], results['flash'][1]);
-        }; if (results['page']) {
-          displayResults(results['page']);
-          updatePreviousSearches(results['search_history']);
+        $('main .alert').remove();
+        if (results.flash)
+          showAlert(results.flash[0], results.flash[1]);
+        if (results.book && results.page) {
+          updatePageElements(results.book, results.page);
+          updateSearchHistory(results.search_history);
         }
       }
-    })
+    });
     e.preventDefault();
   });
 }
 
 function showAlert(severity, message) {
-  $('main .alert').remove();
   var danger_or_success = 'danger';
   if (severity == 'notice') 
     danger_or_success = 'success';
@@ -78,38 +71,68 @@ function showAlert(severity, message) {
   ");
 }
 
-function displayResults(page_object) {
-  var book, page, prev_page, next_page, title;
-  book = getData('book');
-  page = page_object['number'];
-  history.replaceState(null, null, '/'+book+'/'+page);
-  $('div.alert.alert-danger').remove();
-  // image
-  title = getData('page')+' '+page;
-  $('#page img.page').attr('src', imagePath(page));
-  $('#page img.page').attr('title', title);
-  // arrow left
-  if (page == getData('first-page')) {
-    prev_page = page;
-  } else {
-    prev_page = page-1;
+function updatePageElements(new_book, new_page) {
+  // new_book: id, name, language, first_numbered_page, cover_page,
+  //           first_page, last_page, full_name, human_name
+  // new_page: id, number, last_root, book_id, image_file, path,
+  //           previous, next
+  //
+  // #quicknav:
+  // - #cover_page_link (href = new page)
+  // - #first_page_link (href = new page)
+  // - #last_page_link (href = new page)
+  elements = ['cover_page', 'first_page', 'last_page'];
+  for (var i=0; i<elements.length; i++) {
+    $('#'+elements[i]+'_link').attr('href', absPath(new_book.full_name, new_book[elements[i]]));
   }
-  title = getData('page')+' '+prev_page;
-  $('#page a.left').attr('href', '/'+book+'/'+prev_page);
-  $('#page a.left').attr('title', title);
-  // arrow right
-  if (page == getData('last-page')) {
-    next_page = page;
-  } else {
-    next_page = page+1;
-  }
-  var next_page = page+1;
-  title = getData('page')+' '+next_page;
-  $('#page a.right').attr('href', '/'+book+'/'+next_page);
-  $('#page a.right').attr('title', title);
+  // .navbar-search-form:
+  // - #search_book (value = new book)
+  // (search history is being taken care of separately)
+  $('header #search_book').val(new_book.full_name);
+  // #sidebar:
+  // - li (each one!)
+  //   - input:radio (check if value = new book)
+  //   - input[name=from_book] (value = new book)
+  //   - input[name=from_page] (value = new page)
+  $('#sidebar li').each(function() {
+    radio = $(this).find('input:radio');
+    if (radio.val() == new_book.full_name) 
+      radio.prop('checked', true);
+    $(this).find('input[name=from_book]').val(new_book.full_name);
+    $(this).find('input[name=from_page]').val(new_page.number);
+  });
+  // #book[data-...] and
+  // - #page[data-...]:
+  //   - a.page.left (href = new page's previous_page, title = new page's previous_page, data-target = new page's previous_page)
+  //   - a.page.right (href  = new page's next_page, title = new page's next_page, data-target = next page's next_page)
+  //   - img.page (src = new page's image_path, title = new page)
+  for (var key in new_book)
+    $('#book').attr('data-'+key.replace('_', '-'), new_book[key]);
+  for (var key in new_page)
+    $('#page').attr('data-'+key.replace('_', '-'), new_page[key]);
+  $('#book a.page.left').attr('href', absPath(new_book.full_name, new_page.previous));
+  $('#book a.page.left').attr('title', I18n.t('page')+' '+new_page.previous);
+  $('#book a.page.left').attr('data-target', new_page.previous);
+  $('#book a.page.right').attr('href', absPath(new_book.full_name, new_page.next));
+  $('#book a.page.right').attr('title', I18n.t('page')+' '+new_page.next);
+  $('#book a.page.right').attr('data-target', new_page.next);
+  $('#book img.page').attr('src', absPath('assets', new_page.image_file))
+  $('#book img.page').attr('title', I18n.t('page')+' '+new_page.number)
+  // Last but not least, the URL
+  // entry bar and the page title:
+  history.replaceState(null, null, new_page.path)
+  $('title').html(I18n.t('htmltitle', {book: new_book.human_name, page: new_page.number}));
 }
 
-function updatePreviousSearches(search_history) {
+function absPath() {
+  var path = '/';
+  for (var i=0; i<arguments.length; i++) {
+    path += arguments[i]+'/';
+  }
+  return path.slice(0, -1);
+}
+
+function updateSearchHistory(search_history) {
   var html = '';
   for (var i in search_history) {
     word = search_history[i];
@@ -118,56 +141,18 @@ function updatePreviousSearches(search_history) {
   $('#search_history').html(html);
 }
 
-function handlePageChanges() {
-  var href, book, page, classes, title;
-  $('#page a.page').click(function(e) {
-    href = $(this).attr('href');
-    book = getData('book');
-    page = parseInt(href.split('/')[2]);
-    classes = $(this).attr('class');
-    // location und bild werden immer auf das im link angegebene ziel gesetzt
-    history.replaceState(null, null, href);
-    title = getData('page')+' '+page;
-    $('#page img.page').attr('src', imagePath(page));
-    $('#page img.page').attr('title', title);
-    title = getData('page')+' ';
-    if (/left/i.test(classes)) {
-      // linker knopf gedrückt, also -1, aber: rechter knopf nun = linker knopf + 1!
-      if (page <= getData('first-page') || page >= getData('last-page')) {
-        $('#page a.left').attr('href', '/'+book+'/'+page);
-        $('#page a.left').attr('title', title+page);
-      } else {
-        $('#page a.left').attr('href', '/'+book+'/'+(page-1));
-        $('#page a.left').attr('title', title+(page-1));
+function handlePageTurns() {
+  $('#book a.page').click(function(e) {
+    $.ajax({
+      url: absPath($('#book').attr('data-full-name'), $(this).attr('data-target')),
+      type: 'POST',
+      dataType: 'json',
+      data: $(this).serialize(),
+      success: function(results) {
+        $('main .alert').remove();
+        updatePageElements(results.book, results.page);
       }
-      $('#page a.right').attr('href', '/'+book+'/'+(page+1));
-      $('#page a.right').attr('title', title+(page+1));
-    } else if (/right/i.test(classes)) {
-      // rechter knopf gedrückt, also +1, aber: linker knopf nun = rechter knopf - 1!
-      if (page <= getData('first-page') || page >= getData('last-page')) {
-        $('#page a.right').attr('href', '/'+book+'/'+page);
-        $('#page a.right').attr('title', title+page);
-      } else {
-        $('#page a.right').attr('href', '/'+book+'/'+(page+1));
-        $('#page a.right').attr('title', title+(page+1));
-      }
-      $('#page a.left').attr('href', '/'+book+'/'+(page-1));
-      $('#page a.left').attr('title', title+(page-1));
-    }
+    });
     e.preventDefault();
   });
-}
-
-function imagePath(page) {
-  return '/assets/books/'+getData('book')+'/page_'+pad(page+(-getData('first-page')))+'.png';
-}
-
-function pad(number) {
-  var str = ''+number;
-  var pad = '0000';
-  return (pad.substring(0, pad.length - str.length) + str);
-}
-
-function getData(varname) {
-  return $('#page').data(varname);
 }

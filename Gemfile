@@ -18,6 +18,7 @@ gem 'thin'
 gem 'activemodel'
 gem 'jquery_mb_extruder'
 gem 'jquery-cookie-rails'
+gem 'i18n-js', github: 'fnando/i18n-js', branch: 'rewrite'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]

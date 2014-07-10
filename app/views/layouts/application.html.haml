@@ -2,10 +2,10 @@
 %html
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= "Qawāmīs - #{@book.human_name} (#{t(:page)} #{@page.number})"
+    %title= t(:htmltitle, {book: @book.human_name, page: @page.number})
     = favicon_link_tag
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'application', media: 'all'#, 'data-turbolinks-track' => true
+    = javascript_include_tag 'application'#, 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
     %header
@@ -13,4 +13,4 @@
     %main
       = render 'layouts/sidebar'
       = render 'layouts/messages'
-      #book= yield
+      #book{data: @book.serialize}= yield

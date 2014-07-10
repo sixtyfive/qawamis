@@ -20,6 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  htmltitle: "Qawāmīs - %{book} - Page %{page}"
   nosuchbook: "There is no such book. Displaying %{book} instead."
   nosearchresults: "No search results. Try entering a root instead of a word."
   nosuchentry_in_selectedbook: "Previously displayed entry not found in selected book. Showing first page instead."
