@@ -20,7 +20,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 de:
+  htmltitle: "Qawāmīs - %{book} - Seite %{page}"
+  nosuchbook: "Buch nicht vorhanden. Zeige stattdessen %{book}."
   nosearchresults: "Keine Suchergebnisse. Versuchen Sie die Eingabe einer Wurzel anstelle eines Wortes."
+  nosuchentry_in_selectedbook: "Previously displayed entry not found in selected book. Showing first page instead."
+  nosearchresults_in_selectedbook: "No search results from selected book. Showing results from %{book} instead."
   cover_page: "Titelblatt"
   search: "Suchen"
   page: "Seite"
@@ -31,3 +35,15 @@ de:
   books:
     hw5_de: "Hans Wehr, 5. Ausg., Deutsch"
     hw4_en: "Hans Wehr, 4. Ausg., Englisch"
+    hw3_en: "Hans Wehr, 3rd Ed. (English/1976)"
+    sg_en:  "Steingass' Arabic-English Lexicon (1884)"
+    ll_en:  "Lane's Arabic-English Lexicon (1863)"
+    ls_en:  "Supplement to Lane's Lexicon"
+    ha_en:  "Hava Arabic-English Dictionary (1899)"
+    la_ar:  "Lisān al-ʿArab (1290/1883)"
+    br_en:  "Brill Dictionary of Qurʾanic Usage"
+    pr_en:  "Dictionary and Glossary of the Kor-ân"
+    vq_en:  "Qāmūs al-Faẓ al-Qurʾān al-Karīm (English)"
+    mgf_en: "Dictionary of the Holy Qur'an (M.G. Farid)"
+    vi_en:  "Verbal Idioms of the Qur'an (Mustansir Mir)"
+    maw_en: "Al-Mawrid, 7th Ed. (English)"
