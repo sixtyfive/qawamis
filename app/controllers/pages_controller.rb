@@ -19,32 +19,39 @@ class PagesController < ApplicationController
     if params[:from_book] && params[:from_page] && @from_book = params[:from_book].split('_')
       if @from_book = Book.find_by(name: @from_book[0], language: @from_book[1])
         from_book_page = @from_book.pages.find_by_number(params[:from_page])
-        @search = from_book_page.last_root || ''
+        @search = from_book_page.last_root
       end
     else
       # GET /search_string
       # POST /pages
       @search = params[:search]
     end
-    logger.warn "*** find: trying to look up root in currently displayed book."
-    unless @page = @book.pages.find_by_root(@search)
-      # No search results in current book.
-      if @from_book && @book = params[:book].split('_')
-        # Book was explicitly requested, so show its first page instead.
-        @page = Book.find_by(name: @book[0], language: @book[1]).first_page
-        flash[:notice] = t(:nosuchentry_in_selectedbook)
-      else
-        # No explicit book was requested, so try to find search in another.
-        logger.warn "*** find: trying to look up root in all available books."
-        if @page = Page.find_by_root(@search)
-          flash[:notice] = t(:nosearchresults_in_selectedbook, book: t("books.#{@page.book.full_name}"))
+    logger.info "*** find: trying to look up root in currently displayed book."
+    if @search
+      unless @page = @book.pages.find_by_root(@search)
+        # No search results in current book.
+        if @from_book && @book = params[:book].split('_')
+          # Book was explicitly requested, so show its first page instead.
+          @book = Book.find_by(name: @book[0], language: @book[1])
+          @page = @book.first_page
+          flash[:notice] = t(:nosuchentry_in_selectedbook)
+        else
+          # No explicit book was requested, so try to find search in another.
+          logger.info "*** find: trying to look up root in all available books."
+          if @page = Page.find_by_root(@search)
+            flash[:notice] = t(:nosearchresults_in_selectedbook, book: t("books.#{@page.book.full_name}"))
+          end
         end
       end
-    end
-    if @page && !params[:from_book]
-      maintain_search_history
+      maintain_search_history if @page && !params[:from_book]
+      flash[:warn] = t(:nosearchresults) unless @page
     else
-      flash[:warn] = t(:nosearchresults)
+      if @from_book && @book = params[:book].split('_')
+        # Book was explicitly requested, but no entry to be displayed was given.
+        # Most likely, a page <0 was displayed.
+        @book = Book.find_by(name: @book[0], language: @book[1])
+        @page = @book.pages.find_by_number(params[:from_page]) || @book.pages.first
+      end
     end
     respond_to do |format|
       format.html do
@@ -89,11 +96,10 @@ class PagesController < ApplicationController
     else
       if cookies[:book] && book = cookies[:book].split('_')
         # Cookies present, format correct.
-        unless @book = Book.find_by(name: book[0], language: book[1])
-          # No preference present, falling back to default.
-          @book = Book.default
-        end
+        @book = Book.find_by(name: book[0], language: book[1])
       end
+      # No preference present, falling back to default.
+      @book ||= Book.default
     end
     # For the sidebar.
     @books = Book.all

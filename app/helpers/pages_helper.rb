@@ -6,11 +6,11 @@ module PagesHelper
 
   def arrow_right_options
     title = [t(:page), @page.next.number].join(' ')
-    {class: 'arrow page right', alt: t(:current_page), title: title}
+    {class: 'arrow page right', alt: t(:next_page), title: title}
   end
 
   def page_options
     title = [t(:page), @page.number].join(' ')
-  {class: 'page', alt: t(:next_page), title: title}
+  {class: 'page', alt: nil, title: title}
   end
 end

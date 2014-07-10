@@ -28,26 +28,30 @@ class Page < ActiveRecord::Base
     #
     # Easiest and fastest: the root is already in the
     # list of roots for the current scope of book/page.
-    logger.warn("*** find_by_root: searching for #{search.inspect}")
+    logger.info("*** find_by_root (1): searching for #{search.inspect}")
     unless page = self.find_by_last_root(search)
       #
       # No luck so far. To make things easier, substitute
       # hamzas for alifs and alif maksuras for yas (originally
       # do_search().
       search = search.gsub(/[إآٱأءﺀﺀﺁﺃﺅﺇﺉ]/, 'ا').gsub(/ﻯ/,'ﻱ')
-      logger.warn("*** find_by_root: searching for #{search.inspect}")
+      logger.info("*** find_by_root (2): searching for #{search.inspect}")
       unless page = self.find_by_last_root(search)
         #
         # Still no luck. Time to modify the search string even
         # further. make_suggestions() seems to try and take a
         # guess at what other roots could be in the vincinity
         # of the searched-for root.
-        search = most_likely_closeby_root(search)
-        logger.warn("*** find_by_root: searching for #{search.inspect}")
-        page = self.find_by_last_root(search)
+        if search = most_likely_closeby_root(search)
+          logger.info("*** find_by_root (3): searching for #{search.inspect}")
+          page = self.find_by_last_root(search)
+        else
+          logger.info("*** find_by_root: all search attempts turned out empty.")
+          page = nil
+        end
       end
     end
-    return page
+    return page 
   end
 
   def path
@@ -99,13 +103,13 @@ class Page < ActiveRecord::Base
     # that it always comes up with /some/ results - that way, you can't
     # tell the user that you couldn't find anything.
     while (items[middle] != value && start_index < stop_index) do
-      logger.warn "*** most_likely_closeby_root: items[#{middle}]=#{items[middle].inspect}"
+      logger.info "*** most_likely_closeby_root: items[#{middle}]=#{items[middle].inspect}"
       stop_index  = middle-1 if value < items[middle]
       start_index = middle+1 if value > items[middle]
       break if (middle != 0 && value < items[middle] && value > items[middle-1])
       middle = ((stop_index + start_index)/2).floor
     end
-    logger.warn "*** most_likely_closeby_root: items[#{middle}]=#{items[middle].inspect} (corrected)"
+    logger.info "*** most_likely_closeby_root: items[#{middle}]=#{items[middle].inspect} (corrected)"
     retval = 0 if middle == 0
     middle = items.length-1 if middle > items.length-1
     if (items[middle] == value)
@@ -126,7 +130,7 @@ class Page < ActiveRecord::Base
     end
     # No idea what is going on above, but it's pretty darn
     # cool and seems to yield very desirable results :-)
-    logger.warn "*** most_likely_closeby_root: items[#{retval}]=#{items[retval].inspect} (while searching for #{value.inspect})"
-    return items[retval]
+    logger.info "*** most_likely_closeby_root: items[#{retval}]=#{items[retval].inspect} (while searching for #{value.inspect})"
+    return items[retval].empty? ? nil : items[retval]
   end
 end

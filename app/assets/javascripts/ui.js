@@ -30,9 +30,9 @@ function handleSidebar() {
   // needs to be done separately!
   $('.flap').click(function() {
     if ($.cookie('sidebar_enabled')) {
-      $.removeCookie('sidebar_enabled');
+      $.removeCookie('sidebar_enabled', {path: '/'});
     } else {
-      $.cookie('sidebar_enabled', true);
+      $.cookie('sidebar_enabled', true, {path: '/'});
     }
   }); if ($.cookie('sidebar_enabled')) {
     $('#sidebar').openMbExtruder(true);
