@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= # require turbolinks
+//= require turbolinks
 //= require bootstrap
 //= require jquery_mb_extruder.all
 //= require jquery.cookie
