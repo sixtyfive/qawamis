@@ -51,7 +51,6 @@ class PagesController < ApplicationController
           end
         end
       end
-      maintain_search_history if @page && !params[:from_book]
       flash[:warn] = t(:nosearchresults) unless @page
     else
       if @from_book && @book = params[:book].split('_')
@@ -61,6 +60,7 @@ class PagesController < ApplicationController
         @page = @book.pages.find_by_number(params[:from_page]) || @book.pages.first
       end
     end
+    update_search_history
     respond_to do |format|
       format.html do
         @page ||= (cookies[:page] ? @book.pages.find_by_number(cookies[:page]) : @book.pages.first_numbered)
@@ -79,14 +79,6 @@ class PagesController < ApplicationController
   end
 
   private
-
-  def maintain_search_history
-    _cookies = @search_history
-    _cookies.shift if (_cookies.length > 25)
-    _cookies << @search
-    _cookies.uniq!
-    cookies[:search_history] = JSON.generate(_cookies)
-  end
 
   def set_books
     if params[:book] && book = params[:book].split('_')
@@ -120,15 +112,25 @@ class PagesController < ApplicationController
   end
   
   def page_url(page)
-    page.path
+    page.path + (@search ? "?search=#{@search}" : '')
   end
   
   def book_url(book)
     book.first_page.path
   end
+    
+  def update_search_history
+    if params[:books].nil?
+      _cookies = @search_history
+      _cookies.shift if (_cookies.length > 25)
+      _cookies << params[:search] unless params[:search].blank?
+      _cookies = _cookies.reverse.uniq.reverse
+      cookies[:search_history] = JSON.generate(_cookies)
+    end
+  end
 
   def init_session
-    if cookies[:search_history].nil?
+    if cookies[:search_history].blank?
       @search_history = []
     else
       @search_history = JSON.parse(cookies[:search_history])
