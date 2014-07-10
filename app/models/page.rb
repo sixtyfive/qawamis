@@ -95,6 +95,9 @@ class Page < ActiveRecord::Base
     # Instead of the loop_count-method for safeguarding against missing items.
     (start_index..stop_index).each {|i| items[i] ||= ''}
     # Should be safe to look up any value inside the items array now.
+    # It seems to always take 10 iterations anyways. And I don't like
+    # that it always comes up with /some/ results - that way, you can't
+    # tell the user that you couldn't find anything.
     while (items[middle] != value && start_index < stop_index) do
       logger.warn "*** most_likely_closeby_root: items[#{middle}]=#{items[middle].inspect}"
       stop_index  = middle-1 if value < items[middle]
@@ -106,8 +109,10 @@ class Page < ActiveRecord::Base
     retval = 0 if middle == 0
     middle = items.length-1 if middle > items.length-1
     if (items[middle] == value)
-      (1..32).each do |i|
-        if (items[middle-1] != value)
+      # This part never seems get any action...
+      # Leaving the maximum number of iterations low.
+      (1..8).each do |i|
+        if (items[middle-i] != value)
           retval = middle-i+1
           break
         end

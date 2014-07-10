@@ -41,7 +41,7 @@ class PagesController < ApplicationController
         end
       end
     end
-    if @page
+    if @page && !params[:from_book]
       maintain_search_history
     else
       flash[:warn] = t(:nosearchresults)
@@ -61,7 +61,7 @@ class PagesController < ApplicationController
 
   def maintain_search_history
     _cookies = @search_history
-    _cookies.shift if (_cookies.length > 50)
+    _cookies.shift if (_cookies.length > 25)
     _cookies << @search
     _cookies.uniq!
     cookies[:search_history] = JSON.generate(_cookies)
