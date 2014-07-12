@@ -2,12 +2,22 @@ $(document).ready(main);           // fresh page loads
 $(document).on('page:load', main); // cached page loads and turbolinks
 
 $(document).keydown(function(e) {
-  switch(e.which) {
-    case 37: $('a.page.left').trigger('click'); break;             // left arrow key
-    case 39: $('a.page.right').trigger('click'); break;            // right arrow key
-    case 38: $('#book').focus(); break;                            // up arrow key
-    case 40: $('#book').focus(); break;                            // down arrow key
-    default: if (!$('#search').is(':focus')) $('#search').focus(); // any other key
+  switch (e.which) {
+    // paging
+    case 37: $('a.page.left').trigger('click'); break;
+    case 39: $('a.page.right').trigger('click'); break;
+    // make sure any other key press is used for search.
+    default: if (!$('#search').is(':focus')) $('#search').focus().select(); 
+  }
+  switch (e.which) {
+    // arrow keys should be reserved for page scrolling
+    // and browsing, search field navigation is disabled.
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+    $('#book').focus();
+    break;
   }
 });
 
@@ -91,8 +101,13 @@ function updatePageElements(new_book, new_page) {
   }
   // .navbar-search-form:
   // - #search_book (value = new book)
+  // - #search (value = new page if it was numeric before)
   // (search history is being taken care of separately)
-  $('header #search_book').val(new_book.full_name);
+  $('#search_book').val(new_book.full_name);
+  search = $('#search');
+  if (isNumeric(search.val())) {
+    search.val(new_page.number);
+  }
   // #sidebar:
   // - li (each one!)
   //   - input:radio (check if value = new book)
@@ -134,6 +149,10 @@ function absPath() {
     path += arguments[i]+'/';
   }
   return path.slice(0, -1);
+}
+
+function isNumeric(_var) {
+  return !isNaN(_var);
 }
 
 function updateSearchHistory(search_history) {
