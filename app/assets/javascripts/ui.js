@@ -152,7 +152,7 @@ function absPath() {
 }
 
 function isNumeric(_var) {
-  return !isNaN(_var);
+  return !isNaN(_var) && _var != '';
 }
 
 function updateSearchHistory(search_history) {

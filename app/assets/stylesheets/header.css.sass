@@ -1,9 +1,17 @@
+html
 *
   line-height: normal !important
+  font-family: 'Tahoma', sans-serif
+  font-size: 1em
 header
+  nav
+    height: 3.75em
   .container
     width: 100%
     white-space: nowrap !important
+    #quicknav,
+    #search_history
+      padding-top: .2em
     #quicknav
       display: inline-block
     #search_history
@@ -12,9 +20,6 @@ header
       overflow: hidden
       text-overflow: ellipsis
       width: 75%
-      height: 3em
-      font-family: 'Times New Roman', serif
-      font-size: 12pt
       a
         color: #428BCA !important
         padding-left: 15px
@@ -32,8 +37,6 @@ header
     label
       display: none
     fieldset
-      font-family: 'Tahoma', sans-serif
-      font-size: 1em
       position: absolute
       top: .7em
       right: 1em
