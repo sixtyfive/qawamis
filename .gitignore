@@ -26,7 +26,6 @@ db/*.sqlite3
 config/secrets.yml
 
 # various artifacts
-/mawrid/mr-aa-hw5-index-template.js
 **.war
 *.rbc
 *.sassc
