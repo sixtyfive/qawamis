@@ -1,78 +1,77 @@
-html
 *
   line-height: normal !important
   font-family: 'Tahoma', sans-serif
-  font-size: 1em
-header
+  font-size: 10pt
+nav
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 3.75em
   white-space: nowrap !important
-  nav
-    height: 3.75em
-  .container
-    width: 100%
-    #quicknav,
-    #search_history
-      padding-top: .2em
+  background-color: #F8F8F8
+  border-bottom: 1px solid #DEDEDE
+  .navbar-header
+    position: absolute
+    top: 1.25em
+    left: 1em
+    overflow: hidden
+    width: 75%
+    div, a
+      display: inline-block
+    a
+      padding-right: .5em
     #quicknav
-      display: inline-block
-    #search_history
-      padding-left: 1em
-      display: inline-block
-      overflow: hidden
-      text-overflow: ellipsis
-      width: 75%
+      padding-right: 1em
       a
-        color: #428BCA !important
-        padding-left: 15px
+        color: #777
+    #search_history a
+      color: #428BCA
   .navbar-search-form
     background-color: #F8F8F8
-    display: block
-    z-index: 1000
-    float: right
-    width: 22em
-    height: 100%
+    display: inline-block
     position: absolute
-    right: 0
     top: 0
-  form
-    label
-      display: none
-    fieldset
-      position: absolute
-      top: .7em
-      right: 1em
-      border-width: 0
-      input, button
-        display: inline-block
-        font-size: inherit
-        padding: .4em .6em
-        margin: .1em .2em
-        -moz-box-sizing: content-box
-        -webkit-box-sizing: content-box
-        box-sizing: content-box
-        background-color: #fff
-        border: 1px solid #428BCA
-      div, i
-        border: none
-        padding: 0
-        margin: 0
-        display: inline-block
-      input
-        unicode-bidi: bidi-override
-        direction: auto
-        width: 10em
-        margin-right: -.4em
-        border-radius: .5em 0 0 .5em
-      input:focus
-        outline: none
-        background-color: #ffa
-        background-color: rgba(255,255,210,0.5)
-      button
-        margin-left: 0
-        border-radius: 0 .5em .5em 0
-        background-color: #428BCA
-        color: #fff
-        width: 4em
-      button:active,
-      button:focus
-        outline: none
-        font-weight: bold
+    right: 0
+    form
+      padding: .25em 0 0 0
+      label
+        display: none
+      fieldset
+        border-width: 0
+        input, button
+          display: inline-block
+          font-size: inherit
+          padding: .4em .6em
+          margin: .1em .2em
+          -moz-box-sizing: content-box
+          -webkit-box-sizing: content-box
+          box-sizing: content-box
+          background-color: #fff
+        div, i
+          border: none
+          padding: 0
+          margin: 0
+          display: inline-block
+        input
+          unicode-bidi: bidi-override
+          direction: auto
+          width: 10em
+          margin-right: -.4em
+          border-radius: .5em 0 0 .5em
+          border: 1px solid #428BCA
+        input:focus
+          outline: none
+          background-color: #ffa
+          background-color: rgba(255,255,210,0.5)
+        button
+          margin-left: 0
+          background-color: #428BCA
+          color: #fff
+          width: 4em
+          border-radius: 0 .5em .5em 0
+          border: none
+        button:active,
+        button:focus
+          outline: none
+          font-weight: bold
