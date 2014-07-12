@@ -7,7 +7,7 @@
           = hidden_field_tag 'from_book', @book.full_name, id: "from_book_#{@book.full_name}"
           = hidden_field_tag 'from_page', @page.number, id: "from_page_#{@page.number}"
           = label_tag "book_#{book.full_name}", book.human_name
-    = button_tag(type: 'submit', class: 'btn btn-primary', tabindex: 2) do
+    = button_tag(type: 'submit', class: 'btn btn-primary', tabindex: 3) do
       - content_tag(:i, class: 'icon-ok icon-white')
       - t(:dictionaries)
 
