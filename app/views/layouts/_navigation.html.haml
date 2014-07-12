@@ -1,19 +1,18 @@
 %nav.navbar.navbar-default.navbar-fixed-top
-  .container
-    .navbar-header
-      #quicknav
-        = link_to t(:cover_page), @book.cover_page.path, class: 'navbar-brand', id: 'cover_page_link'
-        = link_to [t(:page), @book.first_page.number].join(' '), @book.first_page.path, class: 'navbar-brand', id: 'first_page_link'
-        = link_to [t(:page), @book.last_page.number].join(' '), @book.last_page.path, class: 'navbar-brand', id: 'last_page_link'
-      #search_history
-        - @search_history.reverse.each do |search|
-          = link_to search, "/#{search}?book=#{@book.full_name}", class: 'navbar-brand'
-    .navbar-search-form
-      = form_tag('/pages', method: :post) do
-        = hidden_field_tag('book', @book.full_name, {id: 'search_book'})
-        %fieldset
-          .control-group.string
-            .controls= text_field_tag(:search, current_search, tabindex: 1, dir: :auto)
-          = button_tag(type: 'submit', tabindex: 2) do
-            - content_tag(:i, class: 'icon-ok icon-white')
-            - t(:search)
+  .navbar-header
+    #quicknav
+      = link_to t(:cover_page), @book.cover_page.path, id: 'cover_page_link'
+      = link_to [t(:page), @book.first_page.number].join(' '), @book.first_page.path, id: 'first_page_link'
+      = link_to [t(:page), @book.last_page.number].join(' '), @book.last_page.path, id: 'last_page_link'
+    #search_history
+      - @search_history.reverse.each do |search|
+        = link_to search, "/#{search}?book=#{@book.full_name}"
+  .navbar-search-form
+    = form_tag('/pages', method: :post) do
+      = hidden_field_tag('book', @book.full_name, {id: 'search_book'})
+      %fieldset
+        .control-group.string
+          .controls= text_field_tag(:search, current_search, tabindex: 1, dir: :auto)
+        = button_tag(type: 'submit', tabindex: 2) do
+          - content_tag(:i, class: 'icon-ok icon-white')
+          - t(:search)

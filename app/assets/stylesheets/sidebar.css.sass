@@ -1,5 +1,5 @@
 #sidebar
-  margin-top: 5.65em
+  margin-top: 5.9em
   width: 19.5em
   background-color: #F8F8F8
   position: absolute
@@ -10,9 +10,8 @@
   border-bottom: 1px solid #CCC
   .flap
     font-size: 1em
-    padding: 1.25em 0 0 .7em
-    min-height: 12em
-    min-width: 2.75em
+    padding: 1.25em 0 0 .75em
+    min-height: 10.25em
   .flap,
   .flap span
     background-color: #428BCA
@@ -32,30 +31,32 @@
     margin: 0 1em 1em 0
   ul
     padding: 1em 1.5em
+    overflow: hidden
     label
       cursor: pointer
       font-weight: normal
-      font-size: 75%
+      font-size: 80%
     li
       list-style-type: none
       white-space: nowrap
-      padding: .7em 0 .125em 0
+      padding: .45em 0
       border-bottom: 1px solid #eee
-      width: 220px
       input[type=radio]
-        margin-bottom: -2px
         vertical-align: middle
+        margin: -7px 0 0 .25em
       label
         text-overflow: ellipsis
         overflow: hidden
+        display: inline-block
+        width: 235px
       &:last-child
         border-bottom: none
   .extruder-content
-    height: 36em !important
+    .text
+      padding: .75em 0 .75em .5em
+    height: 32.5em !important
     ul
       padding: 0
       margin: 0
-      input[type=radio]
-        margin-top: -18px
     button
       display: none
