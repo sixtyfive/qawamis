@@ -13,4 +13,4 @@
     %main
       = render 'layouts/sidebar'
       = render 'layouts/messages'
-      #book{data: @book.serialize}= yield
+      #book{data: @book.serialize, tabindex: 4}= yield
