@@ -11,7 +11,7 @@
     .navbar-search-form
       = form_tag('/pages', method: :post) do
         .control-group.string
-          .controls= text_field_tag(:search, current_search, tabindex: 1)
+          .controls= text_field_tag(:search, current_search, tabindex: 1, dir: :auto)
         = hidden_field_tag('book', @book.full_name, {id: 'search_book'})
         = button_tag(type: 'submit', class: 'btn btn-primary', tabindex: 2) do
           - content_tag(:i, class: 'icon-ok icon-white')

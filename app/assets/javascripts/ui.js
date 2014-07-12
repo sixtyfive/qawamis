@@ -10,7 +10,7 @@ $(document).keydown(function(e) {
 
 function main() {
   handleSidebar();
-  handleSearchRequests();
+  handleSearch();
   handlePageTurns();
 }
 
@@ -38,8 +38,9 @@ function handleSidebar() {
   });
 }
 
-function handleSearchRequests() {
-  $('form').submit(function(e) {
+function handleSearch() {
+  $('.navbar-search-form input').focus().select();
+  $('.navbar-search-form form').submit(function(e) {
     $.ajax({
       url: '/pages',
       type: 'POST',
