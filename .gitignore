@@ -10,8 +10,8 @@
 # http://github.com/RailsApps/rails-composer/issues
 #----------------------------------------------------------------------------
 
-# the actual books
-app/assets/images/books/*/*.png
+# the actual books (too big; might be copyrighted)
+/app/assets/images/books/*/*.png
 
 # bundler state
 /.bundle
@@ -26,6 +26,7 @@ db/*.sqlite3
 config/secrets.yml
 
 # various artifacts
+/mawrid/mr-aa-hw5-index-template.js
 **.war
 *.rbc
 *.sassc

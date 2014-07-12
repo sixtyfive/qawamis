@@ -36,18 +36,22 @@ class PagesController < ApplicationController
     end
     logger.info "*** find: trying to look up root in currently displayed book."
     if @search
-      unless @page = @book.pages.find_by_root(@search)
-        # No search results in current book.
-        if @from_book && @book = params[:book].split('_')
-          # Book was explicitly requested, so show its first page instead.
-          @book = Book.find_by(name: @book[0], language: @book[1])
-          @page = @book.first_page
-          flash[:notice] = t(:nosuchentry_in_selectedbook)
-        else
-          # No explicit book was requested, so try to find search in another.
-          logger.info "*** find: trying to look up root in all available books."
-          if @page = Page.find_by_root(@search)
-            flash[:notice] = t(:nosearchresults_in_selectedbook, book: t("books.#{@page.book.full_name}"))
+      if @search.number?
+        @page = @book.pages.find_by_number(@search)
+      else
+        unless @page = @book.pages.find_by_root(@search)
+          # No search results in current book.
+          if @from_book && @book = params[:book].split('_')
+            # Book was explicitly requested, so show its first page instead.
+            @book = Book.find_by(name: @book[0], language: @book[1])
+            @page = @book.first_page
+            flash[:notice] = t(:nosuchentry_in_selectedbook)
+          else
+            # No explicit book was requested, so try to find search in another.
+            logger.info "*** find: trying to look up root in all available books."
+            if @page = Page.find_by_root(@search)
+              flash[:notice] = t(:nosearchresults_in_selectedbook, book: t("books.#{@page.book.full_name}"))
+            end
           end
         end
       end
