@@ -1,3 +1,5 @@
+*
+  line-height: normal !important
 header
   .container
     width: 100%
@@ -29,18 +31,45 @@ header
   form
     label
       display: none
-    input, button
-      position: absolute
-    input
-      top: .65em
-      right: 5.5em
-      height: 2.55em
-      unicode-bidi: bidi-override
-      direction: auto
-      width: 10em
-      padding: 0 1em 0 .55em
+    fieldset
+      font-family: 'Tahoma', sans-serif
       font-size: 1em
-      font-family: 'Tahoma', sans-serif, 'Arial', 'Times New Roman', serif
-    button
+      position: absolute
       top: .7em
       right: 1em
+      border-width: 0
+      input, button
+        display: inline-block
+        font-size: inherit
+        padding: .4em .6em
+        margin: .1em .2em
+        -moz-box-sizing: content-box
+        -webkit-box-sizing: content-box
+        box-sizing: content-box
+        background-color: #fff
+        border: 1px solid #428BCA
+      div, i
+        border: none
+        padding: 0
+        margin: 0
+        display: inline-block
+      input
+        unicode-bidi: bidi-override
+        direction: auto
+        width: 10em
+        margin-right: -.4em
+        border-radius: .5em 0 0 .5em
+      input:focus
+        outline: none
+        background-color: #ffa
+        background-color: rgba(255,255,210,0.5)
+      button
+        margin-left: 0
+        border-radius: 0 .5em .5em 0
+        background-color: #428BCA
+        color: #fff
+        width: 4em
+      button:active,
+      button:focus
+        outline: none
+        font-weight: bold
