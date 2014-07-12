@@ -3,8 +3,9 @@ $(document).on('page:load', main); // cached page loads and turbolinks
 
 $(document).keydown(function(e) {
   switch(e.which) {
-    case 37: $('a.page.left').trigger('click'); break;  // left arrow key
-    case 39: $('a.page.right').trigger('click'); break; // right arrow key
+    case 37: $('a.page.left').trigger('click'); break;                      // left arrow key
+    case 39: $('a.page.right').trigger('click'); break;                     // right arrow key
+    default: if (!$('#search').is(':focus')) $('#search').focus().select(); // any other key
   }
 });
 
@@ -39,7 +40,7 @@ function handleSidebar() {
 }
 
 function handleSearch() {
-  $('.navbar-search-form input').focus().select();
+  $('#search').focus().select();
   $('.navbar-search-form form').submit(function(e) {
     $.ajax({
       url: '/pages',
