@@ -4,7 +4,7 @@
 require 'v8'
 js = String.new
 roots = Hash.new
-%w{mr-aa-hw3-index.js mr-aa-hw5-index.js mr-aa-indexes.js mr-mr-indexes.js}.each do |file|
+%w{mr-aa-hw5-index.js mr-aa-indexes.js mr-aa-hw3-index.js mr-mr-indexes.js}.each do |file|
   js += IO.read(File.join(Rails.root, 'mawrid', file))
 end
 cxt = V8::Context.new
@@ -43,6 +43,7 @@ books = [                       # starting with "1"      # add "1", but check!
   roots[_book.name.to_sym] = cxt[_book.name.to_sym]
   ActiveRecord::Base.transaction do
     (1..book[:number_of_pages]).each do |page|
+      puts "#{book[:name]}: [##{page}] (#{page-_book.first_numbered_page} - #{roots[_book.name.to_sym][page-1]})"
       _book.pages << Page.create(
         number: page - _book.first_numbered_page,
         last_root: roots[_book.name.to_sym][page-1]
