@@ -4,18 +4,18 @@ $(document).on('page:load', main); // cached page loads and turbolinks
 $(document).keydown(function(e) {
   switch (e.which) {
     // paging
-    case 37: $('a.page.left').trigger('click'); break;
-    case 39: $('a.page.right').trigger('click'); break;
+    case 37: $('a.page.left').trigger('click'); break;  // left arrow
+    case 39: $('a.page.right').trigger('click'); break; // right arrow
     // make sure any other key press is used for search.
     default: if (!$('#search').is(':focus')) $('#search').focus().select(); 
   }
   switch (e.which) {
     // arrow keys should be reserved for page scrolling
     // and browsing, search field navigation is disabled.
-    case 37:
-    case 38:
-    case 39:
-    case 40:
+    case 37: // left arrow
+    case 38: // up arrow
+    case 39: // right arrow
+    case 40: // down arrow
     $('#book').focus();
     break;
   }
@@ -26,6 +26,17 @@ function main() {
   handleSearch();
   handlePageTurns();
   handleTermsDialog();
+  handleMouseWheel();
+}
+
+function handleMouseWheel() {
+  $('#page .wrapper img').mousewheel(function(e) {
+    switch (e.deltaY) {
+      case 1:  $('a.page.left').trigger('click'); break;  // up and back
+      case -1: $('a.page.right').trigger('click'); break; // down and forward
+    }
+    e.preventDefault();
+  });
 }
 
 function handleTermsDialog() {
