@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require jquery_mb_extruder.all
 //= require jquery.cookie
+//= require jquery.mousewheel
 //= require i18n
 //= require i18n/translations
 //= require_tree .
