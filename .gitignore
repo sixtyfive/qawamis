@@ -13,6 +13,10 @@
 # the actual books (too big; might be copyrighted)
 /app/assets/images/books/*/*.png
 
+# machine specific files
+/config/thin.yml
+/run.sh
+
 # bundler state
 /.bundle
 /vendor/bundle/
