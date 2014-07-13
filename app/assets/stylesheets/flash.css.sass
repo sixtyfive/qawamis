@@ -1,3 +1,28 @@
 .alert
-  margin: 2em auto
-  width: 70em
+  width: 68.8em
+  border: 1px solid black
+  background-color: white
+  display: table
+  margin: 5.9em auto -5em auto
+  color: #555
+  &.alert-success,
+  &.alert-danger
+    padding: 1.125em 1em 1em 1em
+    button
+      border: 1px solid #333
+      color: #fff
+      font-weight: bold
+      height: 1.5em
+      width: 1.5em
+      cursor: pointer
+      float: right
+  &.alert-success
+    background-color: #D0FFCD
+    border: 1px solid #0A9F00
+    button
+      background-color: #0A9F00  
+  &.alert-danger
+    background-color: #FFCDCD
+    border: 1px solid #F00
+    button
+      background-color: #F00
