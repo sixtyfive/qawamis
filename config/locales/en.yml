@@ -32,6 +32,8 @@ en:
   next_page: "Next Page"
   current_page: "Current Page"
   dictionaries: "Change Dictionary"
+  terms_of_usage_html: "<h3>Welcome, dear visitor!</h3><p>This website allows access to a number of dictionaries, some of which are quite old <i>but some of which are still being sold</i> by their respective publishers. Thus, using it is only lawful if you own the books in question or are in a place where you're allowed to use them, such as a public library where they are present and available.</p><p>I adhere to these simple rules myself and <i>ask you only to do the same</i> in exchange for use of this website, which &mdash; as the books it makes accessible &mdash; took considerable time and effort to produce by me and those who came before me.</p><p>Thank you for your consideration.</p>"
+  terms_agreed: "I understand and promise to remain faithful to this appeal"
   books:
     hw5_de: "Hans Wehr, 5th Ed. (German/1985)"
     hw4_en: "Hans Wehr, 4th Ed. (English/1979)"

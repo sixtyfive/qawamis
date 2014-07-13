@@ -11,11 +11,19 @@ main
   .page
     display: table-cell
   .arrow
-    width: 5em
-    min-width: 5em
-    background-color: #ccc
+    width: 60px
+    min-width: 60px
     vertical-align: middle
     text-align: center
+    background-color: #CCC
+    transition: all 0.25s linear
+    &.left
+      background-image: url(arrowleft_background_gradient.png)
+    &.right
+    background-image: url(arrowright_background_gradient.png)
+  .arrow:hover
+    background-color: #6FA6D5
+    transition: all 0.25s linear
   img.page
     width: 60em
     padding: 1em

@@ -14,3 +14,9 @@
       = render 'layouts/sidebar'
       = render 'layouts/messages'
       #book{data: @book.serialize, tabindex: 4}= yield
+      #terms_dialog
+        .contents
+          = t(:terms_of_usage_html)
+          %fieldset
+            = check_box_tag 'terms_agreed', '1'
+            = label_tag 'terms_agreed', t(:terms_agreed)
