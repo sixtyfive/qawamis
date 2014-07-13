@@ -25,6 +25,24 @@ function main() {
   handleSidebar();
   handleSearch();
   handlePageTurns();
+  handleTermsDialog();
+}
+
+function handleTermsDialog() {
+  var dialog = $('#terms_dialog');
+  if (!$.cookie('terms_agreed')) {
+    dialog.show();
+  }
+  var checkbox = $('#terms_dialog input');
+  $('#terms_dialog fieldset').click(function() {
+    checkbox.prop('checked', !(checkbox.prop('checked')));
+  });
+  checkbox.change(function() {
+    if (checkbox.is(':checked')) {
+      $.cookie('terms_agreed', true, {path: '/'});
+      setTimeout(function() {dialog.fadeOut(500)}, 250);
+    }
+  });
 }
 
 function handleSidebar() {

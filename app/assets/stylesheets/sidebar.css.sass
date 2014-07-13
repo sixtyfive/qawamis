@@ -1,23 +1,20 @@
 #sidebar
   margin-top: 5.9em
   width: 19.5em
-  background-color: #F8F8F8
   position: absolute
   left: 0
-  top: 0 
-  border-top: 1px solid #CCC
-  border-right: 1px solid #CCC
-  border-bottom: 1px solid #CCC
+  top: 0
   .flap
     font-size: 1em
     padding: 1.25em 0 0 .75em
     min-height: 10.25em
-  .flap,
-  .flap span
-    background-color: #428BCA
+  .flap
+    background-color: rgba(66,139,202,0.9)
+    cursor: pointer
+    span
+      background-color: transparent
   .extruder-content,
   .text
-    background-color: #F8F8F8
     color: #428BCA
     text-shadow: none
   .extruder-content
@@ -39,11 +36,11 @@
     li
       list-style-type: none
       white-space: nowrap
-      padding: .45em 0
+      padding: .65em 0 .15em 0
       border-bottom: 1px solid #eee
       input[type=radio]
         vertical-align: middle
-        margin: -7px 0 0 .25em
+        margin: -5px 0 0 .25em
       label
         text-overflow: ellipsis
         overflow: hidden
@@ -52,8 +49,10 @@
       &:last-child
         border-bottom: none
   .extruder-content
+    background-color: rgba(248,248,248,0.95)
     .text
       padding: .75em 0 .75em .5em
+      background-color: transparent
     height: 32.5em !important
     ul
       padding: 0

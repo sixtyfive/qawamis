@@ -1,4 +1,46 @@
+*
+  line-height: normal !important
+  font-family: 'Tahoma', sans-serif
+  font-size: 10pt
 body
   margin: 0
   a
     text-decoration: none
+a:focus, a:active, 
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+select::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner
+  border: 0
+  outline : 0
+#terms_dialog
+  display: none
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  background-image: url(transparent.png)
+  z-index: 2000
+  .contents
+    width: 500px
+    height: 315px
+    border: 5px solid #6FA6D5
+    background-color: #fff
+    padding: 20px 35px
+    margin: 10em auto 0 auto
+    fieldset, input, label
+      cursor: pointer
+    fieldset
+      background-color: #eee
+      padding-top: .75em
+      text-align: center
+      input, label
+        vertical-align: top
+        display: inline-block
+      input
+        margin: 0 0 0 0
+      label
+        color: #428BCA
