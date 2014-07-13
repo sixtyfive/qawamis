@@ -34,7 +34,7 @@ class PagesController < ApplicationController
       # POST /pages
       @search = params[:search]
     end
-    logger.info "*** find: trying to look up root in currently displayed book."
+    logger.debug "*** find: trying to look up root in currently displayed book."
     if @search
       if @search.number?
         @page = @book.pages.find_by_number(@search)
@@ -48,7 +48,7 @@ class PagesController < ApplicationController
             flash[:notice] = t(:nosuchentry_in_selectedbook)
           else
             # No explicit book was requested, so try to find search in another.
-            logger.info "*** find: trying to look up root in all available books."
+            logger.debug "*** find: trying to look up root in all available books."
             if @page = Page.find_by_root(@search)
               flash[:notice] = t(:nosearchresults_in_selectedbook, book: t("books.#{@page.book.full_name}"))
             end
@@ -127,7 +127,9 @@ class PagesController < ApplicationController
     if params[:books].nil?
       _cookies = @search_history
       _cookies.shift if (_cookies.length > 25)
-      _cookies << params[:search] unless params[:search].blank?
+      unless params[:search].blank? || @search_history.last == params[:search]
+        _cookies << params[:search] 
+      end
       _cookies = _cookies.reverse.uniq.reverse
       cookies[:search_history] = JSON.generate(_cookies)
     end
