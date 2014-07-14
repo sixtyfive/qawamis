@@ -45,9 +45,6 @@ function handleTermsDialog() {
     dialog.show();
   }
   var checkbox = $('#terms_dialog input');
-  $('#terms_dialog fieldset').click(function() {
-    checkbox.prop('checked', !(checkbox.prop('checked')));
-  });
   checkbox.change(function() {
     if (checkbox.is(':checked')) {
       $.cookie('terms_agreed', true, {path: '/'});
