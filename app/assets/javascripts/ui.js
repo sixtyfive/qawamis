@@ -47,7 +47,7 @@ function handleTermsDialog() {
   var checkbox = $('#terms_dialog input');
   checkbox.change(function() {
     if (checkbox.is(':checked')) {
-      $.cookie('terms_agreed', true, {path: '/'});
+      $.cookie('terms_agreed', true, {path: '/', expires: 365});
       setTimeout(function() {dialog.fadeOut(500)}, 250);
     }
   });
@@ -67,7 +67,7 @@ function handleSidebar() {
     if ($.cookie('sidebar_enabled')) {
       $.removeCookie('sidebar_enabled', {path: '/'});
     } else {
-      $.cookie('sidebar_enabled', true, {path: '/'});
+      $.cookie('sidebar_enabled', true, {path: '/', expires: 365});
     }
   }); if ($.cookie('sidebar_enabled')) {
     $('#sidebar').openMbExtruder(true);

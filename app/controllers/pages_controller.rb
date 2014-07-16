@@ -7,7 +7,7 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html do
         if @page
-          cookies[:page] = params[:page]
+          cookies[:page] = {value: params[:page], expires: 1.year.from_now}
         else
           if cookies[:page]
             redirect_to @book.pages.find_by_number(cookies[:page])
@@ -88,7 +88,7 @@ class PagesController < ApplicationController
     if params[:book] && book = params[:book].split('_')
       # Params present, format correct.
       if @book = Book.find_by(name: book[0], language: book[1])
-        cookies[:book] = params[:book]
+        cookies[:book] = {value: params[:book], expires: 1.year.from_now}
       else
         # Got bogus info!
         if cookies[:book] && book = cookies[:book].split('_')
@@ -131,7 +131,7 @@ class PagesController < ApplicationController
         _cookies << params[:search] 
       end
       _cookies = _cookies.reverse.uniq.reverse
-      cookies[:search_history] = JSON.generate(_cookies)
+      cookies[:search_history] = {value: JSON.generate(_cookies), expires: 1.year.from_now}
     end
   end
 
