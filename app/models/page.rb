@@ -108,21 +108,16 @@ class Page < ActiveRecord::Base
     logger.debug "*** most_likely_closeby_root: items[#{middle}]=#{items[middle].inspect} (corrected)"
     retval = 0 if middle == 0
     middle = items.length-1 if middle > items.length-1
-    if (items[middle] == value)
-      # This part never seems get any action...
-      # Leaving the maximum number of iterations low.
-      (1..8).each do |i|
-        if (items[middle-i] != value)
-          retval = middle-i+1
-          break
-        end
-      end
+    # There used to be a bit of code here which handled the
+    # case of the searched-for value directly being present
+    # in the searched list. I've removed it since that
+    # case is already being taken care of in find_by_root
+    # by querying the database. As far as could be seen,
+    # that code was never being exercised during searches.
+    if value > items[middle] && value.length == 1
+      retval = middle+1
     else
-      if value > items[middle] && value.length == 1
-        retval = middle+1
-      else
-        retval = middle
-      end
+      retval = middle
     end
     # No idea what is going on above, but it's pretty darn
     # cool and seems to yield very desirable results :-)

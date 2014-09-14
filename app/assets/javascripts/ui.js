@@ -21,6 +21,12 @@ $(document).keydown(function(e) {
   }
 });
 
+$(document).ajaxStart(function() {
+  $('body').css('cursor', 'progress');
+}).ajaxStop(function() {
+  $('body').css('cursor', 'default');
+});
+
 function main() {
   handleSidebar();
   handleSearch();
