@@ -12,6 +12,7 @@
 
 # the actual books (too big; might be copyrighted)
 /app/assets/images/books/*/*.png
+/app/assets/images/books/hw5_de.tar
 
 # machine specific files
 /config/thin.yml
