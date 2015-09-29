@@ -32,7 +32,7 @@ function main() {
   handleSearch();
   handlePageTurns();
   handleTermsDialog();
-  handleMouseWheel();
+  // handleMouseWheel();
 }
 
 function handleMouseWheel() {
