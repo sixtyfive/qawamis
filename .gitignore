@@ -12,6 +12,7 @@
 
 # the actual books (too big; might be copyrighted)
 /app/assets/images/books/*/*.png
+/public/assets/*
 
 # machine specific files
 /config/thin.yml
