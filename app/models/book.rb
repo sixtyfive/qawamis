@@ -1,5 +1,5 @@
 class Book < ActiveRecord::Base
-  has_many :pages
+  has_many :pages, dependent: :destroy
   validates :name, :language, :first_numbered_page, presence: true
   validates :name, uniqueness: {scope: :language}
   default_scope {order('id ASC')}
