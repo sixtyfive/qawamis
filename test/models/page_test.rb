@@ -24,7 +24,7 @@ class PageTest < ActiveSupport::TestCase
     ['حول', 306],
     ['جري', 179],
     ['كب', 1080],
-    ['نشد', 1274],
+    ['نشد', 1272],
     ['ذقن', 428],
     ['ثاب', 149],
     ['نب', 1240],
@@ -36,8 +36,8 @@ class PageTest < ActiveSupport::TestCase
   test "all root searches return the correct page" do
     ROOT_PAGE_PAIRS.each do |search_string, expected_page_number|
       assert_equal(
-        Book.first.pages.find_by_root(search_string),
         Book.first.pages.find_by_number(expected_page_number),
+        Book.first.pages.find_by_root(search_string),
         "search_string='#{search_string}'")
     end
   end
