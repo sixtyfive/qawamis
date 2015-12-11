@@ -1,0 +1,7 @@
+#!/bin/bash
+
+bundle update
+rm db/database.sqlite3
+rake db:schema:load
+rake db:seed
+~/.httpd/run.sh restart
