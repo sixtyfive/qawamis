@@ -5,7 +5,7 @@ require 'v8'
 js = String.new
 roots = Hash.new
 %w{mr-aa-hw5-index.js mr-aa-indexes.js mr-aa-hw3-index.js mr-mr-indexes.js mr-aa-amj-index.js}.each do |file|
-  js += IO.read(File.join(Rails.root, 'mawrid', file))
+  js += IO.read(File.join(Rails.root, 'indices', file))
 end
 cxt = V8::Context.new
 cxt.eval(js)
