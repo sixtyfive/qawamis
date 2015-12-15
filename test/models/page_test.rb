@@ -33,6 +33,19 @@ class PageTest < ActiveSupport::TestCase
     ['لحي', 1148]
   ]
 
+  test "list of last roots on all hw5 pages is in alphabetical order" do
+    file = File.new("mawrid/hw5.txt", "r")
+    lastline = "ا"
+    i = 0
+    while (line = file.gets)
+      if assert_equal(true, (line >= lastline), "#{i}/#{i+1}: '#{line.gsub(/(.)/, '\1 ').strip}' < '#{lastline.gsub(/(.)/, '\1 ').strip}'")
+        lastline = line
+      end
+      i += 1
+    end
+    file.close
+  end
+
   test "all root searches return the correct page" do
     ROOT_PAGE_PAIRS.each do |search_string, expected_page_number|
       assert_equal(
