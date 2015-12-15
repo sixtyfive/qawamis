@@ -2,6 +2,6 @@
 
 (cd mawrid; ./hw5.sh)
 export RAILS_ENV=test
-rake db:schema:load
-rake db:seed
+#rake db:schema:load
+#rake db:seed
 rake test
