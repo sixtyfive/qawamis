@@ -1,6 +1,6 @@
 #!/bin/bash
 
-(cd mawrid; ./hw5.sh)
+(cd indices; ./hw5.sh)
 export RAILS_ENV=test
 #rake db:schema:load
 #rake db:seed

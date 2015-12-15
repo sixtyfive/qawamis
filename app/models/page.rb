@@ -17,7 +17,7 @@ class Page < ActiveRecord::Base
     #           ^ suggest_completions()/load_book_texts()
     #              ^ make_suggestions()
     #
-    # See mawrid/mawrid-app.js for reference. I'm skipping the
+    # See indices/mawrid-app.js for reference. I'm skipping the
     # support for transliterations like Buckwater or similar,
     # mostly because I don't care for it all too much.
     #

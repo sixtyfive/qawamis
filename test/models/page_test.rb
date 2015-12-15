@@ -34,7 +34,7 @@ class PageTest < ActiveSupport::TestCase
   ]
 
   test "list of last roots on all hw5 pages is in alphabetical order" do
-    file = File.new("mawrid/hw5.txt", "r")
+    file = File.new("indices/hw5.txt", "r")
     lastline = "ا"
     i = 0
     while (line = file.gets)
