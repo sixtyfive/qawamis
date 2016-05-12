@@ -87,7 +87,12 @@ class Page < ActiveRecord::Base
       end
       pages[i]
     rescue
-      # TODO: Wtf happened that brought us here?!
+      # Pretty much the only thing that can cause this
+      # branch to get executed is when the index is not
+      # in strictly alphabetical order, which the tests
+      # should prevent.
+      book = first_possible_page.book ? first_possible_page.book.name : 'unknown'
+      logger.error "*** Error: unable to find page for this search! Please write/run tests for #{book}!"
       first_possible_page
     end
   end
