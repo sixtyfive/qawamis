@@ -79,11 +79,16 @@ class Page < ActiveRecord::Base
   def self.most_likely_page(search_value)
     pages = self.all
     first_possible_page = pages.first
-    i = 0
-    while pages[i].last_root <= search_value
-      i += 1
-      next if (pages[i+1] && (pages[i].last_root == pages[i+1].last_root))
+    begin
+      i = 0
+      while pages[i].last_root <= search_value
+        i += 1
+        next if (pages[i+1] && (pages[i].last_root == pages[i+1].last_root))
+      end
+      pages[i]
+    rescue
+      # TODO: Wtf happened that brought us here?!
+      first_possible_page
     end
-    pages[i]
   end
 end
