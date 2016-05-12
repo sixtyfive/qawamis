@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
 //= require jquery_mb_extruder.all
 //= require jquery.cookie
 //= require jquery.mousewheel
