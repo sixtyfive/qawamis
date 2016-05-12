@@ -1,7 +1,12 @@
 #!/bin/bash
 
-bundle update # Needs to be ran using the correct rvm wrapper.
+bundle update # Needs to be run using the correct rvm wrapper.
 rm db/database.sqlite3
 rake db:schema:load
+(
+  cd indices
+  for i in *.sh; do ./$i; done
+)
 rake db:seed
+rake assets:precompile
 ~/.httpd/run.sh restart
