@@ -4,6 +4,6 @@
  * Compiled by J. R. Schmid (https://github.com/sixtyfive). *
  * -------------------------------------------------------- */
 
-var hw5=[]
+var hw5=[];
 for (i=0; i<=25; i++) hw5[i] = '';
 /* Real page number in comments */
