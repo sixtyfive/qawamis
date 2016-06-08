@@ -17,3 +17,9 @@ Whodunnit and how is it licensed?
 =================================
 
 © 2014 and onwards, J. R. Schmid. The sources are licensed under GNU GPL v3 to remain compatible with Abdurahman's work wherever I still make use of it.
+
+Effort so far:
+==============
+1233 LOC (cloc --exclude-dir=indices)
+~ 153 person-hours (git-hours)
+~ 2.4*1.233^1.05 = 2.99 person-months (COCOMO)
