@@ -87,3 +87,13 @@ pickle-email-*.html
 # Environment files that may contain sensitive data
 .env
 .powenv
+
+# Home directory things
+.passenger
+.bash*
+.gem
+.vim*
+.gnupg
+.mk*
+.z*
+.gitconfig
