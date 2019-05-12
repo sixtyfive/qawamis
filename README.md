@@ -21,6 +21,6 @@ Whodunnit and how is it licensed?
 Effort so far:
 ==============
 
-1035 LOC (`cloc --exclude-dir=indices`)
-~ 153 person-hours (`git-hours`)
-~ `2.4*1.233^1.05 =` 2.99 person-months (COCOMO)
+- 1035 LOC (`cloc --exclude-dir=indices`)
+- ~ 153 person-hours (`git-hours`)
+- ~ `2.4*1.233^1.05 =` 2.99 person-months (COCOMO)
