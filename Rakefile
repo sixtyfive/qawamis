@@ -4,3 +4,7 @@
 require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
+
+task :cloc do |t|
+  `cloc config.ru Gemfile Rakefile README.md app/ config lib public/*.html public/robots.txt`
+end
