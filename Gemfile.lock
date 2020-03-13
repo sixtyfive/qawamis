@@ -45,7 +45,7 @@ GEM
     arel (6.0.4)
     builder (3.2.3)
     concurrent-ruby (1.1.5)
-    crass (1.0.4)
+    crass (1.0.6)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.10.0)
@@ -82,7 +82,7 @@ GEM
     jquery_mb_extruder (2.0.0)
       jquery-rails
     libv8 (3.16.14.19)
-    loofah (2.2.3)
+    loofah (2.4.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -91,7 +91,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.11.3)
     multi_json (1.13.1)
-    nokogiri (1.10.3)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     passenger (6.0.2)
       rack
