@@ -1,7 +1,7 @@
 What is it?
 ===========
 
-Basically, it's my attempt at recreating the "Mawrid Reader" (https://github.com/ejtaal/mr) used by Abdurahman Erik Taal in his Arabic Almanac project (http://ejtaal.net/aa). I'm trying for a simpler and slightly more modern UI as well as root indices that are saved in a database instead of directly in the HTML.
+Basically, it's my attempt at recreating the [Mawrid Reader](https://github.com/ejtaal/mr) used by Abdurahman Erik Taal in his [Arabic Almanac](http://ejtaal.net/aa) project. I'm trying for a simpler and slightly more modern UI as well as root indices that are saved in a database instead of directly in the HTML.
 
 How to use it?
 ==============
