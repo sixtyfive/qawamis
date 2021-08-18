@@ -1,12 +1,12 @@
 What is it?
 ===========
 
-Basically, it's my attempt at recreating the "Mawrid Reader" (https://github.com/ejtaal/mr) used by Abdurahman Erik Taal in his Arabic Almanac project (http://ejtaal.net/aa). I'm trying for a simpler and slightly more modern UI as well as root indices that are saved in a database instead of directly in the HTML.
+Basically, it's my attempt at recreating the [Mawrid Reader](https://github.com/ejtaal/mr) used by Abdurahman Erik Taal in his [Arabic Almanac](http://ejtaal.net/aa) project. I'm trying for a simpler and slightly more modern UI as well as root indices that are saved in a database instead of directly in the HTML.
 
 How to use it?
 ==============
 
-Easy, visit (the site)[https://qms.weitnahbei.de], choose the dictionary you want to search in and enter a search term. Please note that when a dictionary uses Arabic roots instead of alphabetical sorting, then you will have to enter the root of the word you're looking for. I.e. if you're looking for كتاب (book), you would enter only the root consonants كتب into the search field. See e.g. [this Wikipedia page](https://en.wikipedia.org/wiki/Semitic_root) if you've never dealt with the concept of root letters before.
+Easy, visit [the website](https://qms.weitnahbei.de), choose the dictionary you want to search in and enter a search term. Please note that when a dictionary uses Arabic roots instead of alphabetical sorting, then you will have to enter the root of the word you're looking for. I.e. if you're looking for كتاب (book), you would enter only the root consonants كتب into the search field. See e.g. [this Wikipedia page](https://en.wikipedia.org/wiki/Semitic_root) if you've never dealt with the concept of root letters before.
 
 How to add new dictionaries?
 ============================
