@@ -1,3 +1,5 @@
+_The website is running fine the way it is but I'm not likely to be working on it any more. If you wish for something about Qawamis to change or new works to be added, I'd love to hand down maintainership. Otherwise, it'll stay the way it is._
+
 What is it?
 ===========
 
@@ -13,14 +15,7 @@ How to add new dictionaries?
 
 Please read `db/seeds.rb`! I'll happily accept pull requests :-).
 
-Whodunnit and how is it licensed?
-=================================
+Author and license
+==================
 
-© 2014 and onwards, J. R. Schmid. The sources are licensed under GNU GPL v3 to remain compatible with Abdurahman's work wherever I still make use of it.
-
-Effort so far:
-==============
-
-- 1035 LOC (`cloc --exclude-dir=indices`)
-- ~ 153 person-hours (`git-hours`)
-- ~ `2.4*1.233^1.05 =` 2.99 person-months (COCOMO)
+© 2014 and onwards, J. R. Schmid. The sources are licensed under GNU GPL v3 to remain compatible with Abdurahman's work wherever it might still be present.
