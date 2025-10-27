@@ -11,7 +11,7 @@
 #----------------------------------------------------------------------------
 
 # the actual books (too big; might be copyrighted)
-/app/assets/images/books/*/*.png
+/images/*/*.png
 /public/assets/*
 
 # machine specific files

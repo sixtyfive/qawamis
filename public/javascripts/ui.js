@@ -167,7 +167,7 @@ function updatePageElements(new_book, new_page) {
   $('#book a.page.right').attr('href', absPath(new_book.full_name, new_page.next));
   $('#book a.page.right').attr('title', I18n.t('page')+' '+new_page.next);
   $('#book a.page.right').attr('data-target', new_page.next);
-  $('#book img.page').attr('src', absPath('assets', new_page.image_file))
+  $('#book img.page').attr('src', absPath('images', new_page.image_file))
   $('#book img.page').attr('title', I18n.t('page')+' '+new_page.number)
   // Last but not least, the URL
   // entry bar and the page title:
