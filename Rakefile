@@ -11,6 +11,6 @@ end
 
 task :serve do |t|
   loop do
-    `bundle exec rails s -e production -p 3000 -b 10.1.1.110`
+    `bundle exec rails s -e production -p 3000 -b 0.0.0.0`
   end
 end

@@ -97,3 +97,5 @@ pickle-email-*.html
 .mk*
 .z*
 .gitconfig
+
+*.tar
