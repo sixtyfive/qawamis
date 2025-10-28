@@ -3,10 +3,16 @@
 rm -rf tmp/cache/*
 rm -f tmp/pids/*
 rm -f log/*
+rm docker-compose.yml
+ln docker-compose.yml-production docker-compose.yml
 mkdir -p log tmp/{cache,pids,sessions,sockets} public/images
+
 docker save -o qawamis.tar qawamis-web:latest
-tar cf /tmp/qawamis.tar docker-compose.yml qawamis.tar config/{database,secrets}.yml db/database.sqlite3 log tmp images
+
+# uncomment images below if server doesn't have them yet
+tar cf /tmp/qawamis.tar qawamis.tar docker-compose.yml config/{database,secrets}.yml db/database.sqlite3 log tmp # images
+
 echo 'now run:'
-echo 'scp /tmp/qawamis.tar ...:/tmp'
+echo 'rsync --info=progress2 /tmp/qawamis.tar ...:/tmp'
 echo 'then, there, bin/docker-load'
 echo 'you may then delete /tmp/qawamis.tar both here and there'
