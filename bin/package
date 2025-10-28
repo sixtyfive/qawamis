@@ -1,0 +1,12 @@
+#!/bin/sh
+
+rm -rf tmp/cache/*
+rm -f tmp/pids/*
+rm -f log/*
+mkdir -p log tmp/{cache,pids,sessions,sockets} public/images
+docker save -o qawamis.tar qawamis-web:latest
+tar cf /tmp/qawamis.tar docker-compose.yml qawamis.tar config/{database,secrets}.yml db/database.sqlite3 log tmp images
+echo 'now run:'
+echo 'scp /tmp/qawamis.tar ...:/tmp'
+echo 'then, there, bin/docker-load'
+echo 'you may then delete /tmp/qawamis.tar both here and there'

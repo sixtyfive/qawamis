@@ -1,7 +1,6 @@
 services:
   web:
-    # build: .
-    image: qawamis:latest # docker load qawamis-web.tar
+    build: .
     container_name: qawamis
     ports:
       - "3000:3000"

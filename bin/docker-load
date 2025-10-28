@@ -1,0 +1,7 @@
+#!/bin/sh
+
+tar xvf /tmp/qawamis.tar
+docker load qawamis-web.tar
+rm docker-compose.yml
+ln -s docker-compose.yml-production docker-compose.yml
+docker compose up -d

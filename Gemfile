@@ -1,27 +1,26 @@
 source 'https://rubygems.org'
 
-gem 'rake', '~> 12.3.3'
+gem 'rake'
 
-gem 'rails', '~> 4.2.11.3'
-gem 'actionpack', '~> 4.2.11.3'
-gem 'sprockets', '~> 2.12.5'
-gem 'sqlite3', '~> 1.3.13'
-gem 'haml-rails', '~> 1.0.0'
-# gem 'ffi', '1.17.1'
-gem 'ffi', '~> 1.15.5'
-gem 'concurrent-ruby', '~> 1.2.3' # 1.2.x is widely compatible with Ruby 2.6
+gem 'rails', '~> 5.2.8'
+gem 'thor', '~> 1.1.0'
+gem 'sprockets'
+gem 'sqlite3', '~> 1.4.0'
+gem 'haml-rails'
+gem 'ffi', '< 1.17.0'
+gem 'concurrent-ruby'
 
-gem 'sass-rails'
+gem 'sassc-rails'
 
 gem 'i18n-js', git: 'https://github.com/fnando/i18n-js.git', branch: :v2
 
 gem 'uglifier'
-gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'jquery_mb_extruder'
-gem 'jquery-cookie-rails'
+gem 'jquery-rails'
 gem 'jquery-mousewheel-rails'
+gem 'js_cookie_rails'
 
 gem 'http_accept_language'
 

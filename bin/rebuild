@@ -3,12 +3,7 @@
 docker compose down --rmi all --volumes --remove-orphans
 rm -rf tmp/cache/*
 rm -f tmp/pids/*
-mkdir -p log tmp/{cache,pids,sessions,sockets} config db images
+rm -f log/*
+mkdir -p log tmp/{cache,pids,sessions,sockets} public/images
 docker compose build --no-cache --pull
 docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
-docker save -o qawamis.tar qawamis-web:latest
-tar cvf /tmp/qawamis.tar docker-compose.yml qawamis.tar config/{database,secrets}.yml db/database.sqlite3 log tmp images
-# scp /tmp/qawamis.tar ...:/tmp
-# tar xvf /tmp/qawamis.tar
-# docker load qawamis-web.tar
-# docker compose up -d

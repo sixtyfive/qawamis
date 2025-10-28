@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery_mb_extruder.all
-//= require jquery.cookie
+//= require js.cookie
 //= require jquery.mousewheel
 //= require i18n
 //= require i18n/translations
