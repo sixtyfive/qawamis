@@ -1,6 +1,6 @@
 #!/bin/sh
 
-rm docker-compose.yml
+rm -f docker-compose.yml
 ln -s docker-compose.yml-development docker-compose.yml
 docker compose up -d
 docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}' | grep qawamis

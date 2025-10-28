@@ -3,7 +3,7 @@
 rm -rf tmp/cache/*
 rm -f tmp/pids/*
 rm -f log/*
-rm docker-compose.yml
+rm -f docker-compose.yml
 ln docker-compose.yml-production docker-compose.yml
 mkdir -p log tmp/{cache,pids,sessions,sockets} public/images
 
