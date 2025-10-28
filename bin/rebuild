@@ -1,9 +1,11 @@
 #!/bin/sh
 
 docker compose down --rmi all --volumes --remove-orphans
+
 rm -rf tmp/cache/*
-rm -f tmp/pids/*
-rm -f log/*
+rm -f tmp/pids/* log/* public/images/books docker-compose.yml
+ln docker-compose.yml-development docker-compose.yml
 mkdir -p log tmp/{cache,pids,sessions,sockets} public/images
+
 docker compose build --no-cache --pull
 docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'

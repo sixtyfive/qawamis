@@ -2,12 +2,12 @@
 %html
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= t(:htmltitle, {book: @book.human_name, page: @page.number})
+    %title= t(:htmltitle, book: @book.human_name, page: @page.number)
     = favicon_link_tag
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
-    = javascript_include_tag 'translations'
-    = javascript_include_tag 'ui'
+    = javascript_include_tag 'translations', skip_pipeline: true
+    = javascript_include_tag 'ui', skip_pipeline: true
     = csrf_meta_tags
   %body
     %header

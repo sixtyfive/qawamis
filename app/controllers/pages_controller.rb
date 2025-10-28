@@ -10,7 +10,7 @@ class PagesController < ApplicationController
           cookies[:page] = {value: params[:page], expires: 1.year.from_now}
         else
           if cookies[:page]
-            redirect_to @book.pages.find_by_number(cookies[:page])
+            redirect_to(@book.pages.find_by_number(cookies[:page]).path)
           else
             @page = @book.pages.first_numbered
           end
@@ -69,7 +69,7 @@ class PagesController < ApplicationController
       format.html do
         # @page ||= (cookies[:page] ? @book.pages.find_by_number(cookies[:page]) : @book.pages.first_numbered)
         @page ||= @book.pages.first_numbered
-        redirect_to @page
+        redirect_to(@page.path)
       end
       format.json do
         flash.discard
@@ -102,7 +102,7 @@ class PagesController < ApplicationController
           @book = Book.default
         end
         flash[:warn] = t(:nosuchbook, book: t("books.#{@book.full_name}"))
-        redirect_to(@book)
+        redirect_to(@book.path)
       end
     else
       if cookies[:book] && book = cookies[:book].split('_')
@@ -116,6 +116,8 @@ class PagesController < ApplicationController
     @books = Book.all
   end
   
+  # broke in upgrade from 5.2 to 6.1
+=begin
   def page_url(page)
     page.path + (@search ? "?search=#{@search}" : '')
   end
@@ -123,8 +125,10 @@ class PagesController < ApplicationController
   def book_url(book)
     book.first_page.path
   end
+=end
     
   def update_search_history
+    # broke during dockerisation
 =begin
     if params[:books].nil?
       _cookies = @search_history
