@@ -1,13 +1,13 @@
 services:
   web:
-    build: .
-    # image: qawamis:latest # docker save -o qawamis.tar qawamis:latest; docker load qawamis.tar
+    # build: .
+    image: qawamis:latest # docker load qawamis-web.tar
     container_name: qawamis
     ports:
       - "3000:3000"
     environment:
-      RAILS_ENV: production
-      RAILS_SERVE_STATIC_FILES: true
+      RAILS_ENV: "production"
+      RAILS_SERVE_STATIC_FILES: "true"
     volumes:
       - ./config/database.yml:/app/config/database.yml
       - ./config/secrets.yml:/app/config/secrets.yml
