@@ -1,7 +1,6 @@
 .git
 .gitignore
 .bundle/
-vendor/
 log/*
 tmp/*
 storage/*

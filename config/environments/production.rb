@@ -13,4 +13,5 @@ Rails.application.configure do
   config.serve_static_files = true
   config.assets.compile = false
   config.assets.digest = true
+  config.assets.js_compressor = Uglifier.new(harmony: true)
 end
