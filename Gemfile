@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rake'
 
-gem 'rails', '~> 7.0'
+gem 'rails', '~> 8.1.0'
 gem 'sprockets-rails'
 gem 'sqlite3'
 
