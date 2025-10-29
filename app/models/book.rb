@@ -16,12 +16,12 @@ class Book < ActiveRecord::Base
     pages.last
   end
 
-  def full_name
+  def slug
     "#{name}_#{language}"
   end
 
   def human_name
-    I18n.t("books.#{full_name}")
+    I18n.t("books.#{slug}")
   end
 
   def serialize
@@ -29,7 +29,7 @@ class Book < ActiveRecord::Base
       cover_page: self.cover_page.number,
       first_page: self.first_page.number,
       last_page:  self.last_page.number,
-      full_name:  self.full_name,
+      slug:       self.slug,
       human_name: self.human_name
     })
   end

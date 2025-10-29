@@ -51,7 +51,7 @@ class Page < ActiveRecord::Base
   end
 
   def path
-    "/#{book.full_name}/#{number}"
+    "/#{book.slug}/#{number}"
   end
 
   def previous
@@ -76,12 +76,11 @@ class Page < ActiveRecord::Base
   # Skip through all pages where the last root printed
   # on them is alphabetically lower or equal to the root
   # being searched for and then return the page after that.
-  def self.most_likely_page(search_value)
+  def self.most_likely_page(query)
     pages = self.all
-    first_possible_page = pages.first
     begin
       i = 0
-      while pages[i].last_root <= search_value
+      while pages[i].last_root <= query
         i += 1
         next if (pages[i+1] && (pages[i].last_root == pages[i+1].last_root))
       end
@@ -91,8 +90,9 @@ class Page < ActiveRecord::Base
       # branch to get executed is when the index is not
       # in strictly alphabetical order, which the tests
       # should prevent.
+      first_possible_page = pages.first
       book = first_possible_page.book ? first_possible_page.book.name : 'unknown'
-      logger.error "*** Error: unable to find page for this search! Please write/run tests for #{book}!"
+      logger.warn "  Warning: unable to find page in book '#{book}' for query '#{query}'! Test index!"
       first_possible_page
     end
   end

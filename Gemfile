@@ -2,15 +2,16 @@ source 'https://rubygems.org'
 
 gem 'rake'
 
-gem 'rails', '~> 6.1.7'
-gem 'sqlite3', '~> 1.4.0'
+gem 'rails', '~> 7.0'
+gem 'sprockets-rails'
+gem 'sqlite3'
 
 gem 'haml-rails'
 gem 'sassc-rails'
 
 gem 'uglifier'
 gem 'turbolinks'
-gem 'i18n-js', '~> 3.9.0'
+gem 'i18n-js'
 gem 'jbuilder'
 gem 'jquery_mb_extruder'
 gem 'jquery-rails'
