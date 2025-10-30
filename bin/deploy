@@ -1,0 +1,5 @@
+#!/bin/sh
+
+tar xvf /tmp/qawamis.tar && rm /tmp/qawamis.tar
+docker load -i qawamis.tar && rm qawamis.tar
+docker ps -a | grep qawamis
