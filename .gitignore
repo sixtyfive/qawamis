@@ -12,7 +12,6 @@
 
 # the actual books (too big; might be copyrighted)
 /images/*/*.png
-/public/assets/*
 
 # machine specific files
 /config/thin.yml
@@ -50,6 +49,9 @@ config/secrets.yml
 /public/cache
 /public/stylesheets/compiled
 /public/system/*
+/public/assets
+/public/images/books
+/public/javascripts
 /spec/tmp/*
 /cache
 /capybara*
@@ -99,8 +101,6 @@ pickle-email-*.html
 .gitconfig
 
 *.tar
-
-public/images/books
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
