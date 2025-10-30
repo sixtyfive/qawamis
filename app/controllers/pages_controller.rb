@@ -23,6 +23,13 @@ class PagesController < ApplicationController
     end
   end
 
+=begin
+  FIXME: add these in somewhere again
+  - flash[:notice] = t(:nosuchentry_in_selectedbook)
+  - logger.debug "*** find: trying to look up root in all available books."
+  - flash[:notice] = t(:nosearchresults_in_selectedbook, book: t("books.#{@page.book.slug}"))
+  - flash[:warn] = t(:nosearchresults) unless @page
+=end
   def find
     @query = params[:query]
     @page = @book.pages.find_by_number(@query) if @query.number?
@@ -42,12 +49,6 @@ class PagesController < ApplicationController
       end
     end
     update_search_history
-=begin
-    flash[:notice] = t(:nosuchentry_in_selectedbook)
-    logger.debug "*** find: trying to look up root in all available books."
-    flash[:notice] = t(:nosearchresults_in_selectedbook, book: t("books.#{@page.book.slug}"))
-    flash[:warn] = t(:nosearchresults) unless @page
-=end
   end
 
   private
