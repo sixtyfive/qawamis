@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mkdir -p public/images
+ln -s ../../images public/images/books
+bundle exec rails s

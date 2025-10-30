@@ -106,3 +106,6 @@ public/images/books
 /config/master.key
 
 docker-compose.yml
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

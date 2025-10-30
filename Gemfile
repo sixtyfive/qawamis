@@ -2,24 +2,23 @@ source 'https://rubygems.org'
 
 gem 'rake'
 
-gem 'rails', '~> 8.1.0'
-gem 'sprockets-rails'
-gem 'sqlite3'
-
-gem 'haml-rails'
-gem 'sassc-rails'
-
-gem 'uglifier'
-gem 'turbolinks'
-gem 'i18n-js'
-gem 'jbuilder'
-gem 'jquery_mb_extruder'
-gem 'jquery-rails'
-gem 'jquery-mousewheel-rails'
-gem 'js_cookie_rails'
+gem 'railties', '~> 8.1.0'
+gem 'activerecord', '~> 8.1.0'
+gem 'actionpack', '~> 8.1.0'
+gem 'actionview', '~> 8.1.0'
+gem 'activemodel', '~> 8.1.0'
+gem 'activesupport', '~> 8.1.0'
 
 gem 'http_accept_language'
 
-group :production do
-  gem 'puma'
-end
+gem 'importmap-rails' # for JS only
+gem 'dartsass-rails' # replaces sassc
+gem 'propshaft' # basically the new Sprockets
+
+gem 'haml-rails'
+
+gem 'sqlite3'
+
+gem 'i18n-js'
+
+gem 'puma'
