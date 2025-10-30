@@ -1,11 +1,11 @@
 #sidebar{class: "{title:'#{t(:dictionaries)}'}"}
   = form_tag('/change_dictionary') do
     %ul
-      - @books.each do |x|
+      - @books.each do |book|
         %li
-          = radio_button_tag 'book_slug', x.slug, (x.slug == @book.slug)
-          = hidden_field_tag 'page', x.pages.find_by_root(@page.last_root).number
-          = label_tag "book_#{x.slug}", x.human_name
+          = radio_button_tag 'book_slug', book.slug, (book.slug == @book.slug)
+          = hidden_field_tag 'page', page_with_root(book, @page.last_root)
+          = label_tag "book_#{book.slug}", book.human_name
     = button_tag(type: 'submit', class: 'btn btn-primary', tabindex: 3) do
       - content_tag(:i, class: 'icon-ok icon-white')
       - t(:dictionaries)

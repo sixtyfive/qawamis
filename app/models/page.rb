@@ -7,42 +7,42 @@ class Page < ActiveRecord::Base
     Page.find_by_number(1)
   end
 
-  def self.find_by_root(search)
-    # Re-implemented looking at Abdurahmans search algorithm,
-    # which seems to consist of the following call stack:
-    #
-    # -> searchandgo()
-    #     ^ do_search()
-    #        ^ binarySearch()
-    #           ^ suggest_completions()/load_book_texts()
-    #              ^ make_suggestions()
-    #
-    # See indices/mawrid-app.js for reference. I'm skipping the
-    # support for transliterations like Buckwater or similar,
-    # mostly because I don't care for it all too much.
-    #
-    # Easiest and fastest: the root is already in the
-    # list of roots for the current scope of book/page.
-    logger.debug("*** find_by_root: searching for #{search.inspect}")
-    unless page = self.find_by_last_root(search)
-      #
-      # No luck so far. To make things easier, substitute
-      # hamzas for alifs and alif maksuras for yas (originally
-      # do_search().
-      search = search.gsub(/[إآٱأءﺀﺀﺁﺃﺅﺇﺉ]/, 'ا').gsub(/ﻯ/,'ﻱ')
-      unless page = self.find_by_last_root(search)
-        #
-        # Still no luck. Time to modify the search string even
-        # further. make_suggestions() seems to try and take a
-        # guess at what other roots could be in the vincinity
-        # of the searched-for root.
-        unless page = self.most_likely_page(search)
+  # Re-implemented while looking at Abdurahmans search algorithm, which seems
+  # to consist of the following call stack:
+  #
+  # -> searchandgo()
+  #     ^ do_search()
+  #        ^ binarySearch()
+  #           ^ suggest_completions()/load_book_texts()
+  #              ^ make_suggestions()
+  #
+  # See indices/mawrid-app.js for reference. I'm foregoing support for
+  # transliterations like Buckwater or similar, mostly because I don't care
+  # for them all too much. DMG is really quite good in terms of what it
+  # offers for either having good disambiguation or having good legibility
+  # for non-scholars, depending on publication. Honestly, if we could just
+  # decide to standardize on it internationally, that might be good for the
+  # community as a whole. Okay, I'm done ranting now.
+  def self.find_by_root(query)
+    return if query.nil?
+    # Easiest and fastest: the root is already in the list of roots for the
+    # current scope of book/page.
+    logger.debug("*** find_by_root: searching for #{query.inspect}")
+    unless page = self.find_by_last_root(query)
+      # No luck so far. To make things easier, substitute hamzas for alifs
+      # and alif maksuras for yas (originally do_search()).
+      query = query.gsub(/[إآٱأءﺀﺀﺁﺃﺅﺇﺉ]/, 'ا').gsub(/ﻯ/,'ﻱ')
+      unless page = self.find_by_last_root(query)
+        # Still no luck. Time to modify the search string even further.
+        # make_suggestions() seems to try and take a guess at what other
+        # roots could be in the vincinity of the searched-for root.
+        unless page = self.most_likely_page(query)
           logger.debug("*** find_by_root: all search attempts turned out empty.")
-          page = nil
+          return
         end
       end
     end
-    return page 
+    page 
   end
 
   def image_file
