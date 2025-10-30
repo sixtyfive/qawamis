@@ -1,3 +1,15 @@
+import jquery from 'jquery';
+window.$ = jquery;
+
+import Cookies from 'js-cookie';
+
+import I18n from "vendor/i18n-js/i18n";
+import 'translations';
+
+import 'vendor/jquery_mb_extruder/jquery.hoverIntent.min';
+import 'vendor/jquery_mb_extruder/jquery.mb.flipText';
+import 'vendor/jquery_mb_extruder/mbExtruder';
+
 $(document).ready(main);           // fresh page loads
 $(document).on('page:load', main); // cached page loads and turbolinks
 
@@ -117,7 +129,7 @@ function showAlert(severity, message) {
 }
 
 function updatePageElements(new_book, new_page) {
-  elements = ['cover_page', 'first_page', 'last_page'];
+  var elements = ['cover_page', 'first_page', 'last_page'];
   for (var i = 0; i < elements.length; i++) {
     $('#' + elements[i] + '_link').attr('href', absPath(new_book.slug, new_book[elements[i]]));
   }

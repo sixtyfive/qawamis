@@ -19,6 +19,6 @@ gem 'haml-rails'
 
 gem 'sqlite3'
 
-gem 'i18n-js'
+gem 'i18n-js', '~> 2.0'
 
 gem 'puma'

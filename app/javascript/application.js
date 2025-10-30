@@ -1,6 +1,2 @@
-import "jquery"
-import "jquery_mb_extruder.all"
-import "js.cookie"
-import "jquery.mousewheel"
-import "i18n"
-import "./ui.js"
+import 'translations';
+import 'ui';

@@ -14,4 +14,6 @@ Rails.application.routes.draw do
 
   get '/:book_slug/:page', to: 'pages#show', constraints: {book_slug: /[a-z0-9_]+/, page: /\d+/}
   get '/:query', to: 'pages#find', constraints: ->(request){request.path.exclude?('.')}
+
+  match '*unmatched', to: 'application#not_found', via: :all
 end

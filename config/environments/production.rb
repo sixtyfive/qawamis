@@ -12,5 +12,6 @@ Rails.application.configure do
   
   # Make sure Importmap routes are mounted
   config.importmap.enabled = true
+  config.importmap.cache_assets = true
   config.public_file_server.enabled = true
 end
