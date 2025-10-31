@@ -1,4 +1,4 @@
-_The website is running fine the way it is and I'm not likely to work it anymore in the foreseeable future. So if you wish for a new feature to be added to Qawamīs, I'll happily accept a PR, and possibly hand down maintainership after a while. For bugs, etc. you're still welcome to open an Issue._
+_The website is running fine the way it is and I'm not likely to significantly change it anymore, at least not for in the foreseeable future. If you wish for a new feature to be added to Qawamīs, I'll happily accept a PR. For bugs, questions or smaller changes, you're always welcome to open an [Issue](https://github.com/sixtyfive/qawamis/issues/new) (no one has ever done so, which makes me believe the user base is rather non-technical)._
 
 What is this?
 =============
@@ -13,7 +13,7 @@ Easy, visit [the website](https://qms.weitnahbei.de), choose the dictionary you 
 How to add new dictionaries?
 ============================
 
-Please read `db/seeds.rb`. I'll happily accept PRs for additions to that, as well.
+I'm happy to add new dictionaries and will need a list with the last entry for each and every page (the "index"). Creating these requires quite a bit of grunt work, even in the times of Claude and friends. For the more technically-inclined, you can find all existing indices in the [indices](https://github.com/sixtyfive/qawamis/tree/main/data/dictionaries/indices) folder and the code that reads these into SQLite3 database lives in [db/seeds.rb](https://github.com/sixtyfive/qawamis/blob/main/db/seeds.rb).
 
 Author and license
 ==================
