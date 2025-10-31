@@ -46,8 +46,7 @@ class Page < ActiveRecord::Base
   end
 
   def image_file
-    "books/%s_%s/page_%04d.png" % [
-      book.name, book.language, book.first_numbered_page+number-1]
+    "books/%s_%s/page_%04d.png" % [book.name, book.language, book.first_numbered_page+number-1]
   end
 
   def path

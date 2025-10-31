@@ -13,5 +13,5 @@ services:
       - ./db/database.sqlite3:/app/db/database.sqlite3
       - ./log:/app/log
       - ./tmp:/app/tmp
-      - ./images:/app/public/images/books:ro
+      - ./data/dictionaries/images:/app/public/images/books:ro
     restart: unless-stopped

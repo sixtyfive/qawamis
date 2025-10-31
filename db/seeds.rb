@@ -13,11 +13,11 @@
 #
 # Next, each book requires an index of the last entry of each page. Page counting
 # starts with "1" being the first content page (the cover page being 1-x, i.e. -19).
-# The index should be made available as indices/#{BOOK}.txt, a simple text file with 
-# each line containing the corresponding page's last entry. For example, if page 250 
-# ends with the root كتب, line 250 of #{BOOK}.txt would read كتب. Creating these 
-# files requires a UTF-8 capable text editor. Alternatively, use LibreOffice Calc
-# and save as CSV with UTF-8 encoding.
+# The index should be made available as data/dictionaries/indices/#{BOOK}.txt, a
+# simple text file with each line containing the corresponding page's last entry.
+# For example, if page 250 ends with the root كتب, line 250 of #{BOOK}.txt would
+# read كتب. Creating these files requires a UTF-8 capable text editor. Alternatively,
+# use LibreOffice Calc and save as CSV with UTF-8 encoding.
 #
 # To go along with #{BOOK}.txt, create #{BOOK}.sh and #{BOOK}.js.tpl, using the 
 # existing such files as starting points (both need to be modified accordingly!) 
@@ -35,8 +35,8 @@
 # 2. Put pages into app/assets/images/books/mybook/page_1234.png
 # 3. Rename page_0001.png to page_0000.png
 # 4. Make a new blank white page named page_0001.png
-# 5. In indices/, create mybook.txt, mybook.sh, mybook.js.tpl
-# 6. In indices/, run mybook.sh
+# 5. In data/dictionaries/indices/, create mybook.txt, mybook.sh, mybook.js.tpl
+# 6. In data/dictionaries/indices/, run mybook.sh
 # 7. Run `rake assets:precompile` and `rake db:seed`
 # 8. ??? :-)
 #

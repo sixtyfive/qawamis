@@ -47,7 +47,7 @@ config/secrets.yml
 /public/stylesheets/compiled
 /public/system/*
 /public/assets
-/public/images/books
+/public/images/books/*/*
 /public/javascripts
 /spec/tmp/*
 /cache

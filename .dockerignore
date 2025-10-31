@@ -1,3 +1,6 @@
+data/
+.vscode
+.bundle
 .git
 .gitignore
 .bundle/
@@ -17,4 +20,3 @@ docker-compose.yml
 db/*.sqlite3
 config/database.yml
 config/secrets.yml
-images/

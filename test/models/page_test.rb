@@ -36,7 +36,7 @@ class PageTest < ActiveSupport::TestCase
   }
 
   test "all article lists are in alphabetical order" do
-    files = Dir.glob("indices/*.txt")
+    files = Dir.glob("data/dictionaries/indices/*.txt")
     files.each do |f|
       puts "\nTesting #{f}:"
       file = File.open(f, 'r')
