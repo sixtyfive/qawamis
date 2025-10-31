@@ -1,5 +1,8 @@
 #!/bin/sh
 
-tar xf /tmp/qawamis.tar && rm /tmp/qawamis.tar
-docker load -i qawamis-container.tar && docker-compose up -d && rm qawamis-container.tar
+tar xvf /tmp/qawamis.tar && \
+rm /tmp/qawamis.tar && \
+docker load -i tmp/qawamis-container.tar && \
+docker-compose up -d && \
+rm tmp/qawamis-container.tar && \
 docker ps -a | grep qawamis

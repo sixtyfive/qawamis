@@ -84,4 +84,4 @@ def load_book(book)
 end
 
 books.each{|book| load_book(book)}
-puts "\n\nIndices for #{books.size} imported"
+puts "\n\nIndices for #{books.size} books imported"

@@ -23,7 +23,8 @@ gem 'propshaft' # basically the new Sprockets
 gem 'benchmark'
 gem 'i18n-js'
 
-group :development do
+# FIXME: docker build doesn't work if these are inside of a group
+#group :development do
   gem 'execjs'
   gem 'twitter_cldr'
-end
+#end
