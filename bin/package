@@ -9,11 +9,14 @@ echo "saving build to /tmp/qawamis-container.tar"
 docker save -o /tmp/qawamis-container.tar qawamis-web:latest
 
 FIRST_TIME_FILES="data/dictionaries/images/ docker-compose.yml-production config/database.yml config/secrets.yml"
-UPDATE_FILES="/tmp/qawamis-container.tar db/database.sqlite3"
+UPDATE_FILES="qawamis-container.tar db/database.sqlite3"
 
 echo "packing [$UPDATE_FILES] into /tmp/qawamis.tar"
 tar cf /tmp/qawamis.tar $UPDATE_FILES # $FIRST_TIME_FILES
+
 echo "removing /tmp/qawamis-container.tar"
+rm qawamis-container.tar
+
 echo
 echo 'now run:'
 echo '  rsync --info=progress2 /tmp/qawamis.tar ...:/tmp'
@@ -22,3 +25,4 @@ echo 'then on the server:'
 echo '  bin/docker-load'
 echo
 echo 'afterwards, you may want to delete /tmp/qawamis*.tar both here and there'
+echo
