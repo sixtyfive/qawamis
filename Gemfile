@@ -22,3 +22,7 @@ gem 'propshaft' # basically the new Sprockets
 
 gem 'benchmark'
 gem 'i18n-js'
+
+group :development do
+  gem 'execjs'
+end
