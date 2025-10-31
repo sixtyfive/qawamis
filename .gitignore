@@ -10,9 +10,6 @@
 # http://github.com/RailsApps/rails-composer/issues
 #----------------------------------------------------------------------------
 
-# the actual books (too big; might be copyrighted)
-/images/*/*.png
-
 # machine specific files
 /config/thin.yml
 /run.sh
@@ -77,6 +74,9 @@ pickle-email-*.html
 # Netbeans project directory
 /nbproject/
 
+# VSCode project files
+.vscode
+
 # RubyMine project files
 .idea
 
@@ -109,3 +109,6 @@ docker-compose.yml
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# the actual dictionary pages (too big; might be copyrighted)
+/data/dictionaries/images/*/*.png
