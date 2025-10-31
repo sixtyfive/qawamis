@@ -55,6 +55,8 @@ config/secrets.yml
 /capybara-*.html
 /gems
 /specifications
+/node_modules
+!/node_modules/i18n-js/dist/browser/index.*
 rerun.txt
 pickle-email-*.html
 .zeus.sock

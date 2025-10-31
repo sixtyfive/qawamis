@@ -1,0 +1,337 @@
+export default {
+  "de": {
+    "books": {
+      "amj_ar": "Al-Munjid (2005, Arab.)",
+      "br_en": "Brill Dictionary of Qurʾanic Usage (2008)",
+      "doe_en": "A Dictionary of Egyptian Arabic (1986)",
+      "ha_en": "Hava Arabisch-Englisch-Wörterbuch (1899)",
+      "hw3_en": "Hans Wehr, 3rd Ed. (1976)",
+      "hw4_en": "Hans Wehr, 4th Ed. (1979)",
+      "hw5_de": "Hans Wehr, 5. Ausg. (1985)",
+      "la_ar": "Lisān al-ʿArab (1290/1883)",
+      "ll_en": "Lane Arabisch-Englisch-Lexikon (1863)",
+      "ls_en": "Supplement zum Lexikon von Lane",
+      "maw_en": "Al-Mawrid, 7th Ed. (1995)",
+      "mgf_en": "Dictionary of the Holy Qur'an (Farid 2006)",
+      "pr_en": "A Dictionary and Glossary of the Kor-ân (1873)",
+      "sg_en": "Steingass Arabisch-Englisch-Lexikon (1884)",
+      "vi_en": "Verbal Idioms of the Qur'an (Mir 1989)",
+      "vq_en": "Qāmūs ʾalfāẓ al-Qurʾān al-Karīm (1986, Engl.)"
+    },
+    "cover_page": "Buchdeckel",
+    "current_page": "Aktuelle Seite",
+    "dictionaries": "Alle Wörterbücher",
+    "htmltitle": "Qawāmīs - %{book} - Seite %{page}",
+    "next_page": "Nächste Seite",
+    "nosearchresults": "Keine Suchergebnisse. Versuchen Sie die Eingabe einer Wurzel anstelle eines Wortes.",
+    "nosearchresults_in_selectedbook": "Keine Ergebnisse im gewählten Buch. Zeige stattdessen Ergebnisse in %{book}.",
+    "nosuchbook": "Buch nicht vorhanden. Zeige stattdessen %{book}.",
+    "nosuchentry_in_selectedbook": "Davor angezeigter Eintrag nicht gefunden. Zeige stattdessen die erste Seite.",
+    "page": "Seite",
+    "previous_page": "Vorherige Seite",
+    "search": "Suchen",
+    "terms_agreed": "Ich habe verstanden und stimme zu",
+    "terms_of_usage_html": "<h3>Hallo, lieber Besucher!</h3><p>Diese Seite erlaubt den Zugriff auf einige recht alte Wörterbücher, aber auch auf solche, die vom jeweiligen Verlag auch aktuell vertrieben werden. Die Benutzung ist insofern rechtlich (und ethisch ohnehin) nur dann vertretbar, wenn man entweder das jeweilige Buch besitzt, oder sich an einem Ort befindet, an dem einem die Benutzung gestattet ist (z.B. eine öffentliche Bibliothek, in der noch wenigstens ein Exemplar im Regal steht).</p><p>Ich halte mich selbst an diese einfache Regel und bitte auch Dich lediglich darum, dasselbe zu tun. In diese Seite ist (so wie in die Wörterbücher, die durch sie verfügbar gemacht werden) von mir und denen, auf deren Arbeit ich bauen konnte, viel Herzblut geflossen. Es sollte also eine angemessene Bitte sein.</p><p>Vielen Dank fürs Lesen und viel Erfolg und Freude bei der Recherche!</p>"
+  },
+  "en": {
+    "activerecord": {
+      "errors": {
+        "messages": {
+          "record_invalid": "Validation failed: %{errors}",
+          "restrict_dependent_destroy": {
+            "has_many": "Cannot delete record because dependent %{record} exist",
+            "has_one": "Cannot delete record because a dependent %{record} exists"
+          }
+        }
+      }
+    },
+    "books": {
+      "amj_ar": "Al-Munjid (2005, Arab.)",
+      "br_en": "Brill Dictionary of Qurʾanic Usage (2008)",
+      "doe_en": "A Dictionary of Egyptian Arabic (1986)",
+      "ha_en": "Hava Arabic-English Dictionary (1899)",
+      "hw3_en": "Hans Wehr, 3rd Ed. (1976)",
+      "hw4_en": "Hans Wehr, 4th Ed. (1979)",
+      "hw5_de": "Hans Wehr, 5th Ausg. (1985)",
+      "la_ar": "Lisān al-ʿArab (1290/1883)",
+      "ll_en": "Lane's Arabic-English Lexicon (1863)",
+      "ls_en": "Supplement to Lane's Lexicon",
+      "maw_en": "Al-Mawrid, 7th Ed. (1995)",
+      "mgf_en": "Dictionary of the Holy Qur'an (Farid 2006)",
+      "pr_en": "Dictionary and Glossary of the Kor-ân (1873)",
+      "sg_en": "Steingass' Arabic-English Lexicon (1884)",
+      "vi_en": "Verbal Idioms of the Qur'an (Mir 1989)",
+      "vq_en": "Qāmūs ʾalfāẓ al-Qurʾān al-Karīm (1986, Engl.)"
+    },
+    "cover_page": "Cover",
+    "current_page": "Current Page",
+    "date": {
+      "abbr_day_names": [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+      ],
+      "abbr_month_names": [
+        null,
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ],
+      "day_names": [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "formats": {
+        "default": "%Y-%m-%d",
+        "long": "%B %d, %Y",
+        "short": "%b %d"
+      },
+      "month_names": [
+        null,
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ],
+      "order": [
+        "year",
+        "month",
+        "day"
+      ]
+    },
+    "datetime": {
+      "distance_in_words": {
+        "about_x_hours": {
+          "one": "about 1 hour",
+          "other": "about %{count} hours"
+        },
+        "about_x_months": {
+          "one": "about 1 month",
+          "other": "about %{count} months"
+        },
+        "about_x_years": {
+          "one": "about 1 year",
+          "other": "about %{count} years"
+        },
+        "almost_x_years": {
+          "one": "almost 1 year",
+          "other": "almost %{count} years"
+        },
+        "half_a_minute": "half a minute",
+        "less_than_x_minutes": {
+          "one": "less than a minute",
+          "other": "less than %{count} minutes"
+        },
+        "less_than_x_seconds": {
+          "one": "less than 1 second",
+          "other": "less than %{count} seconds"
+        },
+        "over_x_years": {
+          "one": "over 1 year",
+          "other": "over %{count} years"
+        },
+        "x_days": {
+          "one": "1 day",
+          "other": "%{count} days"
+        },
+        "x_minutes": {
+          "one": "1 minute",
+          "other": "%{count} minutes"
+        },
+        "x_months": {
+          "one": "1 month",
+          "other": "%{count} months"
+        },
+        "x_seconds": {
+          "one": "1 second",
+          "other": "%{count} seconds"
+        }
+      },
+      "prompts": {
+        "day": "Day",
+        "hour": "Hour",
+        "minute": "Minute",
+        "month": "Month",
+        "second": "Seconds",
+        "year": "Year"
+      },
+      "relative": {
+        "future": "in %{time}",
+        "past": "%{time} ago"
+      }
+    },
+    "dictionaries": "Change Dictionary",
+    "errors": {
+      "format": "%{attribute} %{message}",
+      "messages": {
+        "accepted": "must be accepted",
+        "blank": "can't be blank",
+        "confirmation": "doesn't match %{attribute}",
+        "empty": "can't be empty",
+        "equal_to": "must be equal to %{count}",
+        "even": "must be even",
+        "exclusion": "is reserved",
+        "greater_than": "must be greater than %{count}",
+        "greater_than_or_equal_to": "must be greater than or equal to %{count}",
+        "in": "must be in %{count}",
+        "inclusion": "is not included in the list",
+        "invalid": "is invalid",
+        "less_than": "must be less than %{count}",
+        "less_than_or_equal_to": "must be less than or equal to %{count}",
+        "model_invalid": "Validation failed: %{errors}",
+        "not_a_number": "is not a number",
+        "not_an_integer": "must be an integer",
+        "odd": "must be odd",
+        "other_than": "must be other than %{count}",
+        "password_too_long": "is too long",
+        "present": "must be blank",
+        "required": "must exist",
+        "taken": "has already been taken",
+        "too_long": {
+          "one": "is too long (maximum is 1 character)",
+          "other": "is too long (maximum is %{count} characters)"
+        },
+        "too_short": {
+          "one": "is too short (minimum is 1 character)",
+          "other": "is too short (minimum is %{count} characters)"
+        },
+        "wrong_length": {
+          "one": "is the wrong length (should be 1 character)",
+          "other": "is the wrong length (should be %{count} characters)"
+        }
+      }
+    },
+    "helpers": {
+      "select": {
+        "prompt": "Please select"
+      },
+      "submit": {
+        "create": "Create %{model}",
+        "submit": "Save %{model}",
+        "update": "Update %{model}"
+      }
+    },
+    "htmltitle": "Qawāmīs - %{book} - Page %{page}",
+    "next_page": "Next Page",
+    "nosearchresults": "No search results. Try entering a root instead of a word.",
+    "nosearchresults_in_selectedbook": "No search results from selected book. Showing results from %{book} instead.",
+    "nosuchbook": "There is no such book. Displaying %{book} instead.",
+    "nosuchentry_in_selectedbook": "Previously displayed entry not found in selected book. Showing first page instead.",
+    "number": {
+      "currency": {
+        "format": {
+          "delimiter": ",",
+          "format": "%u%n",
+          "negative_format": "-%u%n",
+          "precision": 2,
+          "separator": ".",
+          "significant": false,
+          "strip_insignificant_zeros": false,
+          "unit": "$"
+        }
+      },
+      "format": {
+        "delimiter": ",",
+        "precision": 3,
+        "round_mode": "default",
+        "separator": ".",
+        "significant": false,
+        "strip_insignificant_zeros": false
+      },
+      "human": {
+        "decimal_units": {
+          "format": "%n %u",
+          "units": {
+            "billion": "Billion",
+            "million": "Million",
+            "quadrillion": "Quadrillion",
+            "thousand": "Thousand",
+            "trillion": "Trillion",
+            "unit": ""
+          }
+        },
+        "format": {
+          "delimiter": "",
+          "precision": 3,
+          "significant": true,
+          "strip_insignificant_zeros": true
+        },
+        "storage_units": {
+          "format": "%n %u",
+          "units": {
+            "byte": {
+              "one": "Byte",
+              "other": "Bytes"
+            },
+            "eb": "EB",
+            "gb": "GB",
+            "kb": "KB",
+            "mb": "MB",
+            "pb": "PB",
+            "tb": "TB",
+            "zb": "ZB"
+          }
+        }
+      },
+      "nth": {},
+      "percentage": {
+        "format": {
+          "delimiter": "",
+          "format": "%n%"
+        }
+      },
+      "precision": {
+        "format": {
+          "delimiter": ""
+        }
+      }
+    },
+    "page": "Page",
+    "previous_page": "Previous Page",
+    "search": "Search",
+    "support": {
+      "array": {
+        "last_word_connector": ", and ",
+        "two_words_connector": " and ",
+        "words_connector": ", "
+      }
+    },
+    "terms_agreed": "I understand and promise to remain faithful to this appeal",
+    "terms_of_usage_html": "<h3>Welcome, dear visitor!</h3><p>This website allows access to a number of dictionaries, some of which are quite old <i>but some of which are still being sold</i> by their respective publishers. Thus, using it is only lawful if you own the books in question or are in a place where you're allowed to use them, such as a public library where they are present and available.</p><p>I adhere to these simple rules myself and <i>ask you only to do the same</i> in exchange for use of this website, which &mdash; as the books it makes accessible &mdash; took considerable time and effort to produce by me and those who came before me.</p><p>Thank you for your consideration.</p>",
+    "time": {
+      "am": "am",
+      "formats": {
+        "default": "%a, %d %b %Y %H:%M:%S %z",
+        "long": "%B %d, %Y %H:%M",
+        "short": "%d %b %H:%M"
+      },
+      "pm": "pm"
+    }
+  }
+}

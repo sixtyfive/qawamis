@@ -11,6 +11,6 @@ module PagesHelper
 
   def page_options
     title = [t(:page), @page.number].join(' ')
-  {class: 'page', alt: nil, title: title}
+    {class: 'page', alt: nil, title: title}
   end
 end

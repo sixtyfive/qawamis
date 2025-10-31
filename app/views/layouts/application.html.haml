@@ -5,6 +5,7 @@
     %title= t(:htmltitle, book: @book.human_name, page: @page.number)
     = favicon_link_tag
     = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
+    = javascript_include_tag 'i18n-js/index.js'
     = javascript_importmap_tags
     = csrf_meta_tags
   %body

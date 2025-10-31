@@ -1,2 +1,7 @@
-web: bin/rails server -p 3000 -b 0.0.0.0
+web: RUBY_DEBUG_OPEN=true bin/rails server -p 3000 -b 0.0.0.0
 css: bin/rails dartsass:watch
+
+# bundle exec i18n export -q
+# echo -n "export default " > app/javascript/translations.js
+# cat app/javascript/translations.json >> app/javascript/translations.js
+# rm app/javascript/translations.json

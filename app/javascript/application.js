@@ -1,17 +1,25 @@
-const I18n = class {
-  static t(s) {
-    return s;
-  }
-}
-
 import jquery from 'jquery';
 window.$ = jquery;
 
 import Cookies from 'js-cookie';
 
+// an unknown version from sometime in 2014
+// there's something newer (2.6.0) available via yarn,
+// but no point in trying to make it work since this sort
+// of thing is so much simpler nowadays; better get rid of
+// entirely...
 import 'vendor/jquery_mb_extruder/jquery.hoverIntent.min';
 import 'vendor/jquery_mb_extruder/jquery.mb.flipText';
 import 'vendor/jquery_mb_extruder/mbExtruder';
+
+// very hackish, might need to revisit once importmap-rails stabilizes
+// and/or i18n-js either adapts to it or goes extinct. apparently, the
+// more modern way would be to feed translated strings in via hotwire
+import translations from 'translations';
+I18n = new I18n.I18n(translations);
+I18n.defaultLocale = 'en';
+I18n.locale = document.documentElement.lang;
+I18n.enableFallback = true;
 
 $(document).ready(main);           // fresh page loads
 $(document).on('page:load', main); // cached page loads and turbolinks
