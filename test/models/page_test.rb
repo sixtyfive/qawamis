@@ -35,34 +35,28 @@ class PageTest < ActiveSupport::TestCase
     ]
   }
 
-  test "all article lists are in alphabetical order" do
-    files = Dir.glob("data/dictionaries/indices/*.txt")
-    files.each do |f|
-      puts "\nTesting #{f}:"
-      file = File.open(f, 'r')
-      lastline = '0'
-      i = 0
-      while (line = file.gets)
-        puts "line [#{line.chomp}] >= lastline [#{lastline.chomp}]: #{(line >= lastline).to_s}"
-        if assert_equal(true, (line >= lastline), "Failed at #{f}##{i}/#{i+1}: [-#{line.gsub(/(.)/, ' \1 -').strip}] < [-#{lastline.gsub(/(.)/, ' \1 -').strip}]")
-          lastline = line
+  REPORTED_FAILED.each do |book_name, tests|
+    if book = Book.find_by_name(book_name)
+      tests.each do |query, expected_page_number|
+        test "search for [#{query}] in #{book_name} returns page #{expected_page_number}" do
+          page_a = book.pages.find_by_number(expected_page_number)
+          page_b = book.pages.find_by_root(query)
+          failmsg = "query='#{query}'"
+          assert_equal(page_a, page_b, failmsg)
         end
-        i += 1
       end
-      file.close
     end
   end
 
-  test "all previously failed searches now return the correct page" do
-    REPORTED_FAILED.each do |b, tests|
-      if book = Book.find_by_name(b)
-        puts "\nTesting #{b}:"
-        tests.each do |search_string, expected_page_number|
-          page_a = book.pages.find_by_number(expected_page_number)
-          page_b = book.pages.find_by_root(search_string)
-          puts "page [#{page_a.number}] == page [#{page_b.number}]: #{(page_a == page_b).to_s}"
-          assert_equal(page_a, page_b, "search_string='#{search_string}'")
-        end
+  files = Dir.glob("data/dictionaries/indices/*.txt")
+  files.each do |f|
+    test "index for #{File.basename(f, '.txt')} is in abjadial order" do
+      previous_root = ''
+      roots = File.readlines(f, chomp: true).reject(&:empty?)
+      roots.each_with_index do |current_root,i|
+        failmsg = "  (failed after line ~#{i+1}, [#{current_root}] <> [#{previous_root}], 1st should be < 2nd)"
+        assert(previous_root <= current_root, failmsg)
+        previous_root = current_root
       end
     end
   end

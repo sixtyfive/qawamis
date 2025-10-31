@@ -25,4 +25,5 @@ gem 'i18n-js'
 
 group :development do
   gem 'execjs'
+  gem 'twitter_cldr'
 end
