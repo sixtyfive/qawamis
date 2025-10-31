@@ -2,8 +2,7 @@
 
 FROM ruby:3.4 AS base
 ENV APP_HOME=/app \
-    BUNDLE_PATH=/usr/local/bundle \
-    BUNDLE_WITHOUT="development:test"
+    BUNDLE_PATH=/usr/local/bundle
 WORKDIR $APP_HOME
 RUN apt-get update -qq && apt-get install -y \
   build-essential \

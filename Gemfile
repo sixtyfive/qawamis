@@ -23,8 +23,15 @@ gem 'propshaft' # basically the new Sprockets
 gem 'benchmark'
 gem 'i18n-js'
 
-# FIXME: docker build doesn't work if these are inside of a group
-#group :development do
+group :development do
   gem 'execjs'
+end
+
+group :test do
+  # TODO:
+  # collator = TwitterCldr::Collation::Collator.new(:de)
+  # collator.compare("Art", "Älg")           # 1
+  # collator.compare("Älg", "Art")           # -1
+  # collator.compare("Art", "Art")           # 0
   gem 'twitter_cldr'
-#end
+end
