@@ -3,9 +3,8 @@
 docker compose down --rmi all --volumes --remove-orphans
 
 rm -rf tmp/cache/*
-rm -f tmp/pids/* log/* public/images/books docker-compose.yml
-ln docker-compose.yml-development docker-compose.yml
-mkdir -p log tmp/{cache,pids,sessions,sockets} public/images
+rm -f tmp/pids/* log/*
+mkdir -p tmp/{cache,pids,sessions,sockets} log
 
 docker compose build --no-cache --pull
-docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
+docker ps -a | grep qawamis

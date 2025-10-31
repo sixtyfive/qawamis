@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.force_ssl = true
+  # config.force_ssl = true
   # config.ssl_options = { hsts: { expires: 31536000, preload: true } } # 1 year
 
   config.cache_classes = true

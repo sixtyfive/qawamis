@@ -1,5 +1,6 @@
 #!/bin/sh
 
 tar xvf /tmp/qawamis.tar && rm /tmp/qawamis.tar
-docker load -i qawamis.tar && rm qawamis.tar
+docker load -i qawamis-container.tar && rm qawamis-container.tar
 docker ps -a | grep qawamis
+mkdir -p tmp/{cache,pids,sessions,sockets} log

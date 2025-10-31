@@ -1,16 +1,24 @@
 #!/bin/sh
 
+echo "cleaning up temp files and logs"
 rm -rf tmp/cache/*
-rm -f tmp/pids/* log/* docker-compose.yml public/images/books
-ln docker-compose.yml-production docker-compose.yml
-mkdir -p log tmp/{cache,pids,sessions,sockets} public/images
+rm -f tmp/pids/* log/*
+mkdir -p log tmp/{cache,pids,sessions,sockets}
 
-docker save -o qawamis.tar qawamis-web:latest
+echo "saving build to /tmp/qawamis-container.tar"
+docker save -o /tmp/qawamis-container.tar qawamis-web:latest
 
-# uncomment images below if server doesn't have them yet
-tar cf /tmp/qawamis.tar qawamis.tar docker-compose.yml config/{database,secrets}.yml db/database.sqlite3 log tmp # images
+FIRST_TIME_FILES="data/dictionaries/images/ docker-compose.yml-production config/database.yml config/secrets.yml"
+UPDATE_FILES="/tmp/qawamis-container.tar db/database.sqlite3"
 
+echo "packing [$UPDATE_FILES] into /tmp/qawamis.tar"
+tar cf /tmp/qawamis.tar $UPDATE_FILES # $FIRST_TIME_FILES
+echo "removing /tmp/qawamis-container.tar"
+echo
 echo 'now run:'
-echo 'rsync --info=progress2 /tmp/qawamis.tar ...:/tmp'
-echo 'then, there, bin/docker-load'
-echo 'you may then delete /tmp/qawamis.tar both here and there'
+echo '  rsync --info=progress2 /tmp/qawamis.tar ...:/tmp'
+echo
+echo 'then on the server:'
+echo '  bin/docker-load'
+echo
+echo 'afterwards, you may want to delete /tmp/qawamis*.tar both here and there'

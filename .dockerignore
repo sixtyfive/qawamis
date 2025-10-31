@@ -1,4 +1,3 @@
-data/
 .vscode
 .bundle
 .git
@@ -8,6 +7,7 @@ log/*
 tmp/*
 storage/*
 node_modules/
+!node_modules/i18n-js/dist/browser/
 spec/
 test/
 features/
@@ -16,7 +16,8 @@ features/
 *.old
 .DS_Store/
 Thumbs.db
-docker-compose.yml
+docker-compose.yml*
 db/*.sqlite3
 config/database.yml
 config/secrets.yml
+data/
