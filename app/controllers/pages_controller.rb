@@ -2,12 +2,12 @@ class PagesController < ApplicationController
   before_action :init_cookies, :set_books
   before_action :set_book, except: [:index]
 
+  # GET /
   def index
     redirect_to("/#{Book.default.name}_#{Book.default.language}/1")
   end
 
-  # GET /book.name/page.number
-  # POST /book.name/page.number
+  # GET /:book_slug/:page
   def show
     if @page = Page.find_by(book: @book, number: params[:page])
       cookies[:book_slug] = {value: @book.slug, expires: 1.year.from_now}
@@ -23,11 +23,16 @@ class PagesController < ApplicationController
     end
   end
 
+  # GET /:query
+  # POST /search
   def find
     @query = params[:query]
-    @page = @book.pages.find_by_number(@query) if @query.number?
-    @page ||= @book.pages.find_by_root(@query)
-    update_search_history
+    @page = if @query.number?
+      @book.pages.find_by_number(@query)
+    else
+      update_search_history
+      @book.pages.find_by_root(@query)
+    end
     respond_to do |format|
       format.html do
         redirect_to(@page.path)
@@ -38,7 +43,7 @@ class PagesController < ApplicationController
           book: @page.book.serialize, 
           page: @page.serialize, 
           flash: flash.first, 
-          search_history: @search_history
+          search_history: @search_history.reverse
         }
       end
     end
@@ -58,9 +63,8 @@ class PagesController < ApplicationController
     elsif cookies[:book_slug]
       book, language = cookies[:book_slug].split('_')
       Book.find_by(name: book, language: language)
-    else
-      Book.default
     end
+    @book ||= Book.default
   end
   
   def update_search_history

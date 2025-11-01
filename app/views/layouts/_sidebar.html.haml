@@ -3,9 +3,10 @@
     %ul
       - @books.each do |book|
         %li
+          - page = book.pages.find_by_root(@page.last_root)
           = radio_button_tag 'book_slug', book.slug, (book.slug == @book.slug)
-          = hidden_field_tag 'page', page_with_root(book, @page.last_root)
-          = label_tag "book_#{book.slug}", book.human_name
+          = hidden_field_tag 'page', most_equivalent_page(book, page)
+          = label_tag "book_#{book.slug}", book.human_name, class: label_tag_class(@page, page)
     = button_tag(type: 'submit', class: 'btn btn-primary', tabindex: 3) do
       - content_tag(:i, class: 'icon-ok icon-white')
       - t(:dictionaries)

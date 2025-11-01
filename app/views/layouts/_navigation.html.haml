@@ -5,8 +5,8 @@
       = link_to [t(:page), @book.first_page.number].join(' '), @book.first_page.path, id: 'first_page_link'
       = link_to [t(:page), @book.last_page.number].join(' '), @book.last_page.path, id: 'last_page_link'
     #search_history
-      - @search_history.is_a?(Array) && @search_history.each do |query|
-        = link_to(query, "/#{query}")
+      - @search_history.is_a?(Array) && @search_history.reverse.each do |item|
+        = link_to(item, "/#{item}")
     #search_form
       = form_tag('/search') do
         %fieldset

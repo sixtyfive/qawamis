@@ -7,12 +7,11 @@ module ApplicationHelper
     JSON.parse(cookies[:search_history]).last unless cookies[:search_history].blank?
   end
 
-  def page_with_root(book, root)
-    if page = book.pages.find_by_root(root)
-      page.number
-    else
-      flash[:notice] = t(:nosuchentry_in_selectedbook)
-      1
-    end
+  def most_equivalent_page(book, page)
+    page ? page.number : book.pages.first_numbered.number
+  end
+
+  def label_tag_class(current_book_page, page)
+    (page && (current_book_page.number != 1 && page.number == 1)) ? 'cover_page' : 'same_root'
   end
 end

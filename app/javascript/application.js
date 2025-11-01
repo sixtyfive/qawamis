@@ -143,24 +143,16 @@ function showAlert(severity, message) {
 }
 
 function updatePageElements(new_book, new_page) {
-  var elements = ['cover_page', 'first_page', 'last_page'];
-  for (var i = 0; i < elements.length; i++) {
-    $('#' + elements[i] + '_link').attr('href', absPath(new_book.slug, new_book[elements[i]]));
-  }
+  $('#cover_page_link').attr('href', absPath(new_book.slug, new_book.cover_page));
+  $('#first_page_link').attr('href', absPath(new_book.slug, new_book.first_page));
+  $('#last_page_link').attr('href', absPath(new_book.slug, new_book.last_page));
+  $('#last_page_link').text(I18n.t('page')+' '+new_book.last_page);
 
   $('#search_book').val(new_book.slug);
   var search = $('#search');
   if (isNumeric(search.val())) {
     search.val(new_page.number);
   }
-
-  $('#sidebar li').each(function() {
-    var radio = $(this).find('input:radio');
-    if (radio.val() == new_book.slug)
-      radio.prop('checked', true);
-    $(this).find('input[name=from_book]').val(new_book.slug);
-    $(this).find('input[name=from_page]').val(new_page.number);
-  });
 
   for (var key in new_book)
     $('#book').attr('data-' + key.replace('_', '-'), new_book[key]);
@@ -178,6 +170,33 @@ function updatePageElements(new_book, new_page) {
 
   history.replaceState(null, null, new_page.path);
   $('title').html(I18n.t('htmltitle', { book: new_book.human_name, page: new_page.number }));
+  
+  // this is quite expensive...
+  $('#sidebar li').each(function() {
+    var book_input = $(this).find('input[name=book_slug]');
+    var page_input = $(this).find('input[name=page]');
+    var label = $(this).find('label');
+    if (book_input.val() == new_book.slug) book_input.prop('checked', true);
+    $.ajax({
+      url: '/search',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        authenticity_token: $('#search_form form input[name=authenticity_token]').val(),
+        book_slug: book_input.val(),
+        query: new_page.last_root
+      },
+      success: function(results) {
+        var page_number = results.page.number;
+        page_input.val(page_number);
+        if (new_page.number != 1 && page_number == 1) {
+          label.removeClass('same_root').addClass('cover_page');
+        } else {
+          label.removeClass('cover_page').addClass('same_root');
+        }
+      }
+    });
+  });
 }
 
 function absPath() {
