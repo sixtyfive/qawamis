@@ -8,28 +8,38 @@ nav
   background-image: url(header_background_gradient.png)
   background-repeat: repeat-x
   .navbar-header
-    position: absolute
-    top: 1.25em
-    left: 1em
     overflow: hidden
-    div, a
-      display: inline-block
+    div
+      diplay: inline-block
     a
       padding-right: .5em
-    #quicknav
-      padding-right: 1em
-      a
-        color: #777
-    #search_history a
-      color: #428BCA
-  .navbar-search-form
-    display: inline-block
+  #quicknav
     position: absolute
+    left: 0
     top: 0
+    padding: 1.3em 0 0 1em
+    height: 33px
+    width: 14.5em
+    a
+      color: #777
+  #search_history
+    mask-image: linear-gradient(to right, transparent, white 100%);
+    position: absolute
+    right: 18.5em
+    top: 1.2em
+    width: 50%
+    text-align: right
+    overflow: hidden
+    direction: rtl
+    a
+      color: #428BCA
+      font-size: 105%
+  #search_form
+    position: absolute
     right: 0
+    top: .3em
     background-image: url(search_background_gradient.png)
     background-repeat: no-repeat
-    padding: .25em 0 0 30em
     form
       label
         display: none

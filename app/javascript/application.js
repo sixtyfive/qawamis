@@ -56,18 +56,18 @@ function main() {
   handlePageTurns();
   handleSidebarForm();
   handleTermsDialog();
-  // handleMouseWheel();
+  // handleMouseWheel(); // FIXME: why did I disable this?
 }
 
-/*function handleMouseWheel() {
-  $('#page .wrapper img').mousewheel(function(e) {
+function handleMouseWheel() {
+  $('#page .wrapper img').on("mousewheel", function(e) {
     switch (e.deltaY) {
       case 1:  $('a.page.left').trigger('click'); break;  // up and back
       case -1: $('a.page.right').trigger('click'); break; // down and forward
     }
     e.preventDefault();
   });
-}*/
+}
 
 function handleTermsDialog() {
   var dialog = $('#terms_dialog');
@@ -89,17 +89,20 @@ function handleSidebar() {
     position: 'left',
     slideTimer: 150,
     closeOnClick: false,
-    closeOnExternalClick: false
+    closeOnExternalClick: true
   });
-  // needs to be done separately and not through
-  // the buildMbExtruder() callback options.
-  $('.flap').click(function() {
+
+  // this needs to be done separately and not
+  // via the buildMbExtruder() callback options
+  // above
+  $('.flap').on("click", function() {
     if (Cookies.get('sidebar_enabled')) {
-      Cookies.remove('sidebar_enabled', { path: '/' });
+      Cookies.remove('sidebar_enabled', {path: '/'});
     } else {
-      Cookies.set('sidebar_enabled', true, { path: '/', expires: 365 });
+      Cookies.set('sidebar_enabled', true, {path: '/', expires: 365});
     }
   });
+
   if (Cookies.get('sidebar_enabled')) {
     $('#sidebar').openMbExtruder(true);
   }
@@ -107,7 +110,7 @@ function handleSidebar() {
 
 function handleSearch() {
   $('#search').focus().select();
-  $('.navbar-search-form form').submit(function(e) {
+  $('#search_form form').submit(function(e) {
     $.ajax({
       url: '/search',
       type: 'POST',

@@ -23,17 +23,11 @@ class PagesController < ApplicationController
     end
   end
 
-=begin
-  FIXME: add these in somewhere again
-  - flash[:notice] = t(:nosuchentry_in_selectedbook)
-  - logger.debug "*** find: trying to look up root in all available books."
-  - flash[:notice] = t(:nosearchresults_in_selectedbook, book: t("books.#{@page.book.slug}"))
-  - flash[:warn] = t(:nosearchresults) unless @page
-=end
   def find
     @query = params[:query]
     @page = @book.pages.find_by_number(@query) if @query.number?
     @page ||= @book.pages.find_by_root(@query)
+    update_search_history
     respond_to do |format|
       format.html do
         redirect_to(@page.path)
@@ -48,7 +42,6 @@ class PagesController < ApplicationController
         }
       end
     end
-    update_search_history
   end
 
   private
@@ -73,8 +66,9 @@ class PagesController < ApplicationController
   def update_search_history
     array = @search_history
     query = params[:query]
-    array << query if !query.blank? && array.last != query
-    cookies[:search_history] = {value: JSON.generate(array.uniq.last(25)), expires: 1.year.from_now}
+    array << query
+    @search_history = array.reject(&:blank?).uniq.last(25)
+    cookies[:search_history] = {value: JSON.generate(@search_history), expires: 1.year.from_now}
   end
 
   def init_cookies

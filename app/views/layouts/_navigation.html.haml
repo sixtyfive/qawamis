@@ -7,13 +7,13 @@
     #search_history
       - @search_history.is_a?(Array) && @search_history.each do |query|
         = link_to(query, "/#{query}")
-  .navbar-search-form
-    = form_tag('/search') do
-      %fieldset
-        .control-group.string
-          .controls
-            = hidden_field_tag('book_slug', @book.slug, {id: 'search_book'})
-            = text_field_tag(:query, current_search, tabindex: 1, dir: :auto)
-        = button_tag(type: 'submit', tabindex: 2) do
-          - content_tag(:i, class: 'icon-ok icon-white')
-          - t(:search)
+    #search_form
+      = form_tag('/search') do
+        %fieldset
+          .control-group.string
+            .controls
+              = hidden_field_tag('book_slug', @book.slug, {id: 'search_book'})
+              = text_field_tag(:query, current_search, tabindex: 1, dir: :auto)
+          = button_tag(type: 'submit', tabindex: 2) do
+            - content_tag(:i, class: 'icon-ok icon-white')
+            - t(:search)
