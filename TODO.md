@@ -6,3 +6,4 @@
   - flash[:notice] = t(:nosuchentry_in_selectedbook)
   - flash[:notice] = t(:nosearchresults_in_selectedbook, book: t("books.#{@page.book.slug}"))
   - flash[:warn] = t(:nosearchresults)
+- more elegant deployment solution
