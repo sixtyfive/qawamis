@@ -1,0 +1,8 @@
+- can't close flash messages
+- mgf can't be opened from the navbar
+- sometimes not possible to switch books (depending on which pages is currently selected)
+- in mgf and hw3 search doesn't work at all
+- add these somewhere again:
+  - flash[:notice] = t(:nosuchentry_in_selectedbook)
+  - flash[:notice] = t(:nosearchresults_in_selectedbook, book: t("books.#{@page.book.slug}"))
+  - flash[:warn] = t(:nosearchresults)
