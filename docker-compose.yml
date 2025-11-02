@@ -1,17 +1,1 @@
-services:
-  web:
-    build: .
-    container_name: qawamis
-    ports:
-      - "3000:3000"
-    environment:
-      RAILS_ENV: "production"
-      RAILS_SERVE_STATIC_FILES: "true"
-    volumes:
-      - ./config/database.yml:/app/config/database.yml
-      - ./config/secrets.yml:/app/config/secrets.yml
-      - ./db/database.sqlite3:/app/db/database.sqlite3
-      - ./log:/app/log
-      - ./tmp:/app/tmp
-      - ./data/dictionaries/images:/app/public/images/books:ro
-    restart: unless-stopped
+docker-compose.yml-development

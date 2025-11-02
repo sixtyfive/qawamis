@@ -1,0 +1,17 @@
+services:
+  web:
+    container_name: qawamis
+    build:
+      context: .
+      target: dev
+    volumes:
+      - .:/app
+      - bundle:/usr/local/bundle
+      - ./data/dictionaries/images:/app/public/images/books:ro
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: development
+
+volumes:
+  bundle:

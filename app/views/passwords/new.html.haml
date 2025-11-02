@@ -1,0 +1,13 @@
+.auth-logo Qawāmīs
+.auth-title Reset your password
+
+= form_with url: passwords_path do |form|
+  .auth-form-group
+    = form.label :email_address, "Email Address"
+    = form.email_field :email_address, required: true, autofocus: true, placeholder: "you@example.com"
+
+  .auth-footer-links
+    = link_to "Sign in", new_session_path
+    = link_to "Back to home", root_path
+
+  = form.submit "Send reset instructions", class: "auth-btn"

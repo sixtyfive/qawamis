@@ -22,10 +22,9 @@ gem 'propshaft' # basically the new Sprockets
 
 gem 'benchmark'
 gem 'i18n-js'
+gem "bcrypt", "~> 3.1"
 
-group :development do
-  gem 'execjs'
-end
+gem 'execjs'
 
 group :test do
   # TODO:

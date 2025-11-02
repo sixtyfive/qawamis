@@ -1,0 +1,5 @@
+%p Hello,
+
+%p You can reset your password by clicking the link below:
+
+%p= link_to "Reset Password", edit_password_url(@user.generate_token_for(:password_reset))

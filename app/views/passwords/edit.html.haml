@@ -1,0 +1,17 @@
+.auth-logo Qawāmīs
+.auth-title Choose a new password
+
+= form_with url: password_path(params[:token]), method: :patch do |form|
+  .auth-form-group
+    = form.label :password, "New Password"
+    = form.password_field :password, required: true, autofocus: true, autocomplete: "new-password", placeholder: "••••••••"
+
+  .auth-form-group
+    = form.label :password_confirmation, "Confirm New Password"
+    = form.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: "••••••••"
+
+  .auth-footer-links
+    = link_to "Sign in", new_session_path
+    = link_to "Back to home", root_path
+
+  = form.submit "Save changes", class: "auth-btn"

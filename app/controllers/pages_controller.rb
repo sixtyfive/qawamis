@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  allow_unauthenticated_access
   before_action :init_cookies, :set_books
   before_action :set_book, except: [:index]
 

@@ -1,0 +1,17 @@
+.auth-logo Qawāmīs
+.auth-title Sign in to your account
+
+= form_with url: session_path do |form|
+  .auth-form-group
+    = form.label :email_address, "Email Address"
+    = form.email_field :email_address, value: params[:email_address], required: true, autofocus: true, autocomplete: "username", placeholder: "you@example.com"
+
+  .auth-form-group
+    = form.label :password, "Password"
+    = form.password_field :password, required: true, autocomplete: "current-password", placeholder: "••••••••"
+
+  .auth-footer-links
+    = link_to "Forgot password?", new_password_path
+    = link_to "Back to home", root_path
+
+  = form.submit "Sign in", class: "auth-btn"

@@ -6,6 +6,7 @@
 # machine specific files
 /config/thin.yml
 /run.sh
+/docker-compose.yml
 
 # bundler state
 /.bundle/

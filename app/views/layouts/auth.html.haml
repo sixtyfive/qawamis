@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
+    %title= content_for?(:title) ? yield(:title) : "Qawāmīs - Authenticate"
+    = favicon_link_tag
+    = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
+    = javascript_importmap_tags
+    = csrf_meta_tags
+  %body.auth-body
+    %main.auth-main
+      .auth-container
+        - if flash[:alert].present?
+          .alert.alert-danger{style: "margin: 0 0 1.5rem 0; width: 100%; border-radius: 0.75rem; box-sizing: border-box;"}
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button", style: "border: none; background: none; font-size: 1.25rem; font-weight: bold; color: inherit; float: right; cursor: pointer; padding: 0; line-height: 1;"} &times;
+            %div= flash[:alert]
+        - if flash[:notice].present?
+          .alert.alert-success{style: "margin: 0 0 1.5rem 0; width: 100%; border-radius: 0.75rem; box-sizing: border-box;"}
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button", style: "border: none; background: none; font-size: 1.25rem; font-weight: bold; color: inherit; float: right; cursor: pointer; padding: 0; line-height: 1;"} &times;
+            %div= flash[:notice]
+        = yield

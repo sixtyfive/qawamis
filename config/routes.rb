@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resource :session
+  resources :passwords, param: :token
   mount Importmap::Engine, at: "_"
 
   get "/favicon.ico", to: redirect(ActionController::Base.helpers.asset_path("favicon.ico"))

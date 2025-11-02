@@ -1,0 +1,122 @@
+body.auth-body
+  margin: 0
+  padding: 0
+  min-height: 100vh
+  display: flex
+  align-items: center
+  justify-content: center
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%)
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif
+  color: #f3f4f6
+
+.auth-main
+  display: flex
+  width: 100%
+  justify-content: center
+  align-items: center
+  padding: 2rem 1rem
+
+.auth-container
+  width: 100%
+  max-width: 450px
+  background: rgba(255, 255, 255, 0.05)
+  backdrop-filter: blur(16px)
+  -webkit-backdrop-filter: blur(16px)
+  border: 1px solid rgba(255, 255, 255, 0.1)
+  border-radius: 1.5rem
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37)
+  padding: 2.5rem
+  box-sizing: border-box
+  transition: transform 0.3s ease, box-shadow 0.3s ease
+
+  &:hover
+    transform: translateY(-5px)
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5)
+
+.auth-logo
+  display: flex
+  justify-content: center
+  margin-bottom: 1.5rem
+  font-size: 2.5rem
+  font-weight: 800
+  letter-spacing: -0.05em
+  background: linear-gradient(135deg, #a5b4fc, #6fa6d5)
+  -webkit-background-clip: text
+  -webkit-text-fill-color: transparent
+
+.auth-title
+  font-size: 1.5rem
+  font-weight: 700
+  text-align: center
+  margin-bottom: 2rem
+  color: #f3f4f6
+  letter-spacing: -0.025em
+
+.auth-form-group
+  margin-bottom: 1.5rem
+  display: flex
+  flex-direction: column
+
+  label
+    font-size: 0.875rem
+    font-weight: 500
+    margin-bottom: 0.5rem
+    color: #d1d5db
+    text-align: left
+
+  input[type="text"], input[type="email"], input[type="password"]
+    background: rgba(255, 255, 255, 0.07)
+    border: 1px solid rgba(255, 255, 255, 0.1)
+    border-radius: 0.75rem
+    padding: 0.75rem 1rem
+    color: #fff
+    font-size: 1rem
+    transition: all 0.25s ease
+    box-sizing: border-box
+    width: 100%
+
+    &:focus
+      outline: none
+      background: rgba(255, 255, 255, 0.12)
+      border-color: #6fa6d5
+      box-shadow: 0 0 0 3px rgba(111, 166, 213, 0.3)
+
+.auth-footer-links
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-top: 1.5rem
+  font-size: 0.875rem
+
+  a
+    color: #6fa6d5
+    text-decoration: none
+    transition: color 0.2s ease
+
+    &:hover
+      color: #a5b4fc
+      text-decoration: underline
+
+.auth-btn
+  display: block
+  width: 100%
+  background: linear-gradient(135deg, #6fa6d5, #428bca)
+  border: none
+  border-radius: 0.75rem
+  padding: 0.875rem 1rem
+  color: #fff
+  font-size: 1rem
+  font-weight: 600
+  cursor: pointer
+  transition: all 0.2s ease
+  box-shadow: 0 4px 12px rgba(66, 139, 202, 0.3)
+  margin-top: 2rem
+  text-align: center
+
+  &:hover
+    background: linear-gradient(135deg, #81b3dd, #5497d1)
+    box-shadow: 0 6px 16px rgba(66, 139, 202, 0.5)
+    transform: translateY(-1px)
+
+  &:active
+    transform: translateY(1px)

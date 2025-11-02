@@ -1,36 +1,29 @@
-# stage 1: base environment
-
 FROM ruby:3.4 AS base
 ENV APP_HOME=/app \
-    BUNDLE_PATH=/usr/local/bundle
+  BUNDLE_PATH=/usr/local/bundle
 WORKDIR $APP_HOME
+
 RUN apt-get update -qq && apt-get install -y \
-  build-essential \
-  sqlite3 \
-  && rm -rf /var/lib/apt/lists/*
+  build-essential sqlite3 && rm -rf /var/lib/apt/lists/*
+
 RUN gem update --system 3.6.9 && gem install bundler -v 2.6.9
+
 COPY Gemfile Gemfile.lock ./
-RUN bundle install --jobs=4 --retry=3
+RUN bundle install
 
-# stage 2: build
+FROM base AS dev
 
-FROM base AS builder
-COPY . ./
-RUN rm -rf public/assets tmp/cache/*
-RUN RAILS_ENV=production bundle exec rails assets:precompile
+ENV RAILS_ENV=development
 
-# stage 3: runtime
+WORKDIR /app
+CMD ["bin/rails", "server", "-b", "0.0.0.0"]
 
-FROM ruby:3.4-slim
-ENV APP_HOME=/app \
-    BUNDLE_PATH=/usr/local/bundle \
-    BUNDLE_WITHOUT="development:test"
-WORKDIR $APP_HOME
-RUN apt-get update -qq && apt-get install -y \
-  sqlite3 \
-  && rm -rf /var/lib/apt/lists/*
-COPY --from=base /usr/local/bundle /usr/local/bundle
-COPY --from=builder /app /app
-RUN mkdir -p data/dictionaries/images
-EXPOSE 3000
+FROM base AS prod
+
+ENV RAILS_ENV=production \
+  BUNDLE_WITHOUT="development:test"
+
+COPY . .
+RUN bundle exec rails assets:precompile
+
 CMD ["bin/prod"]

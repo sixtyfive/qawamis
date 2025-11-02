@@ -1,5 +1,3 @@
-require 'execjs'
-
 def convert_js_to_txt(input_file)
   output_file = input_file.gsub(/\.js$/, '.txt')
   print "#{input_file} => #{output_file}"
@@ -23,6 +21,7 @@ end
 desc 'convert all data/dictionaries/indices/*.js for which no .txt exists, to .txt'
 namespace :ejtaal do
   task :convert_js do |t|
+    require 'execjs'
     Dir.glob("data/dictionaries/indices/*.js").each{|f| convert_js_to_txt(f)}
   end
 end
