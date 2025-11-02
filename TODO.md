@@ -1,11 +1,8 @@
-- can't close flash messages
-- mgf can't be opened from the navbar
-- sometimes not possible to switch books (depending on which pages is currently selected)
-- in mgf and hw3 search doesn't work at all
+- search is off in: hw3, lane
+- search fails to produce any results other than "1" in: mgf
+- can't close flash messages (not that there are many or any at the moment ... ?)
 - add these somewhere again:
   - `flash[:notice] = t(:nosuchentry_in_selectedbook)`
   - `flash[:notice] = t(:nosearchresults_in_selectedbook, book: t("books.#{@page.book.slug}"))`
   - `flash[:warn] = t(:nosearchresults)`
 - more elegant deployment solution
-- need to reduce load re sidebar updates ... perhaps best to only update it while open,
-  and always close it upon pageturn or search?
