@@ -21,13 +21,13 @@ I18n.defaultLocale = 'en';
 I18n.locale = document.documentElement.lang;
 I18n.enableFallback = true;
 
-$(document).ready(main);           // fresh page loads
+$(document).ready(main); 
 $(document).on('page:load', main); // cached page loads and turbolinks
 
 $(document).keydown(function(e) {
   switch (e.which) {
     // paging
-    case 37: $('a.page.left').trigger('click'); break;  // left arrow
+    case 37: $('a.page.left').trigger('click'); break; // left arrow
     case 39: $('a.page.right').trigger('click'); break; // right arrow
     // make sure any other key press is used for search.
     default: if (!$('#search').is(':focus')) $('#search').focus().select();
@@ -51,7 +51,7 @@ $(document).ajaxStart(function() {
 });
 
 function main() {
-  handleSidebar();
+  handleExtruder();
   handleSearch();
   handlePageTurns();
   handleSidebarForm();
@@ -83,7 +83,8 @@ function handleTermsDialog() {
   });
 }
 
-function handleSidebar() {
+function handleExtruder() {
+  // https://github.com/pupunzi/jquery.mb.extruder/wiki
   $('#sidebar').buildMbExtruder({
     width: 270,
     position: 'left',
@@ -97,15 +98,14 @@ function handleSidebar() {
   // above
   $('.flap').on("click", function() {
     if (Cookies.get('sidebar_enabled')) {
+      // it's closed and opening
+      updatePageElements();
       Cookies.remove('sidebar_enabled', {path: '/'});
     } else {
+      // it's open and closing
       Cookies.set('sidebar_enabled', true, {path: '/', expires: 365});
     }
   });
-
-  if (Cookies.get('sidebar_enabled')) {
-    $('#sidebar').openMbExtruder(true);
-  }
 }
 
 function handleSearch() {
@@ -142,60 +142,90 @@ function showAlert(severity, message) {
   ");
 }
 
-function updatePageElements(new_book, new_page) {
-  $('#cover_page_link').attr('href', absPath(new_book.slug, new_book.cover_page));
-  $('#first_page_link').attr('href', absPath(new_book.slug, new_book.first_page));
-  $('#last_page_link').attr('href', absPath(new_book.slug, new_book.last_page));
-  $('#last_page_link').text(I18n.t('page')+' '+new_book.last_page);
-
-  $('#search_book').val(new_book.slug);
-  var search = $('#search');
-  if (isNumeric(search.val())) {
-    search.val(new_page.number);
-  }
-
-  for (var key in new_book)
-    $('#book').attr('data-' + key.replace('_', '-'), new_book[key]);
-  for (var key in new_page)
-    $('#page').attr('data-' + key.replace('_', '-'), new_page[key]);
-
-  $('#book a.page.left').attr('href', absPath(new_book.slug, new_page.previous));
-  $('#book a.page.left').attr('title', I18n.t('page') + ' ' + new_page.previous);
-  $('#book a.page.left').attr('data-target', new_page.previous);
-  $('#book a.page.right').attr('href', absPath(new_book.slug, new_page.next));
-  $('#book a.page.right').attr('title', I18n.t('page') + ' ' + new_page.next);
-  $('#book a.page.right').attr('data-target', new_page.next);
-  $('#book img.page').attr('src', absPath('images', new_page.image_file));
-  $('#book img.page').attr('title', I18n.t('page') + ' ' + new_page.number);
-
-  history.replaceState(null, null, new_page.path);
-  $('title').html(I18n.t('htmltitle', { book: new_book.human_name, page: new_page.number }));
-  
-  // this is quite expensive...
-  $('#sidebar li').each(function() {
-    var book_input = $(this).find('input[name=book_slug]');
-    var page_input = $(this).find('input[name=page]');
-    var label = $(this).find('label');
-    if (book_input.val() == new_book.slug) book_input.prop('checked', true);
-    $.ajax({
-      url: '/search',
-      type: 'POST',
-      dataType: 'json',
-      data: {
-        authenticity_token: $('#search_form form input[name=authenticity_token]').val(),
-        book_slug: book_input.val(),
-        query: new_page.last_root
-      },
-      success: function(results) {
-        var page_number = results.page.number;
-        page_input.val(page_number);
-        if (new_page.number != 1 && page_number == 1) {
-          label.removeClass('same_root').addClass('cover_page');
-        } else {
-          label.removeClass('cover_page').addClass('same_root');
-        }
+function getDataFromDiv(selector) {
+  const data = {};
+  $(selector).each(function() {
+    $.each(this.attributes, function(_, attr) {
+      if (attr.name.startsWith('data-')) {
+        const key = attr.name
+          .replace(/^data-/, '')
+          .replace(/-/g, '_');
+        data[key] = attr.value;
       }
     });
+  });
+  return data;
+}
+
+function updatePageElements(book = null, page = null) {
+  var update_extruder = false;
+  if (!book && !page) update_extruder = true;
+
+  if (!book) book = getDataFromDiv('main #book');
+  if (!page) page = getDataFromDiv('main #book #page');
+
+  $('#cover_page_link').attr('href', absPath(book.slug, book.cover_page));
+  $('#first_page_link').attr('href', absPath(book.slug, book.first_page));
+  $('#last_page_link').attr('href', absPath(book.slug, book.last_page));
+  $('#last_page_link').text(I18n.t('page')+' '+book.last_page);
+
+  $('#search_book').val(book.slug);
+  var search = $('#search');
+  if (isNumeric(search.val())) {
+    search.val(page.number);
+  }
+
+  for (var key in book)
+    $('body main #book').attr('data-' + key.replace('_', '-'), book[key]);
+  for (var key in page)
+    $('body main #book #page').attr('data-' + key.replace('_', '-'), page[key]);
+
+  $('#book a.page.left').attr('href', absPath(book.slug, page.previous));
+  $('#book a.page.left').attr('title', I18n.t('page') + ' ' + page.previous);
+  $('#book a.page.left').attr('data-target', page.previous);
+  $('#book a.page.right').attr('href', absPath(book.slug, page.next));
+  $('#book a.page.right').attr('title', I18n.t('page') + ' ' + page.next);
+  $('#book a.page.right').attr('data-target', page.next);
+  $('#book img.page').attr('src', absPath('images', page.image_file));
+  $('#book img.page').attr('title', I18n.t('page') + ' ' + page.number);
+
+  history.replaceState(null, null, page.path);
+  $('title').html(I18n.t('htmltitle', {book: book.human_name, page: page.number}));
+  
+  $('#sidebar li').each(function() {
+    var book_input = $(this).find('input[name=book_slug]');
+    var page_input = $(this).find('input[type=hidden]');
+    var label = $(this).find('label');
+    if (book_input.val() == book.slug) {
+      book_input.prop('checked', true);
+    }
+    if (update_extruder) {
+      // this is expensive, so only done with the extuder open
+      updateSidebarItems(page, label, book_input, page_input);
+    }
+  });
+}
+
+function updateSidebarItems(current_page, label, book_input, page_input) {
+  console.log([book_input.val(), page_input.val()]);
+  $.ajax({
+    url: '/search',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      authenticity_token: $('#search_form form input[name=authenticity_token]').val(),
+      book_slug: book_input.val(),
+      query: current_page.last_root
+    },
+    success: function(results) {
+      var new_page_number = results.page.number;
+      page_input.val(new_page_number);
+      if (current_page.number != 1 && new_page_number == 1) {
+        label.removeClass('same_root').addClass('cover_page');
+      } else {
+        label.removeClass('cover_page').addClass('same_root');
+      }
+    }
   });
 }
 
@@ -221,6 +251,7 @@ function updateSearchHistory(search_history) {
 }
 
 function handlePageTurns() {
+  $('#sidebar').closeMbExtruder(true);
   $('#book a.page').click(function(e) {
     $.ajax({
       url: absPath($('#book').attr('data-slug'), $(this).attr('data-target')),

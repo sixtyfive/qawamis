@@ -1,12 +1,18 @@
 #sidebar{class: "{title:'#{t(:dictionaries)}'}"}
   = form_tag('/change_dictionary') do
     %ul
-      - @books.each do |book|
+
+      - @books.each do |target_book|
         %li
-          - page = book.pages.find_by_root(@page.last_root)
-          = radio_button_tag 'book_slug', book.slug, (book.slug == @book.slug)
-          = hidden_field_tag 'page', most_equivalent_page(book, page)
-          = label_tag "book_#{book.slug}", book.human_name, class: label_tag_class(@page, page)
+
+          - target_book_page = target_book.pages.find_by_root(@page.last_root)
+          - target_book_page_number = most_equivalent_page(target_book, target_book_page)
+
+          = radio_button_tag 'book_slug', target_book.slug, (target_book.slug == @book.slug)
+          = hidden_field_tag "page_number_#{target_book_page_number}", target_book_page_number
+
+          = label_tag "book_#{target_book.slug}", target_book.human_name, class: label_tag_class(@page, target_book_page)
+
     = button_tag(type: 'submit', class: 'btn btn-primary', tabindex: 3) do
       - content_tag(:i, class: 'icon-ok icon-white')
       - t(:dictionaries)

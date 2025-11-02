@@ -8,8 +8,10 @@
 /run.sh
 
 # bundler state
-/.bundle
+/.bundle/
+/.lode/
 /vendor/bundle/
+/vendor/cache/
 /vendor/ruby/
 
 # minimal Rails specific artifacts
