@@ -100,7 +100,7 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    json (2.15.2)
+    json (2.15.2.1)
     logger (1.7.0)
     lograge (0.14.0)
       actionpack (>= 4)
