@@ -4,7 +4,7 @@ gem 'rake', '13.2.1'
 
 gem 'railties', '~> 8.1.0'
 gem 'activerecord', '~> 8.1.0'
-gem 'actionpack', '~> 8.1.0'
+gem 'actionpack', '~> 8.1.2'
 gem 'actionview', '~> 8.1.0'
 gem 'activemodel', '~> 8.1.0'
 gem 'activesupport', '~> 8.1.0'
