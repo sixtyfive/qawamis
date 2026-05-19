@@ -5,7 +5,7 @@ class Page < ActiveRecord::Base
 
   # As in, the page that has number 1 printed on it
   def self.first_numbered
-    Page.find_by_number(1)
+    find_by(number: 1)
   end
 
   # Re-implemented while looking at Abdurahmans search algorithm, which seems

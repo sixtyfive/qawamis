@@ -56,6 +56,7 @@ function main() {
   handlePageTurns();
   handleSidebarForm();
   handleTermsDialog();
+  handleFlashClosing();
   // handleMouseWheel(); // FIXME: why did I disable this?
 }
 
@@ -282,5 +283,13 @@ function handleSidebarForm() {
       }
     });
     e.preventDefault();
+  });
+}
+
+function handleFlashClosing() {
+  $('main').on('click', '.alert .close', function() {
+    $(this).parent().fadeOut(250, function() {
+      $(this).remove();
+    });
   });
 }

@@ -1,7 +1,7 @@
 require 'test_helper'
  
 class PageTest < ActiveSupport::TestCase
-  REPORTED_FAILED = {
+  PREVIOUSLY_REPORTED_FAILED = {
     hw5: [
       ['توح', 147],
       ['ذرع', 427],
@@ -35,7 +35,7 @@ class PageTest < ActiveSupport::TestCase
     ]
   }
 
-  REPORTED_FAILED.each do |book_name, tests|
+  PREVIOUSLY_REPORTED_FAILED.each do |book_name, tests|
     if book = Book.find_by_name(book_name)
       tests.each do |query, expected_page_number|
         test "search for [#{query}] in #{book_name} returns page #{expected_page_number}" do

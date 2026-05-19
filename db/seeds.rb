@@ -77,8 +77,9 @@ def load_book(book)
   @book = Book.create(name: book[:name], language: book[:language], first_numbered_page: book[:first_numbered_page])
   ActiveRecord::Base.transaction do
     roots = File.readlines("data/dictionaries/indices/#{book[:name]}.txt", chomp: true)
+    blanks = roots.take_while { |r| r.strip.empty? }.size
     roots.each_with_index do |root,line|
-      @book.pages << Page.create(number: line-@book.first_numbered_page, last_root: root)
+      @book.pages << Page.create(number: line - blanks + 1, last_root: root)
     end
   end
 end
