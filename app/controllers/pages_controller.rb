@@ -44,42 +44,39 @@ class PagesController < ApplicationController
       @page = @book.pages.find_by_number(@query)
     else
       update_search_history
-      
-      # 1. Search in current book
-      @page = @book.pages.find_by_last_root(@query)
-      unless @page
-        simplified_query = @query.gsub(/[إآٱأءﺀﺀﺁﺃﺅﺇﺉ]/, 'ا').gsub(/ﻯ/,'ﻱ')
-        @page = @book.pages.find_by_last_root(simplified_query)
+
+      # Latin-script (Arabizi) input is transliterated into a ranked list of
+      # plausible Arabic roots; native Arabic input is searched as-is. Either
+      # way we end up with an ordered list of root strings to try.
+      queries = search_queries(@query)
+
+      # 1. Best exact hit in the current book, trying candidates in order.
+      queries.each do |q|
+        break if @page = exact_root_search(@book, q)
       end
-      
-      if @page
-        # Found exactly in current book
-      else
-        # 2. Try to find in another book
-        other_page = nil
-        other_book = nil
-        Book.all.each do |book|
-          next if book == @book
-          other_page = book.pages.find_by_last_root(@query)
-          unless other_page
-            simplified_query = @query.gsub(/[إآٱأءﺀﺀﺁﺃﺅﺇﺉ]/, 'ا').gsub(/ﻯ/,'ﻱ')
-            other_page = book.pages.find_by_last_root(simplified_query)
-          end
-          if other_page
-            other_book = book
-            break
+
+      # 2. Otherwise the best exact hit in any other book.
+      unless @page
+        catch(:found) do
+          queries.each do |q|
+            Book.all.each do |book|
+              next if book == @book
+              if page = exact_root_search(book, q)
+                @book = book
+                @page = page
+                flash[:notice] = t(:nosearchresults_in_selectedbook, book: @book.human_name)
+                throw :found
+              end
+            end
           end
         end
-        
-        if other_page
-          @book = other_book
-          @page = other_page
-          flash[:notice] = t(:nosearchresults_in_selectedbook, book: @book.human_name)
-        else
-          # 3. Not found in any book, fall back to nearest in selected book
-          @page = @book.pages.find_by_root(@query)
-          flash[:warn] = t(:nosearchresults)
-        end
+      end
+
+      # 3. Nothing exact anywhere: fall back to the nearest entry in the
+      #    selected book for the most plausible candidate.
+      unless @page
+        @page = @book.pages.find_by_root(queries.first)
+        flash[:warn] = t(:nosearchresults)
       end
     end
     respond_to do |format|
@@ -99,6 +96,30 @@ class PagesController < ApplicationController
   end
 
   private
+
+  # The ordered list of Arabic root strings to try for a search term. For
+  # Latin-script (Arabizi) input this is the ranked transliteration; for Arabic
+  # input it is just the term itself. Falls back to the raw query if the
+  # transliterator yields nothing usable.
+  def search_queries(query)
+    if Arabizi.latin?(query)
+      candidates = Arabizi.root_candidates(query)
+      candidates.any? ? candidates : [query]
+    else
+      [query]
+    end
+  end
+
+  # An exact root lookup in one book, also trying the alef/hamza-normalised
+  # form the way find_by_root does. Returns the page or nil.
+  def exact_root_search(book, query)
+    page = book.pages.find_by_last_root(query)
+    unless page
+      simplified_query = query.gsub(/[إآٱأءﺀﺀﺁﺃﺅﺇﺉ]/, 'ا').gsub(/ﻯ/, 'ﻱ')
+      page = book.pages.find_by_last_root(simplified_query)
+    end
+    page
+  end
 
   # for the sidebar
   def set_books

@@ -56,6 +56,7 @@ function main() {
   handlePageTurns();
   handleSidebarForm();
   handleTermsDialog();
+  handleArabiziHint();
   handleFlashClosing();
   // handleMouseWheel(); // FIXME: why did I disable this?
 }
@@ -81,6 +82,17 @@ function handleTermsDialog() {
       Cookies.set('terms_agreed', true, { path: '/', expires: 365 });
       setTimeout(function() { dialog.fadeOut(500); }, 250);
     }
+  });
+}
+
+function handleArabiziHint() {
+  var hint = $('#arabizi_hint');
+  if (!Cookies.get('arabizi_hint_dismissed')) {
+    hint.show();
+  }
+  hint.find('.close').on('click', function() {
+    Cookies.set('arabizi_hint_dismissed', true, { path: '/', expires: 365 });
+    hint.fadeOut(250);
   });
 }
 

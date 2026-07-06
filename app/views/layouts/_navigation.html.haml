@@ -17,3 +17,6 @@
           = button_tag(type: 'submit', tabindex: 2) do
             - content_tag(:i, class: 'icon-ok icon-white')
             - t(:search)
+      #arabizi_hint{style: 'display: none'}
+        %button.close{type: 'button', title: t(:arabizi_hint_dismiss), 'aria-label' => t(:arabizi_hint_dismiss)} &times;
+        %span= t(:arabizi_hint_html)

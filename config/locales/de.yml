@@ -7,6 +7,8 @@ de:
   nosearchresults: "Keine Suchergebnisse. Versuchen Sie die Eingabe einer Wurzel anstelle eines Wortes."
   nosuchentry_in_selectedbook: "Davor angezeigter Eintrag nicht gefunden. Zeige stattdessen die erste Seite."
   nosearchresults_in_selectedbook: "Keine Ergebnisse im gewählten Buch. Zeige stattdessen Ergebnisse in %{book}."
+  arabizi_hint_html: 'Neu: Sie können jetzt auch <a href="https://en.wikipedia.org/wiki/Arabizi" target="_blank" rel="noopener noreferrer">Arabizi</a> in Ihrer Suchanfrage verwenden!'
+  arabizi_hint_dismiss: "Schließen"
   cover_page: "Buchdeckel"
   search: "Suchen"
   page: "Seite"
