@@ -3,7 +3,7 @@
     %ul
 
       - @books.each do |target_book|
-        %li
+        %li{ 'data-book-first-root' => target_book.first_root, 'data-book-last-root' => target_book.last_root }
 
           - target_book_page = target_book.pages.find_by_root(@page.last_root)
           - target_book_page_number = most_equivalent_page(target_book, target_book_page)

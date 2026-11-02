@@ -9,29 +9,45 @@ class PagesController < ApplicationController
 
   # GET /:book_slug/:page
   def show
-    if cookies[:book_slug] && cookies[:book_slug] != @book.slug
-      prev_book_name, prev_book_lang = cookies[:book_slug].split('_')
-      prev_book = Book.find_by(name: prev_book_name, language: prev_book_lang)
-      if prev_book && prev_page = Page.find_by(book: prev_book, number: cookies[:page])
-        unless @book.pages.find_by_last_root(prev_page.last_root) || 
-               @book.pages.find_by_last_root(prev_page.last_root.gsub(/[إآٱأءﺀﺀﺁﺃﺅﺇﺉ]/, 'ا').gsub(/ﻯ/,'ﻱ'))
-          flash.now[:notice] = t(:nosuchentry_in_selectedbook)
-        end
-      end
-    end
+    prev_page = prev_page_if_known
+    # root_warning is true when a different book has just been selected via
+    # the sidebar but the previously displayed root isn't available there.
+    # `params[:force]` lets the user bypass that warning on the second click.
+    root_warning = compute_root_warning(@book, prev_page) && params[:force].blank?
 
-    if @page = Page.find_by(book: @book, number: params[:page])
+    flash[:notice] = t(:nosuchentry_in_selectedbook,
+                        root: prev_page.last_root,
+                        book: @book.human_name) if root_warning
+
+    if !root_warning && @page = Page.find_by(book: @book, number: params[:page])
       cookies[:book_slug] = {value: @book.slug, expires: 1.year.from_now}
       cookies[:page] = {value: @page.number, expires: 1.year.from_now}
     end
     respond_to do |format|
       format.html do
+        if root_warning
+          redirect_to "/#{cookies[:book_slug]}/#{cookies[:page]}" and return
+        end
         @page ||= @book.pages.first_numbered
       end
       format.json do
         flash_msg = flash.first
         flash.discard
-        render(json: {book: @page.book.serialize, page: @page.serialize, flash: flash_msg}) if @page
+        if root_warning
+          prev_book_slug = cookies[:book_slug]
+          prev_book_name, prev_book_lang = prev_book_slug.split('_')
+          prev_book = Book.find_by(name: prev_book_name, language: prev_book_lang)
+          render(json: {
+            book: prev_book.serialize,
+            page: prev_page.serialize,
+            flash: flash_msg,
+            root_warning: true
+          })
+        elsif @page
+          render(json: {book: @page.book.serialize, page: @page.serialize, flash: flash_msg})
+        else
+          render json: nil, status: :not_found
+        end
       end
     end
   end
@@ -43,19 +59,37 @@ class PagesController < ApplicationController
     if @query.number?
       @page = @book.pages.find_by_number(@query)
     else
-      update_search_history
-
       # Latin-script (Arabizi) input is transliterated into a ranked list of
       # plausible Arabic roots; native Arabic input is searched as-is. Either
       # way we end up with an ordered list of root strings to try.
       queries = search_queries(@query)
+
+      # Persist the Arabic-script root that the lookup below will actually try
+      # first, not the raw keystrokes the user typed. This bakes the Arabizi
+      # transliteration into the cookie so the search history bar (rendered by
+      # _navigation.html.haml and by updateSearchHistory() over AJAX) shows the
+      # Arabic root that was landed on. We skip the cookie entirely if no
+      # clean Arabic root could be derived (e.g. raw Latin junk with no
+      # transliteration candidates) - the fallback branch of search_queries
+      # would otherwise leave the user-tracking cookie holding literal Latin.
+      update_search_history(queries.first) if !Arabizi.latin?(queries.first)
 
       # 1. Best exact hit in the current book, trying candidates in order.
       queries.each do |q|
         break if @page = exact_root_search(@book, q)
       end
 
-      # 2. Otherwise the best exact hit in any other book.
+      # 2. The page index stores one root per page (the last one), so even
+      # when the queried root isn't an indexed last_root it may still be on
+      # a page whose last entry comes after it alphabetically. Prefer such
+      # a near-match in the current book over jumping to a different book.
+      unless @page
+        near = @book.pages.where('last_root >= ?', queries.first).order(:last_root).first
+        @page = near if near
+      end
+
+      # 3. No near-match in the current book: fall back to the best exact
+      #    hit in any other book.
       unless @page
         catch(:found) do
           queries.each do |q|
@@ -72,10 +106,9 @@ class PagesController < ApplicationController
         end
       end
 
-      # 3. Nothing exact anywhere: fall back to the nearest entry in the
-      #    selected book for the most plausible candidate.
+      # 4. Nothing anywhere: warn and stay in the current book.
       unless @page
-        @page = @book.pages.find_by_root(queries.first)
+        @page = @book.pages.first_numbered
         flash[:warn] = t(:nosearchresults)
       end
     end
@@ -96,6 +129,40 @@ class PagesController < ApplicationController
   end
 
   private
+
+  # Looks up the page the user was previously looking at, if any. nil when
+  # no previous book is recorded or the recorded page no longer exists (e.g.
+  # after the database has been reseeded).
+  def prev_page_if_known
+    return nil unless cookies[:book_slug] && cookies[:page]
+    prev_book_name, prev_book_lang = cookies[:book_slug].split('_')
+    prev_book = Book.find_by(name: prev_book_name, language: prev_book_lang)
+    return nil unless prev_book
+    Page.find_by(book: prev_book, number: cookies[:page])
+  end
+
+  # Returns true iff the new book is different from the previously displayed
+  # book AND the previously displayed root is one the new book genuinely
+  # could not contain. The "could not contain" decision is delegated to
+  # Book#could_contain?, which not only checks the indexed alphabet span
+  # but also allows for the open-ended last page when the query and the
+  # last indexed last_root share a 2+ character prefix — the sidebar JS
+  # uses the same rule so the dark/light label colour matches which books
+  # this warning triggers on.
+  def compute_root_warning(book, prev_page)
+    return false unless prev_page
+    return false if prev_page.book.slug == book.slug
+
+    prev_root = prev_page.last_root.to_s
+    return false if prev_root.blank?
+    # Normalize alef/hamza and ya/ta-marbuta variants so a query like
+    # "أبر" sorts into the same alphabet slot as "ابر". could_contain?
+    # re-normalises its own bounds so this isn't strictly required here,
+    # but doing it once up front keeps the comparison tidy.
+    prev_root = prev_root.gsub(/[إآٱأءﺀﺀﺁﺃﺅﺇﺉ]/, 'ا').gsub(/[ىي]/, 'ي')
+
+    !book.could_contain?(prev_root)
+  end
 
   # The ordered list of Arabic root strings to try for a search term. For
   # Latin-script (Arabizi) input this is the ranked transliteration; for Arabic
@@ -137,10 +204,9 @@ class PagesController < ApplicationController
     @book ||= Book.default
   end
   
-  def update_search_history
+  def update_search_history(resolved)
     array = @search_history
-    query = params[:query]
-    array << query
+    array << resolved
     @search_history = array.reject(&:blank?).uniq.last(25)
     cookies[:search_history] = {value: JSON.generate(@search_history), expires: 1.year.from_now}
   end

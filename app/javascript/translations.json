@@ -20,13 +20,16 @@
     },
     "cover_page": "Buchdeckel",
     "current_page": "Aktuelle Seite",
+    "currentroot_range": "%{from}~%{to}  ",
+    "currentroot_firstpage": "bis %{to}",
     "dictionaries": "Alle Wörterbücher",
     "htmltitle": "Qawāmīs - %{book} - Seite %{page}",
     "next_page": "Nächste Seite",
     "nosearchresults": "Keine Suchergebnisse. Versuchen Sie die Eingabe einer Wurzel anstelle eines Wortes.",
     "nosearchresults_in_selectedbook": "Keine Ergebnisse im gewählten Buch. Zeige stattdessen Ergebnisse in %{book}.",
     "nosuchbook": "Buch nicht vorhanden. Zeige stattdessen %{book}.",
-    "nosuchentry_in_selectedbook": "Davor angezeigter Eintrag nicht gefunden. Zeige stattdessen die erste Seite.",
+    "nosuchentry_in_selectedbook": "Die aktuell geöffnete Wurzel '%{root}' ist in %{book} nicht vorhanden. Ein erneuter Klick öffnet %{book}s erste Seite.",
+    "nosearchresults_inbook_near": "Kein exakter Eintrag für '%{root}' in %{book}. Es wird der nächstgelegene Eintrag angezeigt.",
     "page": "Seite",
     "previous_page": "Vorherige Seite",
     "search": "Suchen",
@@ -65,6 +68,8 @@
     },
     "cover_page": "Cover",
     "current_page": "Current Page",
+    "currentroot_range": "%{from}~%{to}",
+    "currentroot_firstpage": "to %{to}",
     "date": {
       "abbr_day_names": [
         "Sun",
@@ -242,7 +247,8 @@
     "nosearchresults": "No search results. Try entering a root instead of a word.",
     "nosearchresults_in_selectedbook": "No search results from selected book. Showing results from %{book} instead.",
     "nosuchbook": "There is no such book. Displaying %{book} instead.",
-    "nosuchentry_in_selectedbook": "Previously displayed entry not found in selected book. Showing first page instead.",
+    "nosuchentry_in_selectedbook": "Currently displayed root '%{root}' is not available in %{book}. Click %{book} again to open its first page.",
+    "nosearchresults_inbook_near": "No exact match for '%{root}' in %{book}. Showing the closest entry instead.",
     "number": {
       "currency": {
         "format": {
