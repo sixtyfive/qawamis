@@ -83,7 +83,7 @@ class PagesTest < ActionDispatch::IntegrationTest
 
     get "/#{target_book.slug}/1"
 
-    response.redirect? && response.location == "/#{@prev_book.slug}/#{prev_page.number}"
+    response.redirect? && URI.parse(response.location).path == "/#{@prev_book.slug}/#{prev_page.number}"
   end
 
   test "show's warning redirect agrees with the book's stored alphabet range for every (example root, book) pair" do
@@ -188,7 +188,7 @@ class PagesTest < ActionDispatch::IntegrationTest
       cookies[:page]      = prev_page.number.to_s
 
       get "/#{book.slug}/1"
-      got = response.redirect? && response.location == "/#{hw5_de.slug}/#{prev_page.number}"
+      got = response.redirect? && URI.parse(response.location).path == "/#{hw5_de.slug}/#{prev_page.number}"
       assert_equal expected, got,
                    "root='#{prev_root}' book=#{slug} (last_root=#{book.last_root.inspect}): " \
                    "warning_redirect=#{got.inspect}, expected #{expected.inspect}"

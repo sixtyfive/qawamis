@@ -274,10 +274,9 @@ function updatePageElements(book = null, page = null) {
       $(this).removeData('armed');
       $(this).removeClass('pending');
     }
-    if (update_extruder) {
-      // this is expensive, so only done with the extuder open
-      updateSidebarItems(page, label, book_input, page_input);
-    }
+    // Keep each book's destination in sync with the current root after
+    // searches and page turns as well as when refreshing the open sidebar.
+    updateSidebarItems(page, label, book_input, page_input);
   });
 }
 
