@@ -17,7 +17,7 @@ RUN bundle install --jobs=4 --retry=3
 FROM base AS builder
 COPY . ./
 RUN rm -rf public/assets tmp/cache/*
-RUN RAILS_ENV=production bundle exec rails assets:precompile
+RUN SECRET_KEY_BASE=dummy RAILS_ENV=production bundle exec rails assets:precompile
 
 # stage 3: runtime
 
