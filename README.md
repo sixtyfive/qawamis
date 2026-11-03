@@ -1,4 +1,5 @@
-_Qawamīs_ is deemed feature-complete by the author. If you wish for a new feature to be added to Qawamīs, I'll happily accept a PR, though. For bugs, questions or smaller changes, you're always welcome to open an [Issue](https://github.com/sixtyfive/qawamis/issues/new) (no one has ever done so, which makes me believe the user base is also happy with the current UI and feature set)._
+> [!NOTE]
+> _Qawamīs_ is deemed feature-complete by the author. If you wish for a new feature to be added to Qawamīs, I'll happily accept a [PR](https://github.com/sixtyfive/qawamis/pulls), though. For bugs, questions or smaller changes, you're always welcome to open an [Issue](https://github.com/sixtyfive/qawamis/issues/new) (no one has ever done so, which makes me believe the user base is also happy with the current UI and feature set).
 
 [![Tests](https://github.com/sixtyfive/qawamis/actions/workflows/ci.yml/badge.svg)](https://github.com/sixtyfive/qawamis/actions/workflows/ci.yml)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fqms.weitnahbei.de&up_message=online&down_message=offline)](https://qms.weitnahbei.de)
