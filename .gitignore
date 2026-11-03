@@ -106,3 +106,5 @@ pickle-email-*.html
 
 # the actual dictionary pages (too big; might be copyrighted)
 /data/dictionaries/images/*/*.png
+
+*.tar.gz
