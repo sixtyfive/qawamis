@@ -1,6 +1,6 @@
-_To the author, the website is complete and unlikely to significantly change. If you wish for a new feature to be added to Qawamīs, I'll happily accept a PR, though. For bugs, questions or smaller changes, you're always welcome to open an [Issue](https://github.com/sixtyfive/qawamis/issues/new) (no one has ever done so, which makes me believe the user base is also happy with the current UI and feature set)._
+_Qawamīs_ is deemed feature-complete by the author. If you wish for a new feature to be added to Qawamīs, I'll happily accept a PR, though. For bugs, questions or smaller changes, you're always welcome to open an [Issue](https://github.com/sixtyfive/qawamis/issues/new) (no one has ever done so, which makes me believe the user base is also happy with the current UI and feature set)._
 
-[![Tests](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
+[![Tests](https://github.com/sixtyfive/qawamis/actions/workflows/ci.yml/badge.svg)](https://github.com/sixtyfive/qawamis/actions/workflows/ci.yml)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fqms.weitnahbei.de&up_message=online&down_message=offline)](https://qms.weitnahbei.de)
 
 What is this?
