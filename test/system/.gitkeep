@@ -1,0 +1,5 @@
+# This directory is reserved for Capybara/Cuprite system tests. The actual
+# ApplicationSystemTestCase driver setup will be added when the first system
+# test lands; nothing references this folder yet, but git can't track an
+# otherwise-empty directory, so this file is here for that reason and nothing
+# else.

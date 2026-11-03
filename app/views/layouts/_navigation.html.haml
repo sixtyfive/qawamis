@@ -1,19 +1,31 @@
 %nav.navbar.navbar-default.navbar-fixed-top
   .navbar-header
     #quicknav
-      = link_to t(:cover_page), @book.cover_page.path, id: 'cover_page_link'
-      = link_to [t(:page), @book.first_page.number].join(' '), @book.first_page.path, id: 'first_page_link'
-      = link_to [t(:page), @book.last_page.number].join(' '), @book.last_page.path, id: 'last_page_link'
+      = link_to t(:cover_page), @book.cover_page.path, id: 'cover_page_link', class: quicknav_link_class(@book.cover_page, @page)
+      %span ❃
+      = link_to [t(:page), @book.first_page.number].join(' '), @book.first_page.path, id: 'first_page_link', class: quicknav_link_class(@book.first_page, @page)
+      %span ❃
+      - prev_root = @book.pages.where(number: @page.number - 1).first&.last_root
+      %span#currentroot_range
+        - if prev_root.present?
+          = t(:currentroot_range, from: prev_root, to: @page.last_root)
+        - else
+          = t(:currentroot_firstpage, to: @page.last_root)
+      %span ❃
+      = link_to [t(:page), @book.last_page.number].join(' '), @book.last_page.path, id: 'last_page_link', class: quicknav_link_class(@book.last_page, @page)
     #search_history
       - @search_history.is_a?(Array) && @search_history.reverse.each do |item|
-        = link_to(item, "/#{item}")
+        = link_to(item, "/#{item}", dir: 'rtl')
     #search_form
       = form_tag('/search') do
         %fieldset
           .control-group.string
             .controls
               = hidden_field_tag('book_slug', @book.slug, {id: 'search_book'})
-              = text_field_tag(:query, current_search, tabindex: 1, dir: :auto)
+              = text_field_tag(:query, current_search, id: 'search', tabindex: 1, autofocus: true, dir: :rtl, placeholder: 'جذر')
           = button_tag(type: 'submit', tabindex: 2) do
             - content_tag(:i, class: 'icon-ok icon-white')
             - t(:search)
+      #arabizi_hint{style: 'display: none'}
+        %button.close{type: 'button', title: t(:arabizi_hint_dismiss), 'aria-label' => t(:arabizi_hint_dismiss)} &times;
+        %span= t(:arabizi_hint_html)

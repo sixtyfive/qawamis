@@ -14,4 +14,8 @@ module ApplicationHelper
   def label_tag_class(current_book_page, page)
     (page && (current_book_page.number != 1 && page.number == 1)) ? 'cover_page' : 'same_root'
   end
+
+  def quicknav_link_class(link_page, current_page)
+    (link_page && current_page && link_page.number == current_page.number) ? 'active' : nil
+  end
 end

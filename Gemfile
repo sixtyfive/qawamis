@@ -35,3 +35,14 @@ group :test do
   # collator.compare("Art", "Art")           # 0
   gem 'twitter_cldr'
 end
+
+gem "turbo-rails", "~> 2.0"
+gem "stimulus-rails", "~> 1.3"
+
+gem "capybara", "~> 3.40"
+gem "cuprite", "~> 0.18"
+gem "webmock", "~> 3.26"
+
+gem "minitest-reporters", "~> 1.8"
+
+gem "nokogiri", "~> 1.19"
