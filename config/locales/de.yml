@@ -7,7 +7,7 @@ de:
   nosearchresults: "Keine Suchergebnisse. Versuchen Sie die Eingabe einer Wurzel anstelle eines Wortes."
   nosuchentry_in_selectedbook: "Die aktuell geöffnete Wurzel '%{root}' ist in %{book} nicht vorhanden. Ein erneuter Klick öffnet %{book}s erste Seite."
   nosearchresults_in_selectedbook: "Keine Ergebnisse im gewählten Buch. Zeige stattdessen Ergebnisse in %{book}."
-  arabizi_hint_html: "Sie können nun auch <a href=https://en.wikipedia.org/wiki/Arabizi target=_blank rel='noopener noreferrer'>Arabizi</a> in Ihrer Suchanfrage verwenden, wenn Sie kein arabisches Tastatur-Layout zur Hand haben"
+  arabizi_hint_html: "Sie können nun auch <a href=https://en.wikipedia.org/wiki/Arabizi target=_blank rel='noopener noreferrer'>Arabizi</a> in Ihrer Suchanfrage verwenden, wenn Sie kein arabisches Tastatur-Layout zur Hand haben<br/><br/>فليُعرض طالب العلم عن تدوين العربية بحروف الإفرنج فإنها قرينة خطها لا تنفك عنه ولا ينفك عنها"
   arabizi_hint_dismiss: "Schließen"
   cover_page: "Buchdeckel"
   search: "Suchen"
