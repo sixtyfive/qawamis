@@ -21,7 +21,7 @@ I18n.defaultLocale = 'en';
 I18n.locale = document.documentElement.lang;
 I18n.enableFallback = true;
 
-$(document).ready(main); 
+$(document).ready(main);
 $(document).on('page:load', main); // cached page loads and turbolinks
 
 $(document).keydown(function(e) {
@@ -231,6 +231,7 @@ function updatePageElements(book = null, page = null) {
   // Highlight the quicknav link that matches the page we're on. The
   // matching server-rendered class is set in _navigation.html.haml via
   // quicknav_link_class; this keeps it in sync after XHR navigation.
+  // FIXME: this now behaves differently from the non-javascript version
   $('#cover_page_link').toggleClass('active', book.cover_page === page.number);
   $('#first_page_link').toggleClass('active', book.first_page === page.number);
   $('#last_page_link').toggleClass('active', book.last_page  === page.number);
@@ -262,7 +263,7 @@ function updatePageElements(book = null, page = null) {
 
   history.replaceState(null, null, page.path);
   $('title').html(I18n.t('htmltitle', {book: book.human_name, page: page.number}));
-  
+
   $('#sidebar li').each(function() {
     var book_input = $(this).find('input[name=book_slug]');
     var page_input = $(this).find('input[type=hidden]');

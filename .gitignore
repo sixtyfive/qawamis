@@ -108,3 +108,7 @@ pickle-email-*.html
 /data/dictionaries/images/*/*.png
 
 *.tar.gz
+
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+

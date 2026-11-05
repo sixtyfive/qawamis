@@ -4,13 +4,18 @@
       = link_to t(:cover_page), @book.cover_page.path, id: 'cover_page_link', class: quicknav_link_class(@book.cover_page, @page)
       %span ❃
       = link_to [t(:page), @book.first_page.number].join(' '), @book.first_page.path, id: 'first_page_link', class: quicknav_link_class(@book.first_page, @page)
-      %span ❃
-      - prev_root = @book.pages.where(number: @page.number - 1).first&.last_root
-      %span#currentroot_range
-        - if prev_root.present?
-          = t(:currentroot_range, from: prev_root, to: @page.last_root)
-        - else
-          = t(:currentroot_firstpage, to: @page.last_root)
+      - # FIXME: all this does not belong in a template
+      - prev_root = @book.pages.where(number: @page.number - 1)&.first&.last_root
+      - next_root = @book.pages.where(number: @page.number + 1)&.first&.last_root
+      - if prev_root.present? || next_root.present?
+        %span ❃
+        %span#currentroot_range
+          - if prev_root.present? && next_root.present?
+            = t(:currentroot_range, from: prev_root, to: @page.last_root)
+          - elsif next_root.present?
+            = t(:currentroot_firstpage, to: @page.last_root)
+          - elsif prev_root.present?
+            = t(:currentroot_lastpage, from: @page.last_root)
       %span ❃
       = link_to [t(:page), @book.last_page.number].join(' '), @book.last_page.path, id: 'last_page_link', class: quicknav_link_class(@book.last_page, @page)
     #search_history
