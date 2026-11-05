@@ -7,7 +7,7 @@ en:
   nosearchresults: "No search results. Try entering a root instead of a word."
   nosuchentry_in_selectedbook: "Currently displayed root '%{root}' is not available in %{book}. Click %{book} again to open its first page."
   nosearchresults_in_selectedbook: "No search results from selected book. Showing results from %{book} instead."
-  arabizi_hint_html: "You may now also use <a href=https://en.wikipedia.org/wiki/Arabizi target=_blank rel='noopener noreferrer'>Arabizi</a> to search for a root if you don't have access to an Arabic-script keyboard"
+  arabizi_hint_html: "You may now also use <a href=https://en.wikipedia.org/wiki/Arabizi target=_blank rel='noopener noreferrer'>Arabizi</a> to search for a root if you don't have access to an Arabic-script keyboard<br/><br/>فليُعرض طالب العلم عن تدوين العربية بحروف الإفرنج فإنها قرينة خطها لا تنفك عنه ولا ينفك عنها"
   arabizi_hint_dismiss: "Dismiss"
   cover_page: "Cover"
   search: "Search"
